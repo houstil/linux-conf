@@ -1,0 +1,183 @@
+# -*- mode: Shell-script -*-
+
+# this is a shared configuration file for bourn-compatible shells
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# set my fav editor :
+# export EDITOR=vi
+
+###############################################
+# IF ITS A SAGEM MACHINE THEN LOAD SAGEM CONF #
+###############################################
+
+if [ "$(hostname)" = "rmm-p1199155f" -o "$(hostname)" = "rmm-p1186948" ]
+    then
+    source ~/sharedconf/.Xshrc.sagem
+fi
+
+##################
+# COMMON ALIASES #
+##################
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    eval "`dircolors -b`"exchange
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+#emacs
+alias e=~/sharedconf/emc.sh
+
+#shell interaction
+alias ro='xargs xdotool type; xdotool key ctrl+a'
+
+#directory navigation
+alias c1='cd ~1'
+alias c2='cd ~2'
+alias c3='cd ~3'
+alias c4='cd ~4'
+alias c5='cd ~5'
+alias c6='cd ~6'
+alias c7='cd ~7'
+alias c8='cd ~8'
+alias c9='cd ~9'
+alias o=popd
+alias b='cd ..'
+alias f='cd -'
+alias c=cd
+
+#search
+alias stp='find $PWD -maxdepth 1 -name '
+alias fis='find . -name "*.[ch]" | xargs grep'
+alias fih='find . -name "*.h" | xargs grep'
+alias fic='find . -name "*.c" | xargs grep'
+alias fid='find . -name '
+alias crtags="find . -name '*.[ch]' | xargs etags"
+alias g='grep -r -s --exclude=TAGS -n --color --exclude-dir=".svn"'
+
+# #process management
+alias k='kill %'
+alias c=cd
+alias j=jobs
+alias ka='killall'
+alias gps='ps aux | grep '
+
+#xclip
+alias xci='xclip'
+alias xco='xclip -o'
+
+#list
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls'
+
+#link, file and directory management
+alias t=touch
+alias cm=chmod
+alias ul=unlink
+alias sl='ln -s'
+alias cpd='cp -r'
+alias rmd='rm -rf'
+
+#file display
+alias le='less'
+
+#apt-get
+alias acs='apt-cache search'
+alias ach='apt-cache showpkg'
+alias agi='apt-get install'
+alias agr='apt-get remove'
+alias agu='apt-get update'
+alias agp='apt-get purge'
+alias agg='apt-get upgrade'
+
+#environment
+alias eo='echo'
+alias wg=wget
+alias exp=export
+alias s=source
+
+#tools
+alias th='nohup thunar &'
+alias sc=screen
+alias mini='minicom -o'
+
+#svn
+alias svndm='svn diff --diff-cmd meld'
+alias svni='svn info'
+alias svnd='svn diff'
+alias svnr='svn revert'
+alias svng='svn log | tac'
+alias svnx='svn export'
+alias svnfs='svn status'
+alias svns='svn status|grep -v "^\?"|grep -v "^X"|grep -v "^Performing"|grep -v "^$"'
+alias svnp='svn update'
+alias svnsp='svn propset svn:externals -F pvp/pvp.txt .'
+alias svnl='svn ls'
+alias svna='svn add'
+alias svno='svn co'
+alias svnc='svn ci'
+alias svnlu='svn info | grep "^URL:" | grep "http://\([^/]*/\)*" -o | tr -d "\n" | xargs -0 svn ls'
+
+#network
+alias ifc='ifconfig'
+
+#synergyc
+alias rsys='ka synergys ; synergys'
+
+#history
+alias h=history
+
+####################
+# COMMON FUNCTIONS #
+####################
+
+function nh {
+    nohup $@ &
+}
+
+function se {
+    TERM_WINID=`current-winid`
+    eval $@
+    wmctrl -ia $TERM_WINID
+}
+
+function en {
+    h1=$(history 1 | grep -o "^[^;]*;")
+    if [ -z "$h1" ]
+    then
+        h1=$(history 2|head -n 1)
+    fi
+    notify-send "Terminated :" "$h1"
+}
+
+function svnu {
+    svn info $1 |grep "URL: "|grep -o "http:.*$"|tr -d "\n" |xclip; xclip -o -f
+}
+
+function svnt {
+    svn info $1 |grep "URL: "|grep -o "http:.*BO/"|tr -d "\n" |xclip; xclip -o -f
+}
+
+function m {
+    # to call mk or make according to the pwd
+    if (pwd | grep -q "2hal")
+    then
+	/home/g178452/sagem-tools-modrivers/env/mk.sh $@
+    else
+	make $@
+    fi
+}
