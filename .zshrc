@@ -149,4 +149,4 @@ function en {
 # LOAD B SHELLS COMPATIBLE CONF #
 #################################
 
-source ~/sharedconf/.Xshrc.shared
+source ~/linux-conf/.Xshrc.shared

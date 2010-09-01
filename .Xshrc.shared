@@ -19,7 +19,7 @@ fi
 
 if [ "$(hostname)" = "rmm-p1199155f" -o "$(hostname)" = "rmm-p1186948" ]
     then
-    source ~/sharedconf/.Xshrc.sagem
+    source ~/linux-conf/.Xshrc.sagem
 fi
 
 ##################
@@ -131,6 +131,14 @@ alias svna='svn add'
 alias svno='svn co'
 alias svnc='svn ci'
 alias svnlu='svn info | grep "^URL:" | grep "http://\([^/]*/\)*" -o | tr -d "\n" | xargs -0 svn ls'
+
+#git
+alias gits='git status'
+alias gitc='git commit'
+alias gita='git add'
+alias gitp='git push origin master'
+alias gitcl='git clone'
+alias gitpu='git pull origin master'
 
 #network
 alias ifc='ifconfig'
