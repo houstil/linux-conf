@@ -63,10 +63,6 @@ alias m=mk
 alias mker='make ARCH=sh CROSS_COMPILE=sh4-linux- O=$KERNEL_BLD_PATH'
 alias mcker='make ARCH=sh CROSS_COMPILE=sh4-linux- O=$KERNEL_BLD_PATH menuconfig'
 
-#identification
-alias sur='sudo su -'
-alias sujl='su g178452'
-
 #network
 alias sshs='ssh root@190.99.8.137'
 alias exchange='nautilus smb://osn02001.osn.sagem/echanges/'
@@ -125,6 +121,9 @@ case "$HOST" in
 	    scp $1 g178452@rmm-p1199155f:$2
 	}
 	alias ssho='ssh g178452@rmm-p1199155f'
+
+        #identification
+	alias sur='sudo su -'
 	;;
     rmm-p1199155f)
 	#ssh connection
@@ -133,5 +132,8 @@ case "$HOST" in
 	}
 	alias sxn='ssh g178452@rmm-p1186948 "~/bin/setSynergy.sh"'
 	alias sshn='ssh g178452@rmm-p1186948'
+
+        #identification
+	alias sur='sudo vi /media/ddddd +shell'
 	;;
 esac

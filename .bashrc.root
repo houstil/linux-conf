@@ -1,3 +1,5 @@
+# -*- mode: Shell-script -*-
+
 # this is my bash configuration file for root sessions
 
 # for ido-style cd :
@@ -88,6 +90,18 @@ setterm -blength 0
 
 # set regular display
 export DISPLAY=":0.0"
+
+#machine specific configuration
+if [ "$(hostname)" = "rmm-p1199155f" ]
+then
+    export IPETH1="190.99.3.96"
+elif ["$(hostname)" = "rmm-p1186948" ]
+then
+    export IPETH1="190.99.3.97"
+fi
+
+
+
 
 ##############################
 # ERGOEMACS LIKE KEYBINDINGS #
@@ -204,11 +218,13 @@ alias e='emacs $* &'
 
 #sagem specific aliases
 
-#ip configuration
-alias ifc0='ifconfig eth1 up 190.99.3.97 netmask 255.255.0.0'
+# ip
+alias ifc0='ifconfig eth1 up $IPETH1 netmask 255.255.0.0'
 
 #test
-alias testnfs='mount -a 190.99.3.97:/home/g178452/target/ /home/g178452/test/nfstest/ && ls /home/g178452/test/nfstest/ && umount /home/g178452/test/nfstest/'
+alias testnfs='mount -a $IPETH1:/home/g178452/target/ /home/g178452/test/nfstest/ \
+                   && ls /home/g178452/test/nfstest/ \
+                   ; umount /home/g178452/test/nfstest/'
 
 alias rb='source ~/.bashrc'
 
