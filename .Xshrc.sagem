@@ -1,0 +1,137 @@
+# -*- mode: Shell-script -*-
+
+#sagem specific bourn-shell compatible shell configuration
+
+# set PATH so it includes user's private lotus directory if it exists
+if [ -d "$HOME/lotus/notes/data" ] ; then
+    PATH="$HOME/lotus/notes/data:$PATH"
+fi
+
+# Add candidates to the cd command
+# CDPATH=.:~:..:~/hal2/
+CDPATH=.
+
+####################
+# LOAD SAGEM TOOLS #
+####################
+
+# udpate ~/.tools-modrivers.env if older than one day
+# unfortunatly the this script is not zshell compatible
+test=$(ps -p $$ |grep bash)
+if [ ! -z "$test" ]
+then
+	if [ -e ~/.tools-modrivers.env ]
+	then
+		touch -d '-1 day' /tmp/limit
+		if [ /tmp/limit -nt ~/.tools-modrivers.env ]
+		then
+			source ~/sagem-tools-modrivers/set-tools-modrivers.sh
+		fi
+	else
+		source ~/sagem-tools-modrivers/set-tools-modrivers.sh
+	fi	
+fi
+unset test   
+source ~/.tools-modrivers.env
+
+#####################################
+# CLEAN UP AFTER SAGEM TOOLS SCRIPT #
+#####################################
+
+for a in "vi" "rcc" "rctc" "rcb" "rcz" "cpf" "rmf" "ka" "kg"
+do
+    test=$(alias | grep  $a=)
+    if [ ! -z "$test" ]
+       then
+       unalias $a
+    fi
+    unset test
+done
+
+###############################
+# SAGEM WORK SPECIFIC ALIASES #
+###############################
+
+#compilation
+alias db='mk debug-1'
+alias sd='source ~/bin/sDebug.sh'
+alias soe='source ~/.tools-modrivers.env'
+alias 7e=7env
+alias mf='make flash'
+alias mr='mk run'
+alias m=mk
+alias mker='make ARCH=sh CROSS_COMPILE=sh4-linux- O=$KERNEL_BLD_PATH'
+alias mcker='make ARCH=sh CROSS_COMPILE=sh4-linux- O=$KERNEL_BLD_PATH menuconfig'
+
+#identification
+alias sur='sudo su -'
+alias sujl='su g178452'
+
+#network
+alias sshs='ssh root@190.99.8.137'
+alias exchange='nautilus smb://osn02001.osn.sagem/echanges/'
+
+#process management
+alias kg='pidof sh4gdb | xargs kill -9'
+alias kl='pidof sh4-linux-gdb | xargs kill -9'
+alias kn='ps aux | grep notes | grep -v grep | awk "{print \$2}" | sort -nr | xargs kill -9'
+
+#bugzilla
+alias bu='bugz'
+alias bumb='bugz search -H g178452 -a jean-louis.arnault@sagemcom.com'
+alias bum='bugz modify -H g178452 -a jean-louis.arnault@sagemcom.com'
+alias but='bugz get' 
+
+#fsvn aliases
+alias bco='fsvn-make-bco.sh'
+alias roo='fsvn-make-ro.sh'
+alias rco='fsvn-make-rco.sh'
+alias ckp='fsvn-check-product.sh'
+alias com='fsvn-commit.sh'
+
+#environement
+alias sp='source ~/bin/setProxy.sh'
+
+#tools
+alias 141=notify141.sh
+
+#############
+# FUNCTIONS #
+#############
+
+#laforge
+function getSTAPIDoc {
+    svn export http://forge-urd44.osn.sagem/svn/st-lib-api.dvd$1
+}
+
+#proxy
+function wp {
+    export http_proxy="http://190.99.2.254:41209"
+    eval $@
+    export http_proxy=""
+    # export http_proxy="http://10.66.243.130:8080"
+    # eval $@
+    # export http_proxy=""
+}
+
+##################################
+# MACHINE SPECIFIC CONFIGURATION #
+##################################
+
+case "$HOST" in
+    rmm-p1186948)
+        #ssh connection
+	function scpo {
+	    scp $1 g178452@rmm-p1199155f:$2
+	}
+	alias ssho='ssh g178452@rmm-p1199155f'
+	;;
+    rmm-p1199155f)
+	#ssh connection
+	function scpn {
+	    scp $1 g178452@rmm-p1186948:$2
+	}
+	alias sxn='ssh g178452@rmm-p1186948 "~/bin/setSynergy.sh"'
+	alias sshn='ssh g178452@rmm-p1186948'
+	;;
+esac

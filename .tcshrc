@@ -1,0 +1,97 @@
+# -*- mode: Shell-script -*-
+
+#####################
+# PROMPT DEFINITION #
+#####################
+
+if ( eterm-color == $TERM ) then
+    # set prompt="(%m)-(j:%j)-(%~)\n(\\!%!)-%# "
+    set prompt="%{\033[1;33m%}(%{\033[0m%}%m%{\033[1;33m%})-(%{\033[0m%}j:%j%{\033[1;33m%})-(%{\033[0m%}%~%{\033[1;33m%})\n(%{\033[0m%}\\!%h%{\033[1;33m%})-%#%{\033[0m%} "
+
+    # alias precmd 'echo -n "\032/$cwd"'
+    # to enable directory synchronisation with emacs
+    alias precmd 'echo -n "\032/$cwd"'
+else
+set prompt="%{\033[1;33m%}(%{\033[37m%}%m%{\033[33m%})-(%{\033[37m%}j:%j%{\033[33m%})-(%{\033[37m%}%~%{\033[33m%})\n(%{\033[37m%}\\!%h%{\033[33m%})-%#%{\033[0m%} "
+endif
+
+set complete=enhance
+
+###############
+# KEYBINDINGS #
+###############
+
+bindkey -e
+    
+################################
+# SHELL SPECIFIC CONFIGURATION #
+################################
+
+set pushdsilent
+
+##################
+# COMMON ALIASES #
+##################
+
+alias e 'emacsclient -n'
+alias svndm 'svn diff --diff-cmd meld'
+alias red 'e; wmctrl -xa emacs;emacsclient --eval "(server-kill-emacs-query-function)";killall emacs23 ; emacs23 --daemon'
+alias svni 'svn info'
+alias svnd 'svn diff'
+alias fis 'find . -name "*.[ch]" | xargs grep'
+alias fih 'find . -name "*.h" | xargs grep'
+alias fic 'find . -name "*.c" | xargs grep'
+alias crtags "find . -name '*.[ch]' | xargs etags"
+alias svnr 'svn revert'
+alias s source
+alias di 'dirs'
+alias stp 'find $PWD -maxdepth 1 -name '
+# alias cl f_cl
+alias k 'kill %'
+alias g grep
+alias c cd
+alias cpd 'cp -r'
+alias rmd 'rm -r'
+alias j jobs
+alias db 'mk debug-1'
+alias d 'dirs -v'
+alias u pushd
+alias i 'pushd .; pushd -n +1'
+alias c1 'cd =1'
+alias c2 'cd =2'
+alias c3 'cd =3'
+alias c4 'cd =4'
+alias c5 'cd =5'
+alias c6 'cd =6'
+alias c7 'cd =7'
+alias c8 'cd =8'
+alias c9 'cd =9'
+alias o popd
+alias et 'emacsclient -t'
+# alias e f_emw
+alias eo 'echo'
+alias gps 'ps aux | grep '
+# alias en f_en
+# alias se f_se
+alias rb 'source ~/.tcshrc'
+alias ka 'killall'
+# alias c f_cl
+alias ct 'cat'
+alias sc screen
+alias sp 'source ~/bin/setProxy.sh'
+alias wg wget
+# alias wp f_wp
+alias exp export
+alias th 'nohup thunar &'
+# alias nh f_nh
+alias do disown
+alias b 'cd ..'
+alias f 'cd -'
+alias ll 'ls -l'
+alias la 'ls -A'
+alias l 'ls'
+alias t touch
+alias cm chmod
+alias ul unlink
+alias sl 'ln -s'
+

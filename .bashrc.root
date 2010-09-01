@@ -1,0 +1,226 @@
+# this is my bash configuration file for root sessions
+
+# for ido-style cd :
+# source ~/bin/bash-ido.sh
+
+# disable this annoying visible bell :
+set bell-style none
+
+# don't put duplicate lines in the history. See bash(1) for more options
+# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
+export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+# ... or force ignoredups and ignorespace
+export HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# I want a nice prompt
+# export TERM='xterm-color'
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color) color_prompt=yes;;
+    screen)      color_prompt=yes;;
+    rxvt)        color_prompt=yes;;
+    xterm)       color_prompt=yes;;
+    eterm-color) color_prompt=yes;;
+    linux)       color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+    PS1="\[\e[32;1m\](\[\e[31;1m\]\h\[\e[32;1m\])-(\[\e[31;1m\]j:\j\[\e[32;1m\])-(\[\e[31;1m\]\w\[\e[32;1m\])\n(\[\e[31;1m\]!\!\[\e[32;1m\])-\$ \[\e[0m\]"
+    if [ "$TERM" = "eterm-color" ]; then
+    PS1="\e[32;1m(\e[31m\h\e[32;1m)-(\e[31mj:\j\e[32;1m)-(\e[31m\w\e[32;1m)\n(\e[31m!\!\e[32;1m)-\$ \e[0m"
+    fi
+else
+    PS1="(\h)-(j:\j)-(\w)\n(!\!)-\$ "
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+xset b 0
+setterm -blength 0
+
+##############################
+# ERGOEMACS LIKE KEYBINDINGS #
+##############################
+
+set -o emacs
+
+if [ $TERM != "eterm-color" ]
+    then
+# navigation keys
+    bind -m emacs '"\M-k": next-history'
+    bind -m emacs '"\M-i": previous-history'
+    bind -m emacs '"\M-j": backward-char'
+    bind -m emacs '"\M-l": forward-char'
+    bind -m emacs '"\M-u": backward-word'
+    bind -m emacs '"\M-o": forward-word'
+    bind -m emacs '"\M-J": beginning-of-line'
+    bind -m emacs '"\M-L": end-of-line'
+
+# kill text keys
+    bind -m emacs '"\M-e": backward-kill-word'
+    bind -m emacs '"\M-r": kill-word'
+    bind -m emacs '"\M-d": backward-delete-char'
+    bind -m emacs '"\M-f": delete-char'
+
+# isearch keys
+    bind -m emacs '"\M-;": forward-search-history'
+    bind -m emacs '"\M-:": reverse-search-history'
+fi
+
+###########
+# ALIASES #
+###########
+
+#shell interaction
+alias ro='xargs xdotool type; xdotool key ctrl+a'
+
+#directory navigation
+alias d='dirs -v'
+alias u=pushd
+alias i='pushd .; pushd -n +1;dirs -v'
+alias c1='cd ~1'
+alias c2='cd ~2'
+alias c3='cd ~3'
+alias c4='cd ~4'
+alias c5='cd ~5'
+alias c6='cd ~6'
+alias c7='cd ~7'
+alias c8='cd ~8'
+alias c9='cd ~9'
+alias o=popd
+alias b='cd ..;ls'
+alias f='cd -;ls'
+alias c=cd
+
+#search
+alias stp='find $PWD -maxdepth 1 -name '
+alias g='grep -r -s --exclude=TAGS -n --color --exclude-dir=".svn"'
+
+#process management
+alias k='kill %'
+alias c=cd
+alias j=jobs
+alias ka='killall'
+alias do=disown
+alias gps='ps aux | grep '
+
+#xclip
+alias xci='xclip'
+alias xco='xclip -o'
+
+#list
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls'
+
+#link, file and directory management
+alias t=touch
+alias cm=chmod
+alias ul=unlink
+alias sl='ln -s'
+alias cpd='cp -r'
+alias rmd='rm -rf'
+
+#file display
+alias ct='cat'
+alias le='less'
+
+#apt-get
+alias acs='apt-cache search'
+alias agi='apt-get install'
+alias agr='apt-get remove'
+alias agu='apt-get update'
+alias agp='apt-get purge'
+
+#environement
+alias eo='echo'
+alias wg=wget
+alias exp=export
+alias s=source
+
+#emacs
+alias e='emacs &'
+
+alias rb='source ~/.bashrc'
+
+#############
+# FUNCTIONS #
+#############
+
+function en {
+    h1=$(history 1 | grep -o "^[^;]*;")
+    if [ -z "$h1" ]
+    then
+        h1=$(history 2|head -n 1)
+    fi
+    notify-send "Terminated :" "$h1"
+}
+
+
+#proxy
+function wp {
+    # export http_proxy="http://190.99.2.254:41209"
+    # eval $@
+    # export http_proxy=""
+    export http_proxy="http://10.66.243.130:8080"
+    eval $@
+    export http_proxy=""
+}
+
+function nh {
+    nohup $@ &
+}
+
+function se {
+    TERM_WINID=`current-winid`
+    eval $@
+    wmctrl -ia $TERM_WINID
+}

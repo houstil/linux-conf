@@ -1,0 +1,28 @@
+! format : "keycode <touch_keycode> = <key> <shift-key> <alt-key> <alt-shift-key> <ctrl-alt-key>"
+
+! keyboard remapping
+keycode  48 = bar percent bar percent ugrave
+keycode  49 = at twosuperior
+keycode  65 = space Return space Return space
+
+! ergoemacs keybindings in X !
+! Directions :
+keycode  31 = i I Up    Prior rightarrow  idotless
+keycode  45 = k K Down  Next  k           ampersand
+keycode  44 = j J Left  Home  j           J
+keycode  46 = l L Right End   lstroke     Lstroke
+
+! back to normal conf
+! keycode  31 = i I i I rightarrow  idotless
+! keycode  45 = k K k J k           ampersand
+! keycode  44 = j J j J j           J
+! keycode  46 = l L l L lstroke     Lstroke
+
+
+
+
+
+
+
+
+

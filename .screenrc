@@ -1,0 +1,13 @@
+termcapinfo mrxvt|gnome-terminal|xterm|xterms|xs|rxvt ti@:te@
+
+vbell off
+escape @a
+bindkey @ command
+bind S split -v
+bind s split
+bind q only
+bind h help
+bind r remove
+bind e copy
+bind a meta
+startup_message off
