@@ -86,6 +86,9 @@ fi
 xset b 0
 setterm -blength 0
 
+# set regular display
+export DISPLAY=":0.0"
+
 ##############################
 # ERGOEMACS LIKE KEYBINDINGS #
 ##############################
@@ -175,10 +178,12 @@ alias le='less'
 
 #apt-get
 alias acs='apt-cache search'
+alias ach='apt-cache showpkg'
 alias agi='apt-get install'
 alias agr='apt-get remove'
 alias agu='apt-get update'
 alias agp='apt-get purge'
+alias agg='apt-get upgrade'
 
 #environement
 alias eo='echo'
@@ -186,8 +191,24 @@ alias wg=wget
 alias exp=export
 alias s=source
 
+#network
+alias ifc='ifconfig'
+alias pi='ping'
+alias mtv='mii-tool -v'
+alias mtf='mii-tool -F'
+alias mtr='mii-tool -r'
+alias mtR='mii-tool -R'
+
 #emacs
-alias e='emacs &'
+alias e='emacs $* &'
+
+#sagem specific aliases
+
+#ip configuration
+alias ifc0='ifconfig eth1 up 190.99.3.97 netmask 255.255.0.0'
+
+#test
+alias testnfs='mount -a 190.99.3.97:/home/g178452/target/ /home/g178452/test/nfstest/ && ls /home/g178452/test/nfstest/ && umount /home/g178452/test/nfstest/'
 
 alias rb='source ~/.bashrc'
 
