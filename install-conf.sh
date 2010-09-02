@@ -1,4 +1,4 @@
-#!/bin/bash
+
 
 # a little script to install conf (through creating symlinks) on a new machine
 
@@ -57,18 +57,30 @@ cproot ()
     echo "ln -s `pwd`/$conf $root"
 }
 
-for f in .Xmodmsourceap \
-         .bashrc \
-         .mrxvtrc \
-         .screenrc \
-         .tcshrc \
-         .tmux.conf \
-         .zshrc
-do
-    linkc $f
-done
+# an array of conf file and destinations
+conf_array=(\
+    .Xmodmap "" \
+    .bashrc "" \
+    .mrxvtrc "" \
+    .ratpoisonrc "" \
+    .screenrc "" \
+    .synergy.conf "" \
+    .tcshrc "" \
+    .tmux.conf "" \
+    .zshrc "" \
+    emc.sh ~/bin/emc.sh \
+    terminator.conf ~/.config/terminator.config \
+    emacs-conf/bookmarks ~/.emacs.d/bookmarks \
+    emacs-conf/ergoemacs-layout-us.el ~/.emacs.d/ergoemacs-keybindings-5.1/ergoemacs-layout-us.el \
+    emacs-conf/init.el ~/.emacs.d/init.el \
+)
 
-linkc emc.sh ~/bin/emc.sh
+for ((i=0; i<${#conf_array[@]};i=i+2))
+do
+    linkc ${conf_array[$i]} ${conf_array[(($i+1))]}
+done
 
 echov "to use root config file, do as root :"
 cproot .bashrc.root /root/.bashrc
+cproot emacs-conf/init.root.el /root/.emacs.d/init.el
+

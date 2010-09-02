@@ -39,7 +39,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 #emacs
-alias e=~/sharedconf/emc.sh
+alias e=~/linux-conf/emc.sh
 
 #shell interaction
 alias ro='xargs xdotool type; xdotool key ctrl+a'
