@@ -1,0 +1,98 @@
+
+# rebind the escape key to the useless twosuperior 
+escape twosuperior
+
+# pehaps we should use that
+# bind w exec ~/bin/windows
+
+# to launch firefox on the url selected
+bind f exec firefox --remote "openurl(`$RATPOISON -c getsel`,new-tab)"
+
+# to show time
+# bind t time
+
+# don't the startup message
+startup_message off
+
+# to use xtrlock
+bind L exec xtrlock
+
+# to restart ratpoison
+bind P restart
+
+# for short timeout and centered msg
+msgwait 1
+set bargravity north
+
+# to get 9menu
+bind m exec ~/.scriptForRP/9menu.sh
+
+# to source this file
+bind O source /home/g178452/.ratpoisonrc
+
+bind c exec gnome-terminal
+
+# aliases
+alias emacs      exec emacs
+alias notes      exec /opt/ibm/lotus/notes/notes
+alias term       exec xterm
+alias firefox    exec firefox-3.5
+alias tinyterm   exec xterm
+alias pvcs       exec /opt/wine/pvcs/bin/pvcs
+alias thunar     exec thunar
+alias writer     exec soffice --writer
+alias evince     exec evince
+
+# to quickly split a frame
+bind s vsplit 5/7
+bind S hsplit 5/9
+
+# simplying max view binding
+bind q only
+
+# to enhance frame switching
+bind j focusleft
+bind l focusright
+bind i focusup
+bind k focusdown
+
+# to enhance frame exchanging
+bind J exchangeleft
+bind L exchangeright
+bind I exchangeup
+bind K exchangedown
+
+# to still be able to kill app
+bind E delete
+bind e remove
+
+# a easier undo
+bind z undo
+bind Z redo
+
+# to take screenshots :
+alias sshot exec import -window root ~/screenshot-`date +%F`.jpg
+
+# to easily switch numbered windows
+bind ampersand select 1
+bind eacute select 2
+bind quotedbl select 3
+bind apostrophe select 4
+bind parenleft select 5
+bind minus select 6
+bind egrave select 7
+bind underscore select 8
+bind ccedilla select 9
+bind agrave select 0
+
+# to show windows on twosuperior hit
+addhook key windows
+
+# to quickly dedicate windows
+bind d dedicate
+
+# test
+alias test exec 'xeyes &; exec xclock &'
+
+
+
