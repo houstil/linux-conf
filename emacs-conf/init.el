@@ -129,9 +129,9 @@
 ;; (require 'framemove)
 
 ;; elscreen - screen like windows management in emacs
-;; (add-to-list 'load-path "~/.emacs.d/elscreen-1.4.6")
-;; (setq elscreen-prefix-key "@")
-;; (load "elscreen" "ElScreen" t)
+(add-to-list 'load-path "~/.emacs.d/elscreen-1.4.6")
+(setq elscreen-prefix-key "@")
+(load "elscreen" "ElScreen" t)
 
 ;; forbid dabbrev to change case
 (setq dabbrev-case-replace nil)

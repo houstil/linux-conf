@@ -153,6 +153,11 @@ alias h=history
 # COMMON FUNCTIONS #
 ####################
 
+function rl {
+    unlink $1
+    ln -s $2 $1
+}
+
 function nh {
     nohup $@ &
 }
