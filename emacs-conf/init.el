@@ -830,6 +830,11 @@
 ;; (transient-mark-mode 1) ;; No region when it is not highlighted
 ;; (setq cua-keep-region-after-copy t) ;; Standard Windows behaviour
 
+;; jabber.el : a xmpp client in emacs
+(add-to-list 'load-path "~/.emacs.d/emacs-jabber-0.8.0")
+(load "jabber-autoloads")
+(setq jabber-account-list '(("g178452@forge-urd44.osn.sagem")))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Error-notification ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
