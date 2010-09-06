@@ -139,6 +139,8 @@ alias gita='git add'
 alias gitp='git push origin master'
 alias gitcl='git clone'
 alias gitpu='git pull origin master'
+alias gith='git show'
+alias gitd='git diff'
 
 #network
 alias ifc='ifconfig'
@@ -185,12 +187,3 @@ function svnt {
     svn info $1 |grep "URL: "|grep -o "http:.*BO/"|tr -d "\n" |xclip; xclip -o -f
 }
 
-function m {
-    # to call mk or make according to the pwd
-    if (pwd | grep -q "2hal")
-    then
-	/home/g178452/sagem-tools-modrivers/env/mk.sh $@
-    else
-	make $@
-    fi
-}
