@@ -203,6 +203,17 @@
 ;; to get quick terminals :
 (require 'multi-term)
 
+;; custom functions for multi-term :
+(defun multi-term-restart ()
+  "Restart the current term buffer"
+  (interactive)
+  (let ((term-buffer-name (buffer-name) )
+        (term-currrent-dir default-directory))
+    (kill-buffer term-buffer-name)
+    (setq default-directory term-currrent-dir)
+    (ansi-term "/bin/zsh")
+    (rename-buffer term-buffer-name)))
+
 (defun visit-ansi-term ()
   "If the current buffer is:
      1) a running ansi-term named *ansi-term*, rename it.
