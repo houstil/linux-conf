@@ -114,6 +114,7 @@ alias s=source
 alias th='nohup thunar &'
 alias sc=screen
 alias mini='minicom -o'
+alias xa=xargs
 
 #svn
 alias svndm='svn diff --diff-cmd meld'
@@ -168,15 +169,6 @@ function se {
     TERM_WINID=`current-winid`
     eval $@
     wmctrl -ia $TERM_WINID
-}
-
-function en {
-    h1=$(history 1 | grep -o "^[^;]*;")
-    if [ -z "$h1" ]
-    then
-        h1=$(history 2|head -n 1)
-    fi
-    notify-send "Terminated :" "$h1"
 }
 
 function svnu {
