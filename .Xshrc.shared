@@ -66,7 +66,8 @@ alias fih='find . -name "*.h" | xargs grep'
 alias fic='find . -name "*.c" | xargs grep'
 alias fid='find . -name '
 alias crtags="find . -name '*.[ch]' | xargs etags"
-alias g='grep -r -s --exclude=TAGS -n --color --exclude-dir=".svn"'
+alias g='grep -r -s --exclude=TAGS --color --exclude-dir=".svn"'
+alias gv='grep -v -s --color'
 
 # #process management
 alias k='kill %'
