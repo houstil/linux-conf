@@ -79,7 +79,7 @@
 
 ;; term buffers bindings
 (global-set-key (kbd "s-t")      'visit-ansi-term)
-(global-set-key (kbd "s-T")    'multi-term-restart)
+(global-set-key (kbd "s-T")      'multi-term-restart)
 
 ;; set f12 to dired
 (load "~/.emacs.d/dired+.el")
@@ -199,6 +199,9 @@
 	     (multi-term-keystroke-setup)
 	     )
 	  )
+
+;; to get a autoscrolling terminal :
+(setq term-scroll-show-maximum-output t)
 
 ;; to get quick terminals :
 (require 'multi-term)
@@ -401,6 +404,10 @@
 )
 ;; use psvn for in emacs svn use
 (require 'psvn)
+
+;; winner mode to easily manage windows configuration
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Less important configuration ;;
@@ -829,8 +836,11 @@
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
 
-;; auto-indentation
-(define-key global-map (kbd "RET") 'newline-and-indent)
+(defun set-newline-and-indent ()
+  "Set auto-indent for current buffer"
+  (interactive)
+  (local-set-key (kbd "RET") '(lambda () (interactive) (indent-according-to-mode) (newline-and-indent))))
+(add-hook 'c-mode 'set-newline-and-indent)
 
 ;; align using space, not tabs
 (setq align-default-spacing 1)
@@ -845,6 +855,10 @@
 (add-to-list 'load-path "~/.emacs.d/emacs-jabber-0.8.0")
 (load "jabber-autoloads")
 (setq jabber-account-list '(("g178452@forge-urd44.osn.sagem")))
+
+;; use magit
+(add-to-list 'load-path "~/.emacs.d/magit-0.8.2")
+(require 'magit)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Error-notification ;;
