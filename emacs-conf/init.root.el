@@ -145,7 +145,7 @@
 
 ;; use lazy key for quick search
 (require 'lazy-search)
-(global-set-key (kbd "|") 'lazy-search-menu)
+(global-set-key (kbd "M-y") 'lazy-search-menu)
 
 (require 'ffap-)
 
