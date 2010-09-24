@@ -95,7 +95,7 @@ export DISPLAY=":0.0"
 if [ "$(hostname)" = "rmm-p1199155f" ]
 then
     export IPETH1="190.99.3.96"
-elif ["$(hostname)" = "rmm-p1186948" ]
+elif [ "$(hostname)" = "rmm-p1186948" ]
 then
     export IPETH1="190.99.3.97"
 fi
@@ -222,9 +222,7 @@ alias e='emacs $* &'
 alias ifc0='ifconfig eth1 up $IPETH1 netmask 255.255.0.0'
 
 #test
-alias testnfs='mount -a $IPETH1:/home/g178452/target/ /home/g178452/test/nfstest/ \
-                   && ls /home/g178452/test/nfstest/ \
-                   ; umount /home/g178452/test/nfstest/'
+alias testnfs='mount -t nfs $IPETH1:/home/g178452/target/ /home/g178452/test/nfstest/  && ls /home/g178452/test/nfstest/ ; umount /home/g178452/test/nfstest/'
 
 alias rb='source ~/.bashrc'
 
