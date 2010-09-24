@@ -135,13 +135,7 @@ alias rb='source ~/.zshrc'
 #################
 
 function en {
-    # h1=$(history|tail -n 1| grep -o "^[^;]*;")
-    # if [ -z "$h1" ]
-    # then
-    #     h1=$(history|tail -n 2|head -n 1)
-    # fi
-    # notify-send "Terminated :" "$h1"
-    echo $@
+    notify-send "Terminated :" "`history | tail -1 | sed 's/^ *[0-9]* *\(.*\)$/\1/g'`" -t 3000
 }
 
 
