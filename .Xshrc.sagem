@@ -60,18 +60,23 @@ alias mcker='make ARCH=sh CROSS_COMPILE=sh4-linux- O=$KERNEL_BLD_PATH menuconfig
 
 #network
 alias sshs='ssh root@190.99.8.137'
+alias sshrs='ssh-keygen -R 190.99.8.137;ssh root@190.99.8.137'
 alias exchange='nautilus smb://osn02001.osn.sagem/echanges/'
 
 #process management
 alias kg='pidof sh4gdb | xargs kill -9'
 alias kl='pidof sh4-linux-gdb | xargs kill -9'
+alias crun='/opt/STM/STLinux-2.3/devkit/sh4/bin/sh4-linux-gdb  \
+            --directory=/opt/STM/STLinux-2.3/devkit/sh4/bin//.././stdcmd \
+            --command=/home/g178452/2hal-svn/mdoc/BO_nc-eci93-hd_rev1-cab-ip/custom.cmd \
+            -nx -q -n'
 alias kn='ps aux | grep notes | grep -v grep | awk "{print \$2}" | sort -nr | xargs kill -9'
 
 #bugzilla
 alias bu='bugz'
 alias bumb='bugz search -H g178452 -a jean-louis.arnault@sagemcom.com'
 alias bum='bugz modify -H g178452 -a jean-louis.arnault@sagemcom.com'
-alias but='bugz get' 
+alias but='bugz get'
 
 #fsvn aliases
 alias bco='fsvn-make-bco.sh'
@@ -129,13 +134,25 @@ function ses
 }
 
 # those functions look for their project characteristic
-function diag_mdoc { ([ -n "`pwd | xargs svn info 2>&1 | grep nc-eci93-hd`" ] && echo 1) || echo 0 }
-function diag_hal2 { ([ -n "`svn info $(pwd)/../_ref 2>&1 | grep hal2-baseline.st-rev1`" ] && echo 1) || echo 0 }
-function diag_hal3 { echo 0 }
+function diag_mdoc {
+        ([[ -n "`pwd | xargs svn info 2>&1 | grep nc-eci93-hd`" ]] && echo 1) || echo 0
+}
+function diag_hal2 {
+        ([[ -n "`svn info $(pwd)/../_ref 2>&1 | grep hal2-baseline.st-rev1`"  ]] && echo 1) || echo 0
+}
+function diag_hal3 {
+        echo 0
+}
 # those functions set the environnement
-function set_mdoc { source config.sh }
-function set_hal2 { 7env }
-function set_hal3 { echo "Error : not implemented yet !" }
+function set_mdoc {
+        source config.sh
+}
+function set_hal2 {
+        7env
+}
+function set_hal3 {
+        echo "Error : not implemented yet !"
+}
 
 function mek {
 	case $PROJECT_ID in
@@ -146,7 +163,7 @@ function mek {
 			make $*
 			return $?
 			;;
-		?)
+		"")
 			echo " Error : PROJECT_ID undefined"
 	esac
 }
@@ -192,4 +209,3 @@ case "$HOST" in
         alias sur='sudo vi /media/ddddd +shell'
         ;;
 esac
-
