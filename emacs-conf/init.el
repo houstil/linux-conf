@@ -51,6 +51,19 @@
 ;; load ErgoEmacs keybinding
 (load "~/.emacs.d/ergoemacs-keybindings-5.1/ergoemacs-mode")
 
+;; ergoemacs corrections
+(add-hook 'minibuffer-setup-hook
+          '(lambda ()
+	     (ergoemacs-local-unset-key (kbd "M-i"))
+	     (ergoemacs-local-unset-key (kbd "M-k"))
+	     ))
+
+(define-key minibuffer-local-map (kbd "M-i")    'previous-history-element)
+(define-key minibuffer-local-map (kbd "M-k")    'next-history-element)
+
+(global-set-key (kbd "s-:") 'search-backward-regexp)
+(global-set-key (kbd "s-;") 'search-forward-regexp)
+
 ;; frame movement
 (global-set-key (kbd "s-i") 'windmove-up)
 (global-set-key (kbd "s-k") 'windmove-down)
