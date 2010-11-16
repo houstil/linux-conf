@@ -78,6 +78,7 @@
 
 ;; comment and uncomment bindings
 (global-set-key (kbd "M-4") 'comment-box)
+(global-set-key (kbd "s-'") 'comment-or-uncomment-region)
 
 ;; disabling this boring print command
 (global-unset-key (kbd "C-p"))
