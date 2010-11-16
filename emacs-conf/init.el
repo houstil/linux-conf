@@ -541,15 +541,7 @@
                       (paren-toggle-matching-quoted-paren 1)
                       (paren-toggle-matching-paired-delimiter 1)
                       (highlight-parentheses-mode t)
-                      ;; (show-ws-highlight-trailing-whitespace)
 )))
-
-(add-hook 'c-mode-common-hook
-          (function (lambda ()
-                       (paren-toggle-open-paren-context 1)
-                       (highlight-parentheses-mode t)
-                       ;; (show-ws-highlight-trailing-whitespace)
-                       )))
 
 ;; To show corresponding paren
 (require 'paren)
@@ -649,9 +641,17 @@
 (add-to-list 'load-path "~/.emacs.d/dtrt-indent")
 (require 'dtrt-indent)
 (dtrt-indent-mode 1)
-;; (setq tab-width 3)
-;; (setq-default indent-tabs-mode nil)
-;; (setq-default c-basic-offset 3)
+(setq tab-width 3)
+(setq-default indent-tabs-mode nil)
+(setq-default c-basic-offset 3)
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (c-set-style "bsd")
+            (setq c-basic-offset 3)
+            )
+          )
+
 
 ;; Load CEDET.
 ;; See cedet/common/cedet.info for configuration details.
@@ -709,7 +709,6 @@
 (add-hook 'org-mode-hook 'turn-on-font-lock)      ; Org buffers only
 ;; (add-hook 'org-mode-hook 'auto-fill-mode)
 					; Org buffers only
-;; (add-hook 'org-mode-hook 'show-ws-highlight-trailing-whitespace)      ; Org buffers only
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 
@@ -754,6 +753,26 @@
 (autopair-global-mode) ;; to enable in all buffers
 
 
+(defun set-indent-newline-and-indent ()
+  "Indent"
+  (interactive)
+  (local-set-key (kbd "RET") '(lambda () (interactive) (indent-according-to-mode) (newline-and-indent)))
+  )
+
+(defun set-indent-yank ()
+  "Indent"
+  (interactive)
+  (local-set-key (kbd "M-v") '(lambda () (interactive) (yank) (indent-according-to-mode)))
+  )
+
+(defun easy-coding-configuration ()
+  "A generic coding configuration for indentation, paren show ..."
+  (interactive)
+  (set-indent-yank)
+  (set-indent-newline-and-indent)
+  (highlight-parentheses-mode t)
+  )
+
 ;; c-mode configuration
 (add-hook 'c-mode-hook
   '(lambda ()
@@ -761,8 +780,7 @@
     (hs-minor-mode t)
     (global-set-key (kbd "<f8>") 'hs-toggle-hiding)
     (c-subword-mode 1)
-    )
-  )
+    (easy-coding-configuration)))
 
 ;; lisp-mode configuration
 (defadvice eval-region (before slick-copy activate compile) "When called
@@ -770,41 +788,16 @@
   (interactive (if mark-active (list (region-beginning) (region-end)) (message
   "Region Evaluated") (list (point-min) (point-max)) (message "Buffer Evaluated"))))
 
-(add-hook 'lisp-mode-hook
-          '(lambda ()
+
+(add-hook 'lisp-mode-hook (lambda ()
             (define-key lisp-mode-map [f5] 'eval-region)
-            (highlight-parentheses-mode t)
-            ;; (show-ws-highlight-trailing-whitespace)
-            )
-          )
-
-(add-hook 'emacs-lisp-mode-hook
-          '(lambda ()
+            (easy-coding-configuration)))
+(add-hook 'emacs-lisp-mode-hook (lambda ()
             (define-key emacs-lisp-mode-map [f5] 'eval-region)
-            (highlight-parentheses-mode t)
-            ;; (show-ws-highlight-trailing-whitespace)
-            )
-          )
-
-(add-hook 'lisp-interaction-mode-hook
-          '(lambda ()
+            (easy-coding-configuration)))
+(add-hook 'lisp-interaction-mode-hook (lambda ()
             (define-key lisp-interaction-mode-map [f5] 'eval-region)
-            (highlight-parentheses-mode t)
-            ;; (show-ws-highlight-trailing-whitespace)
-            )
-          )
-
-;; (defun sh-eval-region ()
-;;   "eval a marked region as a shell command"
-;;   (interactive)
-;;   ()
-;;   )
-
-;; to easily test shell scripts or expressions
-;; (add-hook 'sh-mode-hook
-;;           '(lambda ()
-;;             )
-;;           )
+            (easy-coding-configuration)))
 
 
 ;; to make scrips executable on save
@@ -869,12 +862,6 @@
   (interactive)
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
-
-(defun set-newline-and-indent ()
-  "Set auto-indent for current buffer"
-  (interactive)
-  (local-set-key (kbd "RET") '(lambda () (interactive) (indent-according-to-mode) (newline-and-indent))))
-(add-hook 'c-mode 'set-newline-and-indent)
 
 ;; align using space, not tabs
 (setq align-default-spacing 1)
