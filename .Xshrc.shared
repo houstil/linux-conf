@@ -145,6 +145,9 @@ alias gitpu='git pull origin master'
 alias gith='git show'
 alias gitd='git diff'
 
+#python
+alias py=python
+
 #network
 alias ifc='ifconfig'
 
