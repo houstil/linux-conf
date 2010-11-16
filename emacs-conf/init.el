@@ -839,6 +839,12 @@
 (setq yas/fallback-behavior nil)
 (require 'yasnippet-bundle)
 
+;; (setq yas/prompt-functions '(yas/dropdown-prompt
+;; 			     yas/ido-prompt
+;; 			     yas/completing-prompt))
+(setq yas/prompt-functions '(yas/ido-prompt
+			     yas/completing-prompt))
+
 ;; Develop in ~/emacs.d/mysnippets, but also
 ;; try out snippets in ~/.emacs.d/snippets
 (setq yas/root-directory '("~/.emacs.d/mysnippets"
