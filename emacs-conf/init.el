@@ -32,6 +32,18 @@
 ;; Essential Configuration ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; define an additionnal function to open file at line
+(defun find-file-at-line (file line)
+  "Open given file at given line"
+  (find-file file)
+  (goto-line line)
+  )
+
+
+;; to control where emacs put backup files :
+(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-by-copying t)
+
 ;; to easily distinct homonyme buffers
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward)
