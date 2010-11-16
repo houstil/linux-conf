@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # my emacs launcher
 
@@ -18,93 +18,147 @@ OPTIONS:
    -R      Restart the emacs server, brutally killing it
    -k      Kill the emacs server, saving files before
    -K      Kill the emacs server, brutally killing it
-   -n      Create a new frame
 EOF
 }
 
-while getopts "hvrRkKn" OPTION
-do
-    case $OPTION in
-	h)
-	    usage
-	    exit 1
-	    ;;
-	v)
-	    VERBOSE=1
-	    ;;
-	r)
-	    RESTART=1
-	    ;;
-	R)
-	    RESTART=1
-	    BRUTAL=1
-	    ;;
-	k)
-	    KILL=1
-	    ;;
-	K)
-	    KILL=1
-	    BRUTAL=1
-	    ;;
-	n)
-	    NFRAME=1
-	    ;;
-	?)
-	    usage
-	    exit
-	    ;;
-    esac
-done
+
+# display a message if verbose is turned on
+function vp() [ $VERBOSE ] && echo $*
+
+# execute the command and display it if verbose is on
+function dc()
+{
+    [ $VERBOSE ] && echo $*
+    $*
+}
+
+function lisp_kill()
+{
+    vp "lisp killing"
+    vp "now displaying a frame"
+    is_frame || create_frame
+    vp "selecting it"
+    wmctrl -xa emacs
+    emacsclient -e "(save-buffers-kill-emacs)"
+    sleep 1
+}
+
+function get_pid(){
+    local pid=`ps x | grep "[e]macs23 --daemon" | awk '{print $1}'`
+    if [ -n "$pid" ]; then
+        return $pid
+    else
+        return 0
+    fi
+}
+
+function brutal_kill()
+{
+  kill -9 $1
+  sleep 1
+}
+
+function start_server() emacs23 --daemon
+
+function is_frame()
+{
+    vp "is_frame called"
+    local WID=`wmctrl -l | grep -o "emacs23@rmm"`
+    if [ -n "$WID" ] ;then
+        vp "frame found"
+        return 0
+    else
+        vp "frame not found"
+        return 1
+    fi
+}
+
+function create_frame() dc emacsclient -n -c
+
+function open_file()
+{
+    if [ ! -f "$1" ]; then
+        wmctrl -ia $wid
+        echo "$1 does not exist, create it ? [n/Y]"
+        read creation
+        if [ "$creation" = "n" ]; then return 0; fi
+    fi
+
+    if [ -n "$2" ]; then
+        dc emacsclient -n -e "(find-file-at-line \"$1\" $2)"
+    else
+        dc emacsclient -n $1
+    fi
+    oo=1
+}
+
+function main()
+{
+    while getopts "hvrRkKn" OPTION
+    do
+        case $OPTION in
+	    h)
+	        usage
+	        exit 1
+	        ;;
+	    v)
+	        VERBOSE=1
+                vp VERBOSE
+	        ;;
+            k)
+                K=1
+                SK=1
+                vp K SK
+                ;;
+	    r)
+                SK=1
+                vp SK
+	        ;;
+            K)
+                K=1
+	        BK=1
+                vp K BK
+                ;;
+	    R)
+	        BK=1
+                vp BK
+	        ;;
+	    ?)
+	        usage
+	        exit
+	        ;;
+        esac
+    done
 
 # to erase options from arg list
-shift $(($OPTIND - 1))
+    shift $(($OPTIND - 1))
 
-# kill the server if necessary
-EMACS_PID=$(ps x | grep "[e]macs23 --daemon" | grep -o "^ *[0-9]*")
+# save caller winid
+    local wid=`current-winid`
 
-if [ -n "$EMACS_PID" ] && [ -n "$KILL" -o "$RESTART" -o -n "$BKILL" ]; then
-    if [ -n "$BRUTAL" ]
-    then
-	[ $VERBOSE ] && echo "Brutal killing emacs server ..."
-	kill -9 $EMACS_PID 
-    else
-	[ $VERBOSE ] && echo "Killing emacs server ..."
-	
-        # create a frame for the prompt if necessary
-	WID=$(wmctrl -l | grep -o "emacs23@rmm")
-	if [ -z "$WID" ] ; then
-        # we create a new frame
-	    [ $VERBOSE ] && echo "Launch emacsclient in new frame ..."
-	    emacsclient --no-wait --create-frame
-	else
-	    wmctrl -xa emacs
-	fi
-	emacsclient --eval "(save-buffers-kill-emacs)"
-    fi
-fi
+    [ $BK ] && (get_pid || brutal_kill $?)
 
-# if just kill we are done
-if [ -n "$KILL" ]; then
-    exit 1
-fi
+    [ $SK ] && (get_pid || lisp_kill)
 
-# start the server if necessary
-EMACS_PID=$(ps x | grep "[e]macs23 --daemon")
-if [ -z "$EMACS_PID" ]; then
-    [ $VERBOSE ] && echo "Starting emacs server ..."
-    emacs23 --daemon
-fi
+    [ $K ] && return 0
+    
+    vp "test if server exist"
+    get_pid && dc start_server
 
-# launch the client and read the files
-WID=$(wmctrl -l | grep -o "emacs23@rmm")
+    is_frame || create_frame
 
-if [ -n "$WID" ] && [ -z "$NFRAME" ]; then
-    # we don't create a new frame
-    [ $VERBOSE ] && echo "Launch emacsclient ..."
-    emacsclient --no-wait $*
-    wmctrl -xa emacs
-else
-    # we create a new frame
-    [ $VERBOSE ] && echo "Launch emacsclient in new frame ..."
-    emacsclient --no-wait --create-frame $*
-fi
+    [ $* ] && for file in $*; do
+        local line=`echo $file |grep -o ":[0-9]*"|tr -d ':'`
+        [ $line ] && vp "line found : $line"
+        file=`echo $file | sed 's/:[0-9]*$//g'`
+        [ $file ] && vp "file renamed : $file"
+        open_file $file $line
+    done
+
+    ([ ! $* ] || [ $oo ]) && wmctrl -xa emacs
+
+}
+
+# call main function
+main $*
+
