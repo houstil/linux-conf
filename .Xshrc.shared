@@ -70,12 +70,12 @@ alias crtags="find . -name '*.[ch]' | xargs etags"
 alias g='grep -r -s --exclude=TAGS --color --exclude-dir=".svn"'
 alias gv='grep -v -s --color'
 
-# #process management
+#process management
 alias k='kill %'
 alias c=cd
 alias j=jobs
 alias ka='killall'
-alias gps='ps aux | grep '
+alias gps='ps aux | grep -v grep | grep'
 
 #xclip
 alias xci='xclip'
