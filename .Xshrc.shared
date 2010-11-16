@@ -63,6 +63,7 @@ alias c=cd
 alias stp='find $PWD -maxdepth 1 -name '
 alias fis='find . -name "*.[ch]" | xargs grep'
 alias fih='find . -name "*.h" | xargs grep'
+alias fijs='find . -name "*.js" | xargs grep'
 alias fic='find . -name "*.c" | xargs grep'
 alias fid='find . -name '
 alias crtags="find . -name '*.[ch]' | xargs etags"
