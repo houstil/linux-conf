@@ -177,10 +177,30 @@ function se {
 }
 
 function svnu {
-    svn info $1 |grep "URL: "|grep -o "http:.*$"|tr -d "\n" |xclip; xclip -o -f
+    local url=`svn info $1 |grep "URL : "|grep -o "http:.*$"`
+    echo $url
+    echo $url |tr -d "\n" |xclip
 }
 
 function svnt {
-    svn info $1 |grep "URL: "|grep -o "http:.*BO/"|tr -d "\n" |xclip; xclip -o -f
+    local url=`svn info $1 |grep "URL : "|grep -o "http:.*BO/"`
+    echo $url
+    echo $url |tr -d "\n" |xclip
 }
+
+function confirm()
+{
+    echo -n "$@ "
+    read answer
+    for response in y Y yes YES Yes Sure sure SURE OK ok Ok
+    do
+        if [ "_$answer" = "_$response" ]
+        then
+	    return 0
+        fi
+    done
+    # Any answer other than the list above is considerred a "no" answer
+    return 1
+}
+
 
