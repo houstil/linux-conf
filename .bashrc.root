@@ -185,6 +185,7 @@ alias ul=unlink
 alias sl='ln -s'
 alias cpd='cp -r'
 alias rmd='rm -rf'
+alias md='mkdir'
 
 #file display
 alias ct='cat'
