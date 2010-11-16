@@ -4,6 +4,7 @@
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
+ZSHDOTDIR=/home/g178452/.zshrc.d
 setopt appendhistory autocd extendedglob notify
 unsetopt beep
 bindkey -e
@@ -135,14 +136,59 @@ alias rb='source ~/.zshrc'
 #################
 
 function en {
-    # h1=$(history|tail -n 1| grep -o "^[^;]*;")
-    # if [ -z "$h1" ]
-    # then
-    #     h1=$(history|tail -n 2|head -n 1)
-    # fi
-    # notify-send "Terminated :" "$h1"
-    echo $@
+    notify-send "Terminated :" "`history | tail -1 | sed 's/^ *[0-9]* *\(.*\)$/\1/g'`" -t 3000
 }
+
+#################
+# ZSH BOOKMARKS #
+#################
+# credit to benboeckel
+_bookmarks_file=$ZSHDOTDIR/bookmarks
+
+# Functions
+be () {
+    $EDITOR ${_bookmarks_file}
+}
+
+ba () {
+    if [ -z "$1" ]; then
+        echo "Error: Argument required"
+        return 1
+    fi
+    echo "$1    $PWD" >> ${_bookmarks_file}
+}
+
+bj () {
+    local nd
+    nd=`sed -ne "/^$1/s/^$1    //p" ${_bookmarks_file}`
+    if [[ -n $nd ]]; then
+        cd $nd
+    fi
+}
+
+br () {
+    sed -ie "/^$1.*$/d" ${_bookmarks_file}
+}
+
+bm () {
+    br $1
+    ba $1
+}
+
+bl () {
+    cat ${_bookmarks_file}
+}
+
+_bj () {
+    local -a _bookmarks
+    _bookmarks=( $(sed -e 's/   .*$//' ${_bookmarks_file}) )
+    _values 'bookmarks' \
+        $_bookmarks
+}
+
+compdef _bj bj
+compdef _bj br
+compdef _bj bm
 
 
 #################################

@@ -3,7 +3,7 @@
 ! keyboard remapping
 keycode  48 = bar percent bar percent ugrave
 keycode  49 = at twosuperior
-keycode  65 = space Return space Return space
+keycode  65 = space space space space space
 
 ! ergoemacs keybindings in X !
 ! Directions :

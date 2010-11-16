@@ -65,5 +65,12 @@ alias wg=wget
 alias exp=export
 alias s=source
 
+#quick test aliases
+alias insstm='/root/modules/load_modules.sh'
+alias inshal='insmod /root/hal/SCHAL2.ko'
+alias instt='insmod /root/hal/SCTT.ko'
+
 alias rb='source ~/.bashrc'
+
+
 
