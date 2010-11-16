@@ -12,6 +12,7 @@ fi
 
 # set my fav editor :
 # export EDITOR=vi
+export EDITOR=emc.sh
 
 ###############################################
 # IF ITS A SAGEM MACHINE THEN LOAD SAGEM CONF #
