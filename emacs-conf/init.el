@@ -883,9 +883,9 @@
 (load "jabber-autoloads")
 (setq jabber-account-list '(("g178452@forge-urd44.osn.sagem")))
 
-;; use magit
-(add-to-list 'load-path "~/.emacs.d/magit-0.8.2")
-(require 'magit)
+;; use git with egg for ediff git diff
+(add-to-list 'load-path "~/.emacs.d/egg")
+(require 'egg)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Error-notification ;;
