@@ -11,9 +11,11 @@ fi
 # CDPATH=.:~:..:~/hal2/
 CDPATH=.
 
-####################
-# LOAD SAGEM TOOLS #
-####################
+#################################
+# SHELL DEPENDANT CONFIGURATION #
+#################################
+
+# LOAD SAGEM TOOLS
 
 # udpate ~/.tools-modrivers.env if older than one day
 # unfortunatly the this script is not zshell compatible
@@ -34,6 +36,52 @@ fi
 unset test   
 source ~/.tools-modrivers.env
 
+# SAGEM UTILITY FUNCTIONS
+
+test=$(ps -p $$ |grep zsh)
+if [ ! -z "$test" ]
+then
+# a wrapper for makecpenv.sh in hal2 env with a nice completion
+    cpenv () {
+	if [ -d "_ref/config" ]; then
+	    makecpenv.sh _ref $1
+	else
+	    echo " Error : _ref/config not found"
+	fi
+    }
+
+# the completion function for the above utility
+    _cpenv () {
+	local -a _config
+	_config=( `ls _ref/config|sed 's/.config//g'` )
+	_values 'config' \
+	    $_config
+    }
+    compdef _cpenv cpenv
+
+# a function to checkout an hal2 baseline, with its completion
+    cohal2 ()
+    {
+	if [[ -z $1 ]] || [[ -z $2 ]]
+	    then
+	    echo " Error : bad argument\n" "  cohal2 <revision> <project>"
+	    return
+	fi
+	tag=`echo $1 |sed 's/RO_hal2-baseline\.st-rev1_//g'|tr -d '/'`
+	svn co http://forge-urd44.osn.sagem/svn/hal2-baseline.st-rev1/BO/tags/$1 $tag-$2/_ref
+    }
+
+    _cohal2 ()
+    {
+	local -a _versions
+	_versions=( `svn ls http://forge-urd44.osn.sagem/svn/hal2-baseline.st-rev1/BO/tags/|grep RO` )
+	_values 'versions' \
+	    $_versions
+    }
+    compdef _cohal2 cohal2
+    
+fi
+
 #####################################
 # CLEAN UP AFTER SAGEM TOOLS SCRIPT #
 #####################################
@@ -47,6 +95,12 @@ do
     fi
     unset test
 done
+
+################
+# LAFORGE URLs #
+################
+
+export lfu="http://forge-urd44.osn.sagem/svn"
 
 ###############################
 # SAGEM WORK SPECIFIC ALIASES #
@@ -79,9 +133,7 @@ alias bum='bugz modify -H g178452 -a jean-louis.arnault@sagemcom.com'
 alias but='bugz get'
 
 #fsvn aliases
-alias bco='fsvn-make-bco.sh'
 alias roo='fsvn-make-ro.sh'
-alias rco='fsvn-make-rco.sh'
 alias ckp='fsvn-check-product.sh'
 alias com='fsvn-commit.sh'
 
@@ -101,14 +153,18 @@ function getSTAPIDoc {
 }
 
 #proxy
-function wp {
+function wps {
+    export http_proxy="http://10.66.243.130:8080"
+    eval $@
+    export http_proxy=""
+}
+
+function wpp {
     export http_proxy="http://190.99.2.254:41209"
     eval $@
     export http_proxy=""
-    # export http_proxy="http://10.66.243.130:8080"
-    # eval $@
-    # export http_proxy=""
 }
+
 
 # launch the env profiler
 # profiler="$HOME/.env-profiler/profiler.sh"
@@ -180,6 +236,71 @@ function run {
 		?)
 			echo " Error : PROJECT_ID undefined"
 	esac
+}
+
+
+# a little function to branch following Laforge syntaxe
+function bco {
+    if [ -z `echo $2 |grep -e "[0-9]*"` ];then
+	echo " error : param 2 must be a bug number"
+    fi
+    if [ -n "$3" ];then
+	local modbranch="_$3"
+    fi
+    local rooturl=`echo $1|grep -o "^.*/BO"`
+    local module=`echo $1| sed 's/^.*svn\/\(.*\)\/BO\/.*$/\1/g'`
+    local user=`whoami`
+    local timestamp=`date +%y%m%d-%k%M%S|tr ' ' '0'`
+
+    local branch=BCO_$module""$modbranch""_$2_$user""_$timestamp
+    local branchurl=$rooturl/branches/$branch
+
+    echo " copying $1"
+    echo " to      $branchurl"
+    
+    confirm "Create branch $branch ? [y/N]"
+    if [ $? -eq 0 ] ;then
+	svn copy $1 $branchurl -m "bug $2 : [BRANCH] from $1"
+    fi
+
+    if [ $? -eq 0 ] ;then
+	svn sw $branchurl
+    fi
+    
+}
+
+# a little function to make a RCO following sagem syntax
+function rco {
+    if [ -z "`svn info`" ]; then
+	return 1;
+    fi
+    local url=`svn info |grep "URL : "|grep -o "http:.*$"|grep "BO/branches"|grep BCO|tr -d "\n"`
+    if [ -z "$url" ]; then
+	echo " error : $(pwd) is not a LaForge BCO"
+	return
+    fi
+    local bn=`echo $url|grep -o "_[0-9]*_g"|grep -o "[0-9]*"`
+    # we pick the same user as the bco
+    local rooturl=`echo $url|grep -o "^.*/BO"`
+    local module=`echo $url| sed 's/^.*svn\/\(.*\)\/BO\/.*$/\1/g'`
+    local modbranch=`echo $url|grep -o "$module\_.*\_$bn"|sed 's/^$module\(_.*_\)$bn$/\1/g'`
+    local user=`echo $url|grep -o "_g[0-9]\{6\}_"|grep -o "g[0-9]\{6\}"`
+    local timestamp=`date +%y%m%d-%k%M%S`
+
+    local tag=RCO_$module""$modbranch""_$bn""_$user""_$timestamp
+    local tagurl=$rooturl/tags/$tag
+
+    echo " copying $url"
+    echo " to      $tagurl"
+    
+    confirm "Create tag $tag ? [y/N]"
+    if [ $? -eq 0 ] ;then
+	svn copy $url $tagurl -m "bug $bn : [TAG] $tag"
+    fi
+
+    if [ $? -eq 0 ] ;then
+	svn sw $tagurl
+    fi
 }
 
 ##################################
