@@ -436,7 +436,8 @@
     )
 )
 ;; use psvn for in emacs svn use
-(require 'psvn)
+;; (require 'psvn)
+(require 'vc-svn)
 
 ;; winner mode to easily manage windows configuration
 (when (fboundp 'winner-mode)
