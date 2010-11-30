@@ -886,7 +886,7 @@
 ;; jabber.el : a xmpp client in emacs
 (add-to-list 'load-path "~/.emacs.d/emacs-jabber-0.8.0")
 (load "jabber-autoloads")
-(setq jabber-account-list '(("g178452@forge-urd44.osn.sagem")))
+(setq jabber-account-list '(("g178452@etl-services2.rmm.sagem")))
 
 ;; use git with egg for ediff git diff
 (add-to-list 'load-path "~/.emacs.d/egg")
