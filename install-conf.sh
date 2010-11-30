@@ -81,6 +81,7 @@ do
 done
 
 echov "to use root config file, do as root :"
-cproot .bashrc.root /root/.bashrc
+# cproot .bashrc.root /root/.bashrc
+cproot .zshrc.root /root/.zshrc
 cproot emacs-conf/init.root.el /root/.emacs.d/init.el
 
