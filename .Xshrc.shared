@@ -82,7 +82,7 @@ alias ka='killall'
 alias gps='ps aux | grep -v grep | grep'
 
 #xclip
-alias xci='xclip'
+alias xci='xclip -sel clip'
 alias xco='xclip -o'
 
 #list
