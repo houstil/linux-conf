@@ -95,7 +95,7 @@ fi
 
 set -o emacs
 
-if [ $TERM != "eterm-color" ]
+if [ "$TERM" != "eterm-color" ]
     then
 # navigation keys
     bind -m emacs '"\M-k": next-history'

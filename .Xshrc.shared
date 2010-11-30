@@ -181,13 +181,13 @@ function se {
 }
 
 function svnu {
-    local url=`svn info $1 |grep "URL : "|grep -o "http:.*$"`
+    local url=`svn info $1 |grep "URL *: "|grep -o "http:.*$"`
     echo $url
     echo $url |tr -d "\n" |xclip
 }
 
 function svnt {
-    local url=`svn info $1 |grep "URL : "|grep -o "http:.*BO/"`
+    local url=`svn info $1 |grep "URL *: "|grep -o "http:.*BO/"`
     echo $url
     echo $url |tr -d "\n" |xclip
 }

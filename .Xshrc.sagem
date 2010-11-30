@@ -111,10 +111,11 @@ alias sd='source ~/bin/sDebug.sh'
 alias soe='source ~/.tools-modrivers.env'
 alias mker='make ARCH=sh CROSS_COMPILE=sh4-linux- O=$KERNEL_BLD_PATH'
 alias mcker='make ARCH=sh CROSS_COMPILE=sh4-linux- O=$KERNEL_BLD_PATH menuconfig'
+alias swprb='cmp -s ~/stprobe.env ~/stprobe.env.uc2 && cp -v ~/stprobe.env.uc1 ~/stprobe.env || cp -v ~/stprobe.env.uc2 ~/stprobe.env'
 
 #network
-alias sshs='ssh root@190.99.8.137'
-alias sshrs='ssh-keygen -R 190.99.8.137;ssh root@190.99.8.137'
+alias sshs='ssh root@$(stbip)'
+alias sshrs='ssh-keygen -R $(stbip);ssh root@$(stbip)'
 alias exchange='nautilus smb://osn02001.osn.sagem/echanges/'
 
 #process management
@@ -146,6 +147,12 @@ alias 141=notify141.sh
 #############
 # FUNCTIONS #
 #############
+
+#stb
+function stbip
+{
+ echo `cat ~/stprobe.env|grep TARGET=|grep -o "[0-9]\{0,3\}\.[0-9]\{0,3\}\.[0-9]\{0,3\}\.[0-9]\{0,3\}"`
+}
 
 #laforge
 function getSTAPIDoc {
