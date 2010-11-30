@@ -315,8 +315,6 @@ case "$HOST" in
         }
         alias ssho='ssh g178452@rmm-p1199155f'
 
-        #identification
-        alias sur='sudo su -'
         ;;
     rmm-p1199155f)
         #ssh connection
@@ -326,7 +324,5 @@ case "$HOST" in
         alias sxn='ssh g178452@rmm-p1186948 "~/bin/setSynergy.sh"'
         alias sshn='ssh g178452@rmm-p1186948'
 
-        #identification
-        alias sur='sudo vi /media/ddddd +shell'
         ;;
 esac

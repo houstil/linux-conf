@@ -42,6 +42,9 @@ fi
 #emacs
 alias e=~/linux-conf/emc.sh
 
+#root access
+alias sur='sudo su -'
+
 #shell interaction
 alias ro='xargs xdotool type; xdotool key ctrl+a'
 
@@ -74,7 +77,7 @@ alias gv='grep -v -s --color'
 #process management
 alias k='kill %'
 alias c=cd
-alias j=jobs
+alias jo=jobs
 alias ka='killall'
 alias gps='ps aux | grep -v grep | grep'
 
