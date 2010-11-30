@@ -524,6 +524,8 @@
 (set-terminal-coding-system 'latin-1)
 (set-keyboard-coding-system 'latin-1)
 (set-language-environment 'latin-1)
+(set-input-method "latin-1-prefix") ;; or "latin-1-postfix"
+
 
 ;; to easily toggle the way emacs display long lines
 (global-set-key (kbd "S-<f8>") 'toggle-truncate-lines)
