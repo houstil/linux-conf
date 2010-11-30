@@ -74,7 +74,7 @@ alias gv='grep -v -s --color'
 #process management
 alias k='kill %'
 alias c=cd
-alias j=jobs
+alias jo=jobs
 alias ka='killall'
 alias gps='ps aux | grep -v grep | grep'
 

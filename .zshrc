@@ -127,6 +127,7 @@ setopt PUSHD_SILENT
 #directory management
 alias d='dirs -v | grep -v "^0"'
 alias i='pushd .;pushd +1'
+alias j=bj
 
 alias rb='source ~/.zshrc'
 
