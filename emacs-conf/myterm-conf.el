@@ -37,7 +37,7 @@
 	     (ergoemacs-local-unset-key (kbd "M-<delete>"))
 	     (ergoemacs-local-unset-key (kbd "C-a"))
 	     (ergoemacs-local-unset-key (kbd "<backspace>"))
-	     (ergoemacs-local-unset-key (kbd "<esc>"))
+	     (ergoemacs-local-unset-key (kbd "C-<esc>"))
 	     (run-at-time "1 sec" nil '(lambda ()
 					 (local-unset-key (kbd "<tab>"))
 					 (local-unset-key (kbd "|"))
