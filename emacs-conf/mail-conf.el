@@ -1,6 +1,8 @@
 
 ;; to run offlineimap in emacs
 (require 'offlineimap)
+;; launch an offlineimap process in the background
+(offlineimap)
 
 ;; notmuch emacs interface
 (require 'notmuch)
@@ -42,8 +44,13 @@
 	
 ;; to get mail addr completion while sending mail
 (require 'message-x)
-(setq message-x-body-function '(lambda () (interactive) (smart-tab)))
-(global-set-key (kbd "<tab>") 'message-x-tab)
+(setq message-x-body-function '(lambda () (interactive) (hippie-expand)))
+(defadvice smart-tab (around message-x-if-message activate compile)
+  "When called check if in message mode. If so call message-x-complete-name instead."
+  (if (string= major-mode "message-mode")
+      (message-x-tab)
+    ad-do-it
+    ))
 
 ;; set my mail adress
 (setq user-mail-address "jean-louis.arnault@sagemcom.com")
