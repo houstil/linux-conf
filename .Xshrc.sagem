@@ -318,6 +318,17 @@ function rco {
     fi
 }
 
+function svnsp
+{
+    for f in "plan_version.txt" "pvp.txt"
+    do
+        if [ -e  "$f" ]; then
+            svn propset svn:externals -F $f .
+            break
+        fi
+    done
+}
+
 ##################################
 # MACHINE SPECIFIC CONFIGURATION #
 ##################################
