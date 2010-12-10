@@ -12,7 +12,7 @@ fi
 
 # set my fav editor :
 # export EDITOR=vi
-export EDITOR=emc.sh
+export EDITOR='emacsclient'
 
 ###############################################
 # IF ITS A SAGEM MACHINE THEN LOAD SAGEM CONF #
