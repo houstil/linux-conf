@@ -4,7 +4,7 @@
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-ZSHDOTDIR=/home/g178452/.zshrc.d
+ZSHDOTDIR=/home/g178452/.zsh.d
 setopt appendhistory autocd extendedglob notify
 unsetopt beep
 bindkey -e
