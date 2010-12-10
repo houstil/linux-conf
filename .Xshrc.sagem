@@ -258,13 +258,13 @@ function run {
 
 # a little function to branch following Laforge syntaxe
 function bco {
-    if [ -z `echo $2 |grep -e "[0-9]*"` ];then
+    if [ -z `echo $2 |grep -e "^[0-9]*$"` ];then
 	echo " error : param 2 must be a bug number"
     fi
     if [ -n "$3" ];then
 	local modbranch="_$3"
     fi
-    local rooturl=`echo $1|grep -o "^.*/BO"`
+    local rooturl=`echo $1 |grep -o "^.*/BO/\(branches\|tags\)"|sed 's/\/\(branches\|tags\)$//g'`
     local module=`echo $1| sed 's/^.*svn\/\(.*\)\/BO\/.*$/\1/g'`
     local user=`whoami`
     local timestamp=`date +%y%m%d-%k%M%S|tr ' ' '0'`
@@ -278,12 +278,11 @@ function bco {
     confirm "Create branch $branch ? [y/N]"
     if [ $? -eq 0 ] ;then
 	svn copy $1 $branchurl -m "bug $2 : [BRANCH] from $1"
-    fi
 
-    if [ $? -eq 0 ] ;then
-	svn sw $branchurl
+        if [ $? -eq 0 ] ;then
+	    svn sw $branchurl
+        fi
     fi
-    
 }
 
 # a little function to make a RCO following sagem syntax
@@ -291,7 +290,7 @@ function rco {
     if [ -z "`svn info`" ]; then
 	return 1;
     fi
-    local url=`svn info |grep "URL : "|grep -o "http:.*$"|grep "BO/branches"|grep BCO|tr -d "\n"`
+    local url=`svn info |grep "URL *: "|grep -o "http:.*$"|grep "BO/branches"|grep BCO|tr -d "\n"`
     if [ -z "$url" ]; then
 	echo " error : $(pwd) is not a LaForge BCO"
 	return
