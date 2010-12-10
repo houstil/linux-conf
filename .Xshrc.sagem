@@ -145,6 +145,9 @@ alias sp='source ~/bin/setProxy.sh'
 #tools
 alias 141=notify141.sh
 
+# get mail
+alias upmail='cat .offlineimap/pid | xargs kill -s USR1 && ~/bin/notmuch_rt.sh > /dev/null'
+
 #############
 # FUNCTIONS #
 #############
