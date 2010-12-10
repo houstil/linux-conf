@@ -182,6 +182,7 @@ function wpp {
 projects=(\
         diag_mdoc set_mdoc PROJECT_MDOC\
         diag_hal2 set_hal2 PROJECT_HAL2\
+        diag_ptlux set_ptlux PROJECT_PTLUX\
         diag_hal3 set_hal3 PROJECT_HAL3 )
 # this function only use the pwd to guess the project
 function ses
@@ -206,12 +207,19 @@ function diag_hal2 {
 function diag_hal3 {
         echo 0
 }
+function diag_ptlux {
+    ([[ -n "`svn info ..` 2>&1 | grep ptlux-hd-v1" ]] && echo 1) || echo 0
+}
 # those functions set the environnement
 function set_mdoc {
         source config.sh
 }
 function set_hal2 {
         7env
+}
+function set_ptlux {
+    source set-env 2.2
+    cd sagem_app/PTLUX.PVRHD
 }
 function set_hal3 {
         echo "Error : not implemented yet !"
