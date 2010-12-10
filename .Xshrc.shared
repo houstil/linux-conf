@@ -42,6 +42,9 @@ fi
 #emacs
 alias e=~/linux-conf/emc.sh
 
+#root access
+alias sur='sudo su -'
+
 #shell interaction
 alias ro='xargs xdotool type; xdotool key ctrl+a'
 
@@ -79,7 +82,7 @@ alias ka='killall'
 alias gps='ps aux | grep -v grep | grep'
 
 #xclip
-alias xci='xclip'
+alias xci='xclip -sel clip'
 alias xco='xclip -o'
 
 #list
