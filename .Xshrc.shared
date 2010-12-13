@@ -140,6 +140,7 @@ alias svnlu='svn info | grep "^URL:" | grep "http://\([^/]*/\)*" -o | tr -d "\n"
 
 #git
 alias gits='git status'
+alias gitco='git checkout'
 alias gitc='git commit'
 alias gita='git add'
 alias gitp='git push origin master'
