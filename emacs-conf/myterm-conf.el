@@ -121,7 +121,7 @@
  ("M-,"			.	term-send-input)
  ("M-."			.	comint-dynamic-complete)
  ("M-v"			.	term-send-yank)
- ("<esc>"		.	term-send-esc)
+ ("C-<esc>"		.	term-send-esc)
  ("C-z"			.	term-send-Cz)
  ("<S-return>"		.	term-send-return)
  ))
