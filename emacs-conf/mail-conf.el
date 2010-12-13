@@ -67,6 +67,18 @@
 ;; Send mail using SMTP via mail.example.org.
 (setq smtpmail-smtp-server "vzy08031.vzy.sagem")
 
+;; (setq send-mail-function 'smtpmail-send-it
+;;       message-send-mail-function 'smtpmail-send-it
+;;       smtpmail-starttls-credentials
+;;       '(("smtp.gmail.com" 587 nil nil))
+;;       smtpmail-auth-credentials
+;;       (expand-file-name "~/.authinfo")
+;;       smtpmail-default-smtp-server "smtp.gmail.com"
+;;       smtpmail-smtp-server "smtp.gmail.com"
+;;       smtpmail-smtp-service 587
+;;       smtpmail-debug-info t)
+;; (require 'smtpmail)
+
 ;; jabber.el : a xmpp client in emacs
 (add-to-list 'load-path "~/.emacs.d/emacs-jabber-0.8.0")
 (load "jabber-autoloads")
