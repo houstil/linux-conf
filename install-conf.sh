@@ -70,6 +70,7 @@ conf_array=(\
     .zshrc "" \
     emc.sh ~/bin/emc.sh \
     terminator.conf ~/.config/terminator.config \
+    .gitconfig ~/.gitconfig \
     emacs-conf/bookmarks ~/.emacs.d/bookmarks \
     emacs-conf/ergoemacs-layout-us.el ~/.emacs.d/ergoemacs-keybindings-5.1/ergoemacs-layout-us.el \
     emacs-conf/init.el ~/.emacs.d/init.el \

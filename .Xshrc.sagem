@@ -114,6 +114,7 @@ alias mcker='make ARCH=sh CROSS_COMPILE=sh4-linux- O=$KERNEL_BLD_PATH menuconfig
 alias swprb='cmp -s ~/stprobe.env ~/stprobe.env.uc2 && cp -v ~/stprobe.env.uc1 ~/stprobe.env || cp -v ~/stprobe.env.uc2 ~/stprobe.env'
 
 #network
+alias sshmib='ssh admin@190.99.0.141'
 alias sshs='ssh root@$(stbip)'
 alias sshrs='ssh-keygen -R $(stbip);ssh root@$(stbip)'
 alias exchange='nautilus smb://osn02001.osn.sagem/echanges/'
@@ -143,6 +144,9 @@ alias sp='source ~/bin/setProxy.sh'
 
 #tools
 alias 141=notify141.sh
+
+# get mail
+alias upmail='cat .offlineimap/pid | xargs kill -s USR1 && ~/bin/notmuch_rt.sh > /dev/null'
 
 #############
 # FUNCTIONS #

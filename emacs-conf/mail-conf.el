@@ -1,6 +1,8 @@
 
 ;; to run offlineimap in emacs
 (require 'offlineimap)
+;; launch an offlineimap process in the background
+(offlineimap)
 
 ;; notmuch emacs interface
 (require 'notmuch)
@@ -42,8 +44,13 @@
 	
 ;; to get mail addr completion while sending mail
 (require 'message-x)
-(setq message-x-body-function '(lambda () (interactive) (smart-tab)))
-(global-set-key (kbd "<tab>") 'message-x-tab)
+(setq message-x-body-function '(lambda () (interactive) (hippie-expand)))
+(defadvice smart-tab (around message-x-if-message activate compile)
+  "When called check if in message mode. If so call message-x-complete-name instead."
+  (if (string= major-mode "message-mode")
+      (message-x-tab)
+    ad-do-it
+    ))
 
 ;; set my mail adress
 (setq user-mail-address "jean-louis.arnault@sagemcom.com")
@@ -59,6 +66,18 @@
 
 ;; Send mail using SMTP via mail.example.org.
 (setq smtpmail-smtp-server "vzy08031.vzy.sagem")
+
+;; (setq send-mail-function 'smtpmail-send-it
+;;       message-send-mail-function 'smtpmail-send-it
+;;       smtpmail-starttls-credentials
+;;       '(("smtp.gmail.com" 587 nil nil))
+;;       smtpmail-auth-credentials
+;;       (expand-file-name "~/.authinfo")
+;;       smtpmail-default-smtp-server "smtp.gmail.com"
+;;       smtpmail-smtp-server "smtp.gmail.com"
+;;       smtpmail-smtp-service 587
+;;       smtpmail-debug-info t)
+;; (require 'smtpmail)
 
 ;; jabber.el : a xmpp client in emacs
 (add-to-list 'load-path "~/.emacs.d/emacs-jabber-0.8.0")
