@@ -148,7 +148,10 @@ alias 141=notify141.sh
 # FUNCTIONS #
 #############
 
-function sshr {ssh root@$1}
+function sshr 
+{
+    ssh root@$1
+}
 
 #stb
 function stbip
