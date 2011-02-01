@@ -1,5 +1,8 @@
  # -*- mode: Shell-script -*-
 
+# Just to be sure
+SHELL=/bin/zsh
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
