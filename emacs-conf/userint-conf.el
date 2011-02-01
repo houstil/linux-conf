@@ -40,5 +40,8 @@
 ;; (smex-initialize)
 ;; (global-set-key (kbd "s-a") 'smex)
 
+;; customize the way Man shows up
+(setq Man-notify-method (quote newframe))
+
 (provide 'userint-conf)
 

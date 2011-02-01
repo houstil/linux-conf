@@ -123,6 +123,7 @@
  ("M-v"			.	term-send-yank)
  ("C-<esc>"		.	term-send-esc)
  ("C-z"			.	term-send-Cz)
+ ("C-S-c"		.	term-send-Cc)
  ("<S-return>"		.	term-send-return)
  ))
 

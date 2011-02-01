@@ -152,7 +152,10 @@ alias upmail='cat ~/.offlineimap/pid | xargs kill -s USR1 && ~/bin/notmuch_rt.sh
 # FUNCTIONS #
 #############
 
-function sshr {ssh root@$1}
+function sshr 
+{
+    ssh root@$1
+}
 
 #stb
 function stbip
