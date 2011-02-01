@@ -65,10 +65,10 @@ alias c=cd
 
 #search
 alias stp='find $PWD -maxdepth 1 -name '
-alias fis='find . -name "*.[ch]" | xargs grep'
-alias fih='find . -name "*.h" | xargs grep'
-alias fijs='find . -name "*.js" | xargs grep'
-alias fic='find . -name "*.c" | xargs grep'
+alias fis='find . -name "*.[ch]" | xargs grep -n'
+alias fih='find . -name "*.h" | xargs grep -n'
+alias fijs='find . -name "*.js" | xargs grep -n'
+alias fic='find . -name "*.c" | xargs grep -n'
 alias fid='find . -name '
 alias crtags="find . -name '*.[ch]' | xargs etags"
 alias g='grep -r -s --exclude=TAGS --color --exclude-dir=".svn"'
@@ -209,4 +209,9 @@ function confirm()
     return 1
 }
 
+# a short function to extract files from an rpm package
+function unrpm()
+{
+    rpm2cpio $1 | cpio -idmv
+}
 
