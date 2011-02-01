@@ -43,7 +43,7 @@ fi
 alias e=~/linux-conf/emc.sh
 
 #root access
-alias sur='sudo su -'
+alias sur='sudo -s'
 
 #shell interaction
 alias ro='xargs xdotool type; xdotool key ctrl+a'
