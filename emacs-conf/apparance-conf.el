@@ -29,7 +29,7 @@
 (set-fringe-mode 3)
 
 ;; set default size
-(set-face-attribute 'default nil :height 100)
+(set-face-attribute 'default nil :height 120)
 
 ;; emacs desktop to save multiple emacs windows configuration
 ;; (setq desktop-dirname "~/.emacs.d/desktop")

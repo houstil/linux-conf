@@ -58,7 +58,7 @@
 (global-set-key (kbd "s-<f7>") 'replace-regexp)
 (global-set-key (kbd "s-S-<f7>") 'find-grep)
 (setq grep-find-command
-  "find . -path '*/.svn' -prune -o -type f -print | xargs -e grep -i -n -e ")
+  "find . -path '*/.svn' -prune -o -type f -print | xargs -e grep -i -n -e -I")
 
 ;; to easily define macros
 (global-set-key (kbd "M-<f3>") 'kmacro-start-macro)

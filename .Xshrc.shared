@@ -88,6 +88,7 @@ alias xco='xclip -o'
 #list
 alias ll='ls -l'
 alias la='ls -A'
+alias lla='ls -la'
 alias l='ls'
 
 #link, file and directory management
@@ -166,6 +167,10 @@ alias h=history
 ####################
 # COMMON FUNCTIONS #
 ####################
+
+function lp {
+    ls -l $(dirname $1)|grep $(basename $1)
+}
 
 function rl {
     unlink $1
