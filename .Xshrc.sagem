@@ -148,6 +148,12 @@ alias 141=notify141.sh
 # get mail
 alias upmail='cat ~/.offlineimap/pid | xargs kill -s USR1 && ~/bin/notmuch_rt.sh > /dev/null'
 
+# mib
+alias mibm='mibpost http://190.99.0.141/'
+alias mibavc='mibpost http://190.99.0.141/global/test_hd.html'
+alias mibcti='mibpost http://190.99.0.141/Ines/Live_CTI.html'
+alias mibhdlive='mibpost http://190.99.0.141/global/hd_live.php'
+
 #############
 # FUNCTIONS #
 #############
@@ -335,6 +341,12 @@ function svnsp
             break
         fi
     done
+}
+
+function mibpost
+{
+    wget -q "http://190.99.0.141/admin/mib/www.php?ip=$(stbip)&mib=thales&text=Set%20page&name=www&type=set&param=$1" -O /dev/null
+#    wget -q "http://190.99.0.141/admin/mib/www.php?ip=$(stbip)&mib=on&text=Set%20page&name=www&type=set&param=$1" -O /dev/null
 }
 
 ##################################
