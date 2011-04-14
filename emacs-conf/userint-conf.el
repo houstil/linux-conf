@@ -14,6 +14,9 @@
 (ido-mode t)
 (setq ido-enable-flex-matching t) ;; enable fuzzy matching
 
+;; disable new buffer while navigating in dired
+(put 'dired-find-alternate-file 'disabled nil)  
+
 ;; (defadvice find-tag (around original-completing-read-only activate)
 ;;   (let (ido-enable-replace-completing-read) ad-do-it))
 
