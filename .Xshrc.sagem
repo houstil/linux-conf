@@ -365,10 +365,9 @@ case "$HOST" in
     rmm-p1199155f)
         #ssh connection
         function scpn {
-            scp $1 g178452@rmm-p1186948:$2
+            scp $1 "$(host rmm-p1186948 |awk '{print "g178452@"$4}')"":$2"
         }
         alias sxn='ssh g178452@rmm-p1186948 "~/bin/setSynergy.sh"'
-        alias sshn='ssh g178452@rmm-p1186948'
-
+        alias sshn="ssh `host rmm-p1186948 |awk '{print "g178452@"$4}'`"
         ;;
 esac
