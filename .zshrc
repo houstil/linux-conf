@@ -160,6 +160,7 @@ ba () {
         return 1
     fi
     echo "$1    $PWD" >> ${_bookmarks_file}
+    sort ${_bookmarks_file} -o ${_bookmarks_file}
 }
 
 bj () {
@@ -171,7 +172,7 @@ bj () {
 }
 
 br () {
-    sed -ie "/^$1.*$/d" ${_bookmarks_file}
+    sed -i "/^$1    .*$/d" ${_bookmarks_file}
 }
 
 bm () {
@@ -180,7 +181,7 @@ bm () {
 }
 
 bl () {
-    cat ${_bookmarks_file}
+    cat ${_bookmarks_file}|awk '{printf "%15s\t%s\n",$1, $2}'
 }
 
 _bj () {
@@ -190,9 +191,19 @@ _bj () {
         $_bookmarks
 }
 
+_tarswi () {
+    local -a _targets
+    _targets=( $(cat $target_list |grep -v "C$"|awk '{print $2}') )
+    _values 'targets' \
+        $_targets
+}
+
 compdef _bj bj
 compdef _bj br
 compdef _bj bm
+
+# add some completion for our target switcher
+compdef _tarswi tarswi
 
 
 #################################

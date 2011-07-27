@@ -117,6 +117,7 @@ alias swprb='cmp -s ~/stprobe.env ~/stprobe.env.uc2 && cp -v ~/stprobe.env.uc1 ~
 alias sshmib='ssh admin@190.99.0.141'
 alias sshs='ssh root@$(stbip)'
 alias sshrs='ssh-keygen -R $(stbip);ssh root@$(stbip)'
+alias ssharnb='ssh -X g178452@osnp1263337f'
 alias exchange='nautilus smb://osn02001.osn.sagem/echanges/'
 
 #process management
@@ -149,10 +150,13 @@ alias 141=notify141.sh
 alias upm='cat ~/.offlineimap/pid | xargs kill -s USR1'
 
 # mib
-alias mibm='mibpost http://190.99.0.141/'
-alias mibavc='mibpost http://190.99.0.141/global/test_hd.html'
-alias mibcti='mibpost http://190.99.0.141/Ines/Live_CTI.html'
-alias mibhdlive='mibpost http://190.99.0.141/global/hd_live.php'
+  alias mib-menu='mibpost "mib=$mib_type&text=Set%20page&name=www&type=set&param=http://190.99.0.141/"'
+   alias mib-avc='mibpost "mib=$mib_type&text=Set%20page&name=www&type=set&param=http://190.99.0.141/global/test_hd.html"'
+   alias mib-cti='mibpost "mib=$mib_type&text=Set%20page&name=www&type=set&param=http://190.99.0.141/CTI/live.html"'
+alias mib-hdlive='mibpost "mib=$mib_type&text=Set%20page&name=www&type=set&param=http://190.99.0.141/global/hd_live.php"'
+  alias mib-iadt='mibpost "mib=$mib_type&text=Live&name=live&type=set&param=tv://225.135.0.18:5001&liveip=225.135.0.18&liveport=5001"'
+  alias mib-garb='mibpost "mib=$mib_type&text=Live&name=live&type=set&param=tv://225.104.0.2:5001&liveip=225.135.0.18&liveport=5001"'
+
 
 #############
 # FUNCTIONS #
@@ -325,10 +329,11 @@ function rco {
     confirm "Create tag $tag ? [y/N]"
     if [ $? -eq 0 ] ;then
 	svn copy $url $tagurl -m "bug $bn : [TAG] $tag"
-    fi
-
-    if [ $? -eq 0 ] ;then
-	svn sw $tagurl
+        if [ $? -eq 0 ] ;then
+	    svn sw $tagurl
+        fi
+    else 
+        echo "Tag canceled."
     fi
 }
 
@@ -343,10 +348,80 @@ function svnsp
     done
 }
 
+function mib-sw
+{
+    if [ "$mib_type" = "sagem" ]
+        then
+        mib_type="thales"
+        echo mib_type is $mib_type
+        else
+        mib_type="sagem"
+        echo mib_type is $mib_type
+    fi
+}
+
 function mibpost
 {
-    wget -q "http://190.99.0.141/admin/mib/www.php?ip=$(stbip)&mib=thales&text=Set%20page&name=www&type=set&param=$1" -O /dev/null
-#    wget -q "http://190.99.0.141/admin/mib/www.php?ip=$(stbip)&mib=on&text=Set%20page&name=www&type=set&param=$1" -O /dev/null
+    wget -q "http://190.99.0.141/admin/mib/www.php?ip=$(stbip)&$1" -O /dev/null
+}
+
+
+target_list="/home/g178452/.target-list"
+function tarswi
+{
+# a little helper function to switch targets
+
+# in this file a referenced every single target available :
+
+# we give a target name as an argument
+nt_p=`cat $target_list |grep $1|awk '{print $1}'`
+if [ -z "$nt_p" ]
+then
+    echo "Error : this target is not listed."
+    return 1
+
+
+else
+# now we are switching targets
+    ot_n=`cat $target_list |grep "C$"|awk '{print $2}'`
+    ot_p=`cat $target_list |grep "C$"|awk '{print $1}'`
+
+    if [ -d ~/target ]
+    then
+        if [ -z "$ot_n" ]
+        then
+            echo "Error : current target is no listed, add it before switching."
+            return 1
+        else
+            mv -v ~/target $ot_p && sed -i "s/\(.*\) C$/\1/g" $target_list
+            mv -v $nt_p ~/target && sed -i "s/\(.* $1\)/\1 C/g" $target_list
+
+            return 0
+
+        fi
+    else
+        sed -i "s/\(.*\) C$/\1/g" $target_list
+        mv -v $nt_p ~/target && sed -i "s/\(.* $1\)/\1 C/g" $target_list
+
+    fi
+fi
+}
+
+function tara
+{
+# a way to had a new target
+    if [ "$3" = "C" ]
+    then
+        echo "$1 $2 C">>$target_list
+    else
+        if [ -d $1 ]
+        then
+            echo "$1 $2">>$target_list
+        else
+            echo "Error : $1 directory doesn't exist."
+            return 1
+        fi
+    fi
 }
 
 ##################################
