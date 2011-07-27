@@ -6,6 +6,7 @@
           '(lambda ()
 	     (ergoemacs-local-unset-key (kbd "M-i"))
 	     (ergoemacs-local-unset-key (kbd "M-k"))
+	     (ergoemacs-local-unset-key (kbd "C-f"))
 	     ))
 
 (define-key minibuffer-local-map (kbd "M-i")    'previous-history-element)
@@ -40,8 +41,9 @@
 (global-set-key (kbd "C-<tab>")  'switch-to-previous-buffer)
 (global-set-key (kbd "S-<f6>")   'ibuffer)
 (global-set-key (kbd "<f6>")     'ido-switch-buffer)
-(global-set-key (kbd "M-n")      'ido-switch-buffer)
-(global-set-key (kbd "M-N")      'rename-buffer)
+(global-set-key (kbd "C-f")      'ido-switch-buffer)
+(global-set-key (kbd "C-S-f")      'rename-buffer)
+
 
 ;; term buffers bindings
 (global-set-key (kbd "s-t")      'visit-ansi-term)
