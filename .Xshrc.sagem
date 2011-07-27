@@ -117,6 +117,7 @@ alias swprb='cmp -s ~/stprobe.env ~/stprobe.env.uc2 && cp -v ~/stprobe.env.uc1 ~
 alias sshmib='ssh admin@190.99.0.141'
 alias sshs='ssh root@$(stbip)'
 alias sshrs='ssh-keygen -R $(stbip);ssh root@$(stbip)'
+alias ssharnb='ssh -X g178452@osnp1263337f'
 alias exchange='nautilus smb://osn02001.osn.sagem/echanges/'
 
 #process management
