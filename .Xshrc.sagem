@@ -329,10 +329,11 @@ function rco {
     confirm "Create tag $tag ? [y/N]"
     if [ $? -eq 0 ] ;then
 	svn copy $url $tagurl -m "bug $bn : [TAG] $tag"
-    fi
-
-    if [ $? -eq 0 ] ;then
-	svn sw $tagurl
+        if [ $? -eq 0 ] ;then
+	    svn sw $tagurl
+        fi
+    else 
+        echo "Tag canceled."
     fi
 }
 
