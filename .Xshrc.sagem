@@ -149,14 +149,15 @@ alias 141=notify141.sh
 # get mail
 alias upm='cat ~/.offlineimap/pid | xargs kill -s USR1'
 
+mib_brand="sagem"
 # mib
-  alias mib-menu='mibpost "mib=$mib_type&text=Set%20page&name=www&type=set&param=http://190.99.0.141/"'
-   alias mib-avc='mibpost "mib=$mib_type&text=Set%20page&name=www&type=set&param=http://190.99.0.141/global/test_hd.html"'
-   alias mib-cti='mibpost "mib=$mib_type&text=Set%20page&name=www&type=set&param=http://190.99.0.141/CTI/live.html"'
-alias mib-hdlive='mibpost "mib=$mib_type&text=Set%20page&name=www&type=set&param=http://190.99.0.141/global/hd_live.php"'
-  alias mib-iadt='mibpost "mib=$mib_type&text=Live&name=live&type=set&param=tv://225.135.0.18:5001&liveip=225.135.0.18&liveport=5001"'
-  alias mib-garb='mibpost "mib=$mib_type&text=Live&name=live&type=set&param=tv://225.104.0.2:5001&liveip=225.135.0.18&liveport=5001"'
-
+  alias mib-menu='mibpost "mib=$mib_brand&text=Set%20page&name=www&type=set&param=http://190.99.0.141/"'
+   alias mib-avc='mibpost "mib=$mib_brand&text=Set%20page&name=www&type=set&param=http://190.99.0.141/global/test_hd.html"'
+   alias mib-cti='mibpost "mib=$mib_brand&text=Set%20page&name=www&type=set&param=http://190.99.0.141/CTI/live.html"'
+alias mib-hdlive='mibpost "mib=$mib_brand&text=Set%20page&name=www&type=set&param=http://190.99.0.141/global/hd_live.php"'
+  alias mib-iadt='mibpost "mib=$mib_brand&text=Live&name=live&type=set&param=tv://225.135.0.18:5001&liveip=225.135.0.18&liveport=5001"'
+  alias mib-garb='mibpost "mib=$mib_brand&text=Live&name=live&type=set&param=tv://225.104.0.2:5001&liveip=225.135.0.18&liveport=5001"'
+alias mib-switch='[ "$mib_brand" = "sagem" ] && mib_brand=thales || mib_brand=sagem; echo $mib_brand'
 
 #############
 # FUNCTIONS #
@@ -346,18 +347,6 @@ function svnsp
             break
         fi
     done
-}
-
-function mib-sw
-{
-    if [ "$mib_type" = "sagem" ]
-        then
-        mib_type="thales"
-        echo mib_type is $mib_type
-        else
-        mib_type="sagem"
-        echo mib_type is $mib_type
-    fi
 }
 
 function mibpost
