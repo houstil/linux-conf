@@ -38,15 +38,3 @@
 (require 'versiondiff-conf)
 
 (require 'apparance-conf)
-
-;; tramp authentification
-(require 'tramp)
-(setq tramp-default-method "ssh")
-
-;; use mingus to pilot my mpd
-(add-to-list 'load-path "~/.emacs.d/mingus")
-(require 'mingus)
-
-
-
-
