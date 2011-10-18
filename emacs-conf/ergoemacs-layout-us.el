@@ -77,6 +77,9 @@
 
 ;;; EMACS'S SPECIAL COMMANDS
 
+; Cancel
+(defconst ergoemacs-keyboard-quit-key			(kbd "M-n"))
+
 ; Mark point.
 (defconst ergoemacs-set-mark-command-key		(kbd "M-SPC"))
 
@@ -96,11 +99,15 @@
 (defconst ergoemacs-query-replace-key                   (kbd "M-5"))
 (defconst ergoemacs-query-replace-regexp-key            (kbd "M-%"))
 
-(defconst ergoemacs-delete-other-windows-key            (kbd "M-&"))
-(defconst ergoemacs-delete-window-key                   (kbd "M-!"))
+(defconst ergoemacs-delete-other-windows-key            (kbd "M-3"))
+;;(defconst ergoemacs-delete-other-windows-key            (kbd "M-&"))
+(defconst ergoemacs-delete-window-key                   (kbd "M-0"))
+;;(defconst ergoemacs-delete-window-key                   (kbd "M-0"))
 
-(defconst ergoemacs-split-window-vertically-key         (kbd "M-é"))
-(defconst ergoemacs-split-window-horizontally-key       (kbd "M-\""))
+;;(defconst ergoemacs-split-window-vertically-key         (kbd "M-é"))
+(defconst ergoemacs-split-window-vertically-key         (kbd "M-4"))
+;;(defconst ergoemacs-split-window-horizontally-key       (kbd "M-\""))
+(defconst ergoemacs-split-window-horizontally-key       (kbd "M-$"))
 
 (defconst ergoemacs-extend-selection-key                (kbd "M-8"))
 (defconst ergoemacs-select-text-in-quote-key            (kbd "M-*"))
