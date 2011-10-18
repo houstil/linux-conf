@@ -29,7 +29,7 @@
 
 (require 'userint-conf)
 
-(require 'mail-conf)
+(require 'connection-conf)
 
 (require 'coding-conf)
 
