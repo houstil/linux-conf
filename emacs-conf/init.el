@@ -2,10 +2,6 @@
 ;; Services - Basics ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 
-;; start the emacs server
-;; (require 'server)
-;; (setq server-host (system-name)
-;;       server-use-tcp t)
 
 ;; Turn off mouse interface early in startup to avoid momentary display
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
