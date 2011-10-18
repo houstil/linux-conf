@@ -19,32 +19,35 @@
 
 (add-hook 'term-mode-hook
           '(lambda ()
-	     (ergoemacs-local-unset-key (kbd "M-u"))
-	     (ergoemacs-local-unset-key (kbd "M-o"))
-	     (ergoemacs-local-unset-key (kbd "M-e"))
-	     (ergoemacs-local-unset-key (kbd "M-r"))
-	     (ergoemacs-local-unset-key (kbd "M-d"))
-	     (ergoemacs-local-unset-key (kbd "M-f"))
-	     (ergoemacs-local-unset-key (kbd "M-i"))
-	     (ergoemacs-local-unset-key (kbd "M-k"))
-	     (ergoemacs-local-unset-key (kbd "M-j"))
-	     (ergoemacs-local-unset-key (kbd "M-l"))
-	     (ergoemacs-local-unset-key (kbd "M-J"))
-	     (ergoemacs-local-unset-key (kbd "M-L"))
-	     (ergoemacs-local-unset-key (kbd "M-g"))
-	     (ergoemacs-local-unset-key (kbd "M-v"))
-	     (ergoemacs-local-unset-key (kbd "<delete>"))
-	     (ergoemacs-local-unset-key (kbd "M-<delete>"))
-	     (ergoemacs-local-unset-key (kbd "C-a"))
-	     (ergoemacs-local-unset-key (kbd "<backspace>"))
-	     (ergoemacs-local-unset-key (kbd "C-<esc>"))
-	     (run-at-time "1 sec" nil '(lambda ()
-					 (local-unset-key (kbd "<tab>"))
-					 (local-unset-key (kbd "|"))
-					 ))
+	     (when ergoemacs-mode
+	       (ergoemacs-local-unset-key (kbd "M-u"))
+	       (ergoemacs-local-unset-key (kbd "M-o"))
+	       (ergoemacs-local-unset-key (kbd "M-e"))
+	       (ergoemacs-local-unset-key (kbd "M-r"))
+	       (ergoemacs-local-unset-key (kbd "M-d"))
+	       (ergoemacs-local-unset-key (kbd "M-f"))
+	       (ergoemacs-local-unset-key (kbd "M-i"))
+	       (ergoemacs-local-unset-key (kbd "M-k"))
+	       (ergoemacs-local-unset-key (kbd "M-j"))
+	       (ergoemacs-local-unset-key (kbd "M-l"))
+	       (ergoemacs-local-unset-key (kbd "M-J"))
+	       (ergoemacs-local-unset-key (kbd "M-L"))
+	       (ergoemacs-local-unset-key (kbd "M-g"))
+	       (ergoemacs-local-unset-key (kbd "M-v"))
+	       (ergoemacs-local-unset-key (kbd "<delete>"))
+	       (ergoemacs-local-unset-key (kbd "M-<delete>"))
+	       (ergoemacs-local-unset-key (kbd "C-a"))
+	       (ergoemacs-local-unset-key (kbd "<backspace>"))
+	       (ergoemacs-local-unset-key (kbd "C-<esc>"))
+	       (ergoemacs-local-unset-key (kbd "<return>"))
+	       (run-at-time "1 sec" nil '(lambda ()
+					   (local-unset-key (kbd "<tab>"))
+					   (local-unset-key (kbd "|"))
+                                           (ergoemacs-local-unset-key (kbd "<return>"))
+					   ))
 	     ;; (define-key elscreen-map "a"    '(lambda () (interactive) (term-send-raw-string "@")) )
-	     (multi-term-keystroke-setup)
-	     )
+	       (multi-term-keystroke-setup)
+	     ))
 	  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -89,6 +92,37 @@
             (ansi-term term-cmd))
         (ansi-term term-cmd)))))
 
+(defun term-send-return ()
+  "Send the return key"
+  (interactive)
+  (term-send-raw-string "\n"))
+
+(defun term-send-esc ()
+  "Send the esc key"
+  (interactive)
+  (term-send-raw-string "\C-["))
+
+(defun term-send-Cz ()
+  "Send the C-z key"
+  (interactive)
+  (term-send-raw-string "\C-z"))
+
+(defun term-send-Cc ()
+  "Send the C-c key"
+  (interactive)
+  (term-send-raw-string "\C-c"))
+
+(defun term-send-yank ()
+  "Send the return key"
+  (interactive)
+  (term-send-raw-string "\C-y"))
+
+(defun term-send-tab ()
+  "Send the tab key"
+  (interactive)
+  (term-send-raw-string "\t"))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; special keys forwarding ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -115,7 +149,7 @@
  ("M-L"			.	term-send-end)
  ("M-J"			.	term-send-home)
  ("M-g"			.	term-send-kill-line-right)
- ("<tab>"		.	term-send-raw)
+ ("<tab>"		.	term-send-tab)
  ("s-:"			.	term-send-reverse-search-history)
  ("s-;"                 .       term-send-search-history)
  ("M-,"			.	term-send-input)
@@ -124,7 +158,7 @@
  ("C-<esc>"		.	term-send-esc)
  ("C-z"			.	term-send-Cz)
  ("C-S-c"		.	term-send-Cc)
- ("<S-return>"		.	term-send-return)
+ ("<return>"		.	term-send-return)
  ))
 
 
