@@ -69,23 +69,27 @@ esac
 # ERGOEMACS LIKE KEYBINDINGS #
 ##############################
 
-if [ $TERM != "eterm-color" ]
+ERGO_ZSH="1"
+if [ $ERGO_ZSH ]
+then
+    if [ $TERM != "eterm-color" ]
     then
 # navigation keys
-    bindkey -e '^[k' down-line-or-history
-    bindkey -e '^[i' up-line-or-history
-    bindkey -e '^[j' backward-char 
-    bindkey -e '^[l' forward-char
-    bindkey -e '^[u' emacs-backward-word
-    bindkey -e '^[o' emacs-forward-word
-    bindkey -e '^[J' beginning-of-line
-    bindkey -e '^[L' end-of-line
+	bindkey -e '^[k' down-line-or-history
+	bindkey -e '^[i' up-line-or-history
+	bindkey -e '^[j' backward-char 
+	bindkey -e '^[l' forward-char
+	bindkey -e '^[u' emacs-backward-word
+	bindkey -e '^[o' emacs-forward-word
+	bindkey -e '^[J' beginning-of-line
+	bindkey -e '^[L' end-of-line
 
 # kill text keys
-    bindkey -e '^[e' backward-delete-word
-    bindkey -e '^[r' delete-word
-    bindkey -e '^[d' backward-delete-char
-    bindkey -e '^[f' delete-char
+	bindkey -e '^[e' backward-delete-word
+	bindkey -e '^[r' delete-word
+	bindkey -e '^[d' backward-delete-char
+	bindkey -e '^[f' delete-char
+    fi
 fi
 
 #####################
