@@ -111,12 +111,12 @@ if [ "$color_prompt" = yes ]
 then
     if [ "$TERM" = "eterm-color" ]; then
 	# PROMPT="\e[32m(\e[0m%M\e[32m)-(\e[0mj:%j\e[32m)-(\e[0m%~\e[32m)\n(\e[0m!%!\e[32m)-%# \e[0m"
-	PROMPT="%B%F{cyan}(%F{grey}%M%F{cyan})-(%F{grey}j:%j%F{cyan})-(%F{grey}%~%F{cyan})
-(%F{grey}!%!%F{cyan})-%# %f%b"
+	PROMPT="%F{cyan}(%F{grey}%M%F{cyan})-(%F{grey}j:%j%F{cyan})-(%F{grey}%~%F{cyan})
+(%F{grey}!%!%F{cyan})-%# %f"
 
     else
-	PROMPT="%B%F{cyan}(%F{white}%M%F{cyan})-(%F{white}j:%j%F{cyan})-(%F{white}%~%F{cyan})
-(%F{white}!%!%F{cyan})-%# %f%b"
+	PROMPT="%F{cyan}(%F{white}%M%F{cyan})-(%F{white}j:%j%F{cyan})-(%F{white}%~%F{cyan})
+(%F{white}!%!%F{cyan})-%# %f"
     fi
 
 else
