@@ -70,9 +70,9 @@ conf_array=(\
     .zshrc "" \
     emc.sh ~/bin/emc.sh \
     terminator.conf ~/.config/terminator.config \
-    .gitconfig ~/.gitconfig \
+#    .gitconfig ~/.gitconfig \
     emacs-conf/bookmarks ~/.emacs.d/bookmarks \
-    emacs-conf/ergoemacs-layout-us.el ~/.emacs.d/ergoemacs-keybindings-5.1/ergoemacs-layout-us.el \
+    emacs-conf/ergoemacs-layout-us.el ~/.emacs.d/el-get/ergoemacs-keybindings/ergoemacs-layout-us.el \
     emacs-conf/init.el ~/.emacs.d/init.el \
     emacs-conf/aliases-conf.el ~/.emacs.d/aliases-conf.el \
     emacs-conf/apparance-conf.el ~/.emacs.d/apparance-conf.el \
@@ -80,11 +80,12 @@ conf_array=(\
     emacs-conf/coding-conf.el ~/.emacs.d/coding-conf.el \
     emacs-conf/files-conf.el ~/.emacs.d/files-conf.el \
     emacs-conf/edit-conf.el ~/.emacs.d/edit-conf.el \
-    emacs-conf/mail-conf.el ~/.emacs.d/mail-conf.el \
+    emacs-conf/connection-conf.el ~/.emacs.d/connection-conf.el \
     emacs-conf/myterm-conf.el ~/.emacs.d/myterm-conf.el \
     emacs-conf/orgmode-conf.el ~/.emacs.d/orgmode-conf.el \
     emacs-conf/userint-conf.el ~/.emacs.d/userint-conf.el \
     emacs-conf/versiondiff-conf.el ~/.emacs.d/versiondiff-conf.el \
+    emacs-conf/pacmans-conf.el ~/.emacs.d/pacmans-conf.el \
 )
 
 for ((i=0; i<${#conf_array[@]};i=i+2))
