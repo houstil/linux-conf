@@ -21,6 +21,11 @@ OPTIONS:
 EOF
 }
 
+########################
+# Variables definition #
+########################
+
+$EMACS_BIN="emacs"
 
 # display a message if verbose is turned on
 function vp() [ $VERBOSE ] && echo $*
@@ -38,13 +43,13 @@ function lisp_kill()
     vp "now displaying a frame"
     is_frame || create_frame
     vp "selecting it"
-    wmctrl -xa emacs
+    wmctrl -xa $EMACS_BIN
     emacsclient -e "(save-buffers-kill-emacs)"
     sleep 1
 }
 
 function get_pid(){
-    local pid=`ps x | grep "[e]macs23 --daemon" | awk '{print $1}'`
+    local pid=`ps x | grep "[e]macs --daemon" | awk '{print $1}'`
     if [ -n "$pid" ]; then
         return $pid
     else
@@ -58,12 +63,12 @@ function brutal_kill()
   sleep 1
 }
 
-function start_server() emacs23 --daemon
+function start_server() $EMACS_BIN --daemon
 
 function is_frame()
 {
     vp "is_frame called"
-    local WID=`wmctrl -l | grep -o "emacs23@rmm"`
+    local WID=`wmctrl -l | grep -o "emacs@rmm"`
     if [ -n "$WID" ] ;then
         vp "frame found"
         return 0
@@ -155,7 +160,7 @@ function main()
         open_file $file $line
     done
 
-    ([ ! $* ] || [ $oo ]) && wmctrl -xa emacs
+    ([ ! $* ] || [ $oo ]) && wmctrl -xa $EMACS_BIN
 
 }
 
