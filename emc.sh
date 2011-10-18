@@ -25,7 +25,7 @@ EOF
 # Variables definition #
 ########################
 
-$EMACS_BIN="emacs"
+EMACS_BIN="emacs"
 
 # display a message if verbose is turned on
 function vp() [ $VERBOSE ] && echo $*
@@ -63,7 +63,10 @@ function brutal_kill()
   sleep 1
 }
 
-function start_server() $EMACS_BIN --daemon
+function start_server()
+{
+    dc $EMACS_BIN --daemon
+}
 
 function is_frame()
 {
@@ -104,7 +107,7 @@ function main()
         case $OPTION in
 	    h)
 	        usage
-	        exit 1
+	        exit 0
 	        ;;
 	    v)
 	        VERBOSE=1
