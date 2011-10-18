@@ -65,6 +65,15 @@ esac
 # to reverse the incremental search in history direction
 # bindkey -e '^[s' history-incremental-search-forward
 
+# to ensure that home and end keys work properly :
+bindkey "^[[1~" beginning-of-line
+bindkey "^[[4~" end-of-line
+bindkey "^[[7~" beginning-of-line
+bindkey "^[[8~" end-of-line
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+
+
 ##############################
 # ERGOEMACS LIKE KEYBINDINGS #
 ##############################
