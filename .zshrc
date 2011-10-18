@@ -194,20 +194,9 @@ _bj () {
     _values 'bookmarks' \
         $_bookmarks
 }
-
-_tarswi () {
-    local -a _targets
-    _targets=( $(cat $target_list |grep -v "C$"|awk '{print $2}') )
-    _values 'targets' \
-        $_targets
-}
-
 compdef _bj bj
 compdef _bj br
 compdef _bj bm
-
-# add some completion for our target switcher
-compdef _tarswi tarswi
 
 
 #################################
