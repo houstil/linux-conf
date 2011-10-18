@@ -14,7 +14,7 @@ bindkey -e
 
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/g178452/.zshrc'
+zstyle :compinstall filename '/home/arnaultj/.zshrc'
 # End of lines added by compinstall
 
 autoload -U select-word-style
