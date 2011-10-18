@@ -49,17 +49,12 @@
 (global-set-key (kbd "S-<f6>")   'ibuffer)
 (global-set-key (kbd "<f6>")     'ido-switch-buffer)
 (global-set-key (kbd "C-f")      'ido-switch-buffer)
-(global-set-key (kbd "C-S-f")      'rename-buffer)
+(global-set-key (kbd "C-S-f")     'rename-buffer)
 
 
 ;; term buffers bindings
 (global-set-key (kbd "s-t")      'visit-ansi-term)
 (global-set-key (kbd "s-T")      'multi-term-restart)
-
-;; set f12 to dired
-(load "~/.emacs.d/dired+.el")
-(toggle-dired-find-file-reuse-dir 1)
-(global-set-key (kbd "s-<f12>") 'dired)
 
 ;; set f7 to query-replace and S-f7 to replace-string
 (global-set-key (kbd "S-<f7>") 'query-replace)
