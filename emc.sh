@@ -71,7 +71,7 @@ function start_server()
 function is_frame()
 {
     vp "is_frame called"
-    local WID=`wmctrl -l | grep -o "emacs@rmm"`
+    local WID=`wmctrl -l | grep -o "emacs@"`
     if [ -n "$WID" ] ;then
         vp "frame found"
         return 0
