@@ -14,11 +14,12 @@
 
 ;; set the load-path
 (add-to-list 'load-path "~/.emacs.d/")
-(add-to-list 'load-path "~/.emacs.d/plugins")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Sub Modules Configuration ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'pacmans-conf)
 
 (require 'bindings-conf)
 

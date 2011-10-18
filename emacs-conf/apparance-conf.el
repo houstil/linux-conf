@@ -21,9 +21,11 @@
 (load "elscreen" "ElScreen" t)
 
 ;; To show corresponding paren
-(require 'paren)
-(show-paren-mode t)
-(setq show-paren-delay 0)
+(pacmans-cload 'paren "paren"
+	       '(lambda ()
+		  (show-paren-mode t)
+		  (setq show-paren-delay 0)
+		  ))
 
 ;; minimal fringe
 (set-fringe-mode 3)
@@ -66,19 +68,26 @@
 
 
 ;; unicad autodetect a file coding system
-(require 'unicad)
-(unicad) ;; enable it
+;; (pacmans-cload 'unicad "unicad"
+;; 	       '(lambda () 
+;; 		  (unicad) ;; enable it
+;; 		  ))
 
 ;; to show useless whitespaces
-;; (require 'show-wspace) ;
+;; (pacmans-cload 'show-wspace "show-wspace" nil)
+
 
 ;; to show colored-matching parren
-(require 'highlight-parentheses)
-(highlight-parentheses-mode t)
+(pacmans-cload 'highlight-parentheses "highlight-parentheses"
+	'(lambda () 
+	   (highlight-parentheses-mode t)
+))
 
 ;; to show parentheses matching line in minibuffer
-(require 'mic-paren) ; loading
-(paren-activate)     ; activating
+(pacmans-cload 'mic-paren "mic-paren"
+	       '(lambda ()
+		  (paren-activate)     ; activating
+		  ))
 
 (defun hide-dos-eol ()
   "Removes the disturbing '^M' showing up in files containing mixed UNIX and DOS line endings."
@@ -108,14 +117,17 @@
 ;;;;;;;;;;;;;;;;;;
 
 ;; additionnals color themes
-(require 'color-theme)
+(pacmans-cload 'color-theme "color-theme" 
+	       '(lambda ()
+                  (color-theme-initialize)
+		  ;;(color-theme-comidia)
+		  ))
 
-;; zenbern is a low-contrast eye-friendly theme
-(require 'zenburn)
-(color-theme-zenburn)
-
-;; (color-theme-comidia)
-
+;; zenburn is a low-contrast eye-friendly theme
+(pacmans-cload 'zenburn "zenburn"
+	       '(lambda () 
+		  (color-theme-zenburn)
+	       ))
 
 (provide 'apparance-conf)
 

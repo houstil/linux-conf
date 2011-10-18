@@ -1,6 +1,6 @@
 
 ;; to get quick terminals :
-(require 'multi-term)
+(pacmans-cload 'multi-term "multi-term" nil)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; configuration ;;

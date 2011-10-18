@@ -24,48 +24,57 @@
 (setq x-select-enable-clipboard t)
 
 ;; require smart tab : expand or indent on tab hit
-(require 'smart-tab)
-(global-set-key (kbd "<tab>") 'smart-tab)
+(pacmans-cload
+ 'smart-tab
+ "smart-tab"
+ (lambda () (progn
+	      ;; smart-tab use hippie expand :
+	      (setq hippie-expand-try-functions-list '(yas/hippie-try-expand
+						       ;; senator-try-expand-semantic
+						       try-expand-dabbrev
+						       try-expand-dabbrev-all-buffers
+						       try-expand-dabbrev-from-kill
+						       try-complete-file-name-partially
+						       try-complete-file-name
+						       try-expand-all-abbrevs
+						       try-expand-list
+						       try-expand-line
+						       try-complete-lisp-symbol-partially
+						       try-complete-lisp-symbol
+						       ))
 
-;; smart-tab use hippie expand :
-(setq hippie-expand-try-functions-list '(yas/hippie-try-expand
-					 ;; senator-try-expand-semantic
-					 try-expand-dabbrev
-					 try-expand-dabbrev-all-buffers
-					 try-expand-dabbrev-from-kill
-					 try-complete-file-name-partially
-					 try-complete-file-name
-					 try-expand-all-abbrevs
-					 try-expand-list
-					 try-expand-line
-					 try-complete-lisp-symbol-partially
-					 try-complete-lisp-symbol
-					 ))
 
 
-
-;; special cases for tab
-(add-hook 'compilation-mode-hook
-          '(lambda ()
-            (when (current-local-map)
-              (use-local-map (copy-keymap (current-local-map))))
-             (local-set-key (kbd "<tab>") 'compilation-next-error)
-	     ))
+	      ;; special cases for tab
+	      (add-hook 'compilation-mode-hook
+			'(lambda ()
+			   (when (current-local-map)
+			     (use-local-map (copy-keymap (current-local-map))))
+			   (local-set-key (kbd "<tab>") 'compilation-next-error)
+			   )))))
 
 ;; forbid dabbrev to change case
 (setq dabbrev-case-replace nil)
 
 ;; use undo-tree
-(require 'undo-tree)
+(pacmans-cload
+ 'undo-tree
+ "undo-tree"
+ nil)
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Text Navigation ;;
 ;;;;;;;;;;;;;;;;;;;;;
 
 ;; to quickly jump to last change :
-(require 'goto-chg)
-(global-set-key (kbd "s-h") 'goto-last-change)
-(global-set-key (kbd "s-H") 'goto-last-change-reverse)
+(pacmans-cload
+ 'goto-chg
+ "goto-chg"
+ (lambda () (progn
+     (global-set-key (kbd "s-h") 'goto-last-change)
+     (global-set-key (kbd "s-H") 'goto-last-change-reverse)
+     )))
+
 
 ;; define an additionnal function to open file at line
 (defun find-file-at-line (file line)
@@ -78,25 +87,24 @@
 (global-set-key (kbd "s-g") 'goto-line)
 
 ;; Use breadcrumb for easy bookmarking
-(require 'breadcrumb)
-(global-set-key [(super f2)]            'bc-set)
-(global-set-key [(f2)]                  'bc-previous)
-(global-set-key [(shift f2)]            'bc-next)
-(global-set-key [(super shift f2)]      'bc-list)
-
-;; Enhance bookmark :
-(setq
-  bookmark-default-file "~/.emacs.d/bookmarks" ;; keep my ~/ clean
-  bookmark-save-flag 1)                        ;; autosave each change)
-
-(require 'bookmark+)
-(global-set-key (kbd "<f10>") 'bookmark-jump)
-(global-set-key (kbd "C-<f10>") 'bookmark-set)
-(global-set-key (kbd "s-<f10>") 'bookmark-bmenu-list)
+(pacmans-cload
+ 'breadcrumb
+ "breadcrumb"
+ '(lambda ()
+    (global-set-key [(super f2)]            'bc-set)
+    (global-set-key [(f2)]                  'bc-previous)
+    (global-set-key [(shift f2)]            'bc-next)
+    (global-set-key [(super shift f2)]      'bc-list)
+    ))
 
 ;; use lazy key for quick search
-(require 'lazy-search)
-(global-set-key (kbd "M-y") 'lazy-search-menu)
+(pacmans-cload
+ 'lazy-search
+ "lazy-search"
+ (lambda (progn
+	   (global-set-key (kbd "M-y") 'lazy-search-menu)
+	   )))
+
 
 ;; Non case-sensitive searches
 (setq case-fold-search t)

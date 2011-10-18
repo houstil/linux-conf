@@ -14,12 +14,10 @@
              ediff-current-diff-face-B)))
 
 ;; use git with egg for ediff git diff
-(add-to-list 'load-path "~/.emacs.d/egg")
-(require 'egg)
+(pacmans-cload 'egg "egg" nil)
 
 ;; use psvn for in emacs svn use
-;; (require 'psvn)
-(require 'vc-svn)
+(pacmans-cload 'vc-svn "vc-svn" nil)
 
 (provide 'versiondiff-conf)
 

@@ -2,21 +2,48 @@
 (setq backup-directory-alist `(("." . "~/.saves")))
 (setq backup-by-copying t)
 
+
+;; Enhance bookmark :
+(setq
+  bookmark-default-file "~/.emacs.d/bookmarks" ;; keep my ~/ clean
+  bookmark-save-flag 1)                        ;; autosave each change)
+
+;; (pacmans-cload
+;;  'bookmark+
+;;  "bookmark+"
+;;  (lambda (progn 
+;; 	   (global-set-key (kbd "<f10>") 'bookmark-jump)
+;; 	   (global-set-key (kbd "C-<f10>") 'bookmark-set)
+;; 	   (global-set-key (kbd "s-<f10>") 'bookmark-bmenu-list)
+;; 	   )))
+
+;; ;; set f12 to dired
+;; (pacmans-cload 'dired+ "dired+"
+;; 	       '(lambda () (toggle-diredp-find-file-reuse-dir 1)))
+
+;; (global-set-key (kbd "s-<f12>") 'dired)
+
+
+
 ;; to easily distinct homonyme buffers
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward)
+(pacmans-cload 'uniquify "uniquify"
+ '(lambda () (setq uniquify-buffer-name-style 'post-forward)))
+
 
 ;; to open recent files
-(require 'recentf)
-(recentf-mode 1)
+(setq save-place-file "~/.emacs.d/saveplace") ;; keep my ~/ clean
+
+(pacmans-cload 'recentf "recentf"
+ '(lambda () (recentf-mode 1)))
 
 ;; to quickly explore files and buffers
-(require 'lusty-explorer)
+(pacmans-cload 'lusty-explorer "lust-explorer"
+ '(lambda () ))
 
 ;; to easily revert a buffer
 (global-set-key (kbd "s-r") '(lambda () (interactive) (revert-buffer nil t)))
 
-(require 'ffap-)
+;; (pacmans-cload 'ffap- "ffap-" nil)
 
 ;; use mouse to open files
 (global-set-key (kbd "s-<mouse-1>") 'ffap-other-window)
@@ -47,9 +74,11 @@
     ))
 
 ;; to save your last place in a file at closing
-(require 'saveplace)                          ;; get the package
-(setq save-place-file "~/.emacs.d/saveplace") ;; keep my ~/ clean
-(setq-default save-place t)                   ;; activate it for all buffers
+(pacmans-cload 'saveplace "saveplace"
+	       '(lambda () 
+		  (setq save-place-file "~/.emacs.d/saveplace") ;; keep my ~/ clean
+		  (setq-default save-place t)                   ;; activate it for all buffers
+))
 
 
 ;; THIS IS MY CONF

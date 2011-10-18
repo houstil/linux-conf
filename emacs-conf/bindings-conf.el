@@ -1,38 +1,45 @@
 ;; load ErgoEmacs keybinding
-(load "~/.emacs.d/ergoemacs-keybindings-5.1/ergoemacs-mode")
+(pacmans-cload
+ 'ergoemacs-mode
+ "ergoemacs"
+ '(lambda ()
+    (progn
+     ;; turn on minor mode ergoemacs-mode
+     (ergoemacs-mode 1)
 
-;; ergoemacs corrections
-(add-hook 'minibuffer-setup-hook
-          '(lambda ()
-	     (ergoemacs-local-unset-key (kbd "M-i"))
-	     (ergoemacs-local-unset-key (kbd "M-k"))
-	     (ergoemacs-local-unset-key (kbd "C-f"))
-	     ))
+     ;; choose the us layout
+     (setq ergoemacs-keyboard-layout "us")
 
-(define-key minibuffer-local-map (kbd "M-i")    'previous-history-element)
-(define-key minibuffer-local-map (kbd "M-k")    'next-history-element)
+     ;; ergoemacs corrections
+     (add-hook 'minibuffer-setup-hook
+	       '(lambda ()
+		  (ergoemacs-local-unset-key (kbd "M-i"))
+		  (ergoemacs-local-unset-key (kbd "M-k"))
+		  (ergoemacs-local-unset-key (kbd "C-f"))
+		  ))
 
-(global-set-key (kbd "s-:") 'search-backward-regexp)
-(global-set-key (kbd "s-;") 'search-forward-regexp)
+     (define-key minibuffer-local-map (kbd "M-i")    'previous-history-element)
+     (define-key minibuffer-local-map (kbd "M-k")    'next-history-element)
 
-;; frame movement
-(global-set-key (kbd "s-i") 'windmove-up)
-(global-set-key (kbd "s-k") 'windmove-down)
-(global-set-key (kbd "s-j") 'windmove-left)
-(global-set-key (kbd "s-l") 'windmove-right)
+     (global-set-key (kbd "s-:") 'search-backward-regexp)
+     (global-set-key (kbd "s-;") 'search-forward-regexp)
 
-;; turn on minor mode ergoemacs-mode
-(ergoemacs-mode 1)
+     ;; frame movement
+     (global-set-key (kbd "s-i") 'windmove-up)
+     (global-set-key (kbd "s-k") 'windmove-down)
+     (global-set-key (kbd "s-j") 'windmove-left)
+     (global-set-key (kbd "s-l") 'windmove-right)
+
+     ;; disabling this boring print command
+     (global-unset-key (kbd "C-p"))
+     )))
 
 ;; no hilights back to point command
 (global-set-key (kbd "s-b") '(lambda () (interactive) (exchange-point-and-mark t)))
 
 ;; comment and uncomment bindings
-(global-set-key (kbd "M-4") 'comment-box)
-(global-set-key (kbd "s-'") 'comment-or-uncomment-region)
-
-;; disabling this boring print command
-(global-unset-key (kbd "C-p"))
+(global-set-key (kbd "s-\"") 'comment-box)
+(global-set-key (kbd "M-\"") 'comment-or-uncomment-region)
 
 ;; buffer switching bindings
 (defun switch-to-previous-buffer ()

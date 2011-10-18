@@ -2,9 +2,11 @@
 (setq vc-follow-symlinks t)
 
 ;; set Sagem-Code tab length
-(add-to-list 'load-path "~/.emacs.d/dtrt-indent")
-(require 'dtrt-indent)
-(dtrt-indent-mode 1)
+(pacmans-cload 'dtrt-indent "dtrt-indent"
+	       (lambda () 
+		 (dtrt-indent-mode 1)
+		 ))
+
 (setq tab-width 3)
 (setq-default indent-tabs-mode nil)
 (setq-default c-basic-offset 3)
@@ -15,7 +17,6 @@
             (setq c-basic-offset 3)
             )
           )
-
 
 ;; Load CEDET.
 ;; See cedet/common/cedet.info for configuration details.
@@ -68,9 +69,10 @@
 ;; (add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
 
 ;; auto-pairs : to aumatically insert matching pairs
-(require 'autopair)
-(autopair-global-mode) ;; to enable in all buffers
-
+(pacmans-cload 'autopair "autopair" 
+	       '(lambda () 
+		 (autopair-global-mode) ;; to enable in all buffers
+		 ))
 
 (defun set-indent-newline-and-indent ()
   "Indent"
@@ -89,7 +91,6 @@
   (interactive)
   (set-indent-yank)
   (set-indent-newline-and-indent)
-  (highlight-parentheses-mode t)
   )
 
 ;; c-mode configuration
@@ -153,24 +154,27 @@
 
 
 ;; to yasnippet snippets for faster editing
-(setq yas/trigger-key "M-@")
-(setq yas/wrap-around-region t)
-(setq yas/fallback-behavior nil)
-(require 'yasnippet-bundle)
+(pacmans-cload  'yasnippet-bundle "yasnippet"
+		'(lambda () 
+		  (setq yas/trigger-key "M-@")
+		  (setq yas/wrap-around-region t)
+		  (setq yas/fallback-behavior nil)
 
-;; (setq yas/prompt-functions '(yas/dropdown-prompt
-;; 			     yas/ido-prompt
-;; 			     yas/completing-prompt))
-(setq yas/prompt-functions '(yas/ido-prompt
-			     yas/completing-prompt))
+		  (setq yas/prompt-functions '(yas/dropdown-prompt
+		  			     yas/ido-prompt
+		  			     yas/completing-prompt))
+		  (setq yas/prompt-functions '(yas/ido-prompt
+		  			       yas/completing-prompt))
 
-;; Develop in ~/emacs.d/mysnippets, but also
-;; try out snippets in ~/.emacs.d/snippets
-(setq yas/root-directory '("~/.emacs.d/mysnippets"
-                           "~/.emacs.d/snippets"))
+		  ;; Develop in ~/emacs.d/mysnippets, but also
+		  ;; try out snippets in ~/.emacs.d/snippets
+                  (if (file-exists-p "~/.emacs.d/mysnippets")
+                      (setq yas/root-directory "~/.emacs.d/mysnippets")
+                    (make-directory "~/.emacs.d/mysnippets"))
 
-;; Map `yas/load-directory' to every element
-(mapc 'yas/load-directory yas/root-directory)
+		  ;; ;; Map `yas/load-directory' to every element
+		  ;; (mapc 'yas/load-directory yas/root-directory)
+		  ))
 
 ;; build a quote from selected text :
 (defun quote-region ()
@@ -178,7 +182,9 @@
   (interactive)
   (if (buffer-file-name)
       (kill-new (concat buffer-file-name ":" (number-to-string (line-number-at-pos)) ":\n" (buffer-substring-no-properties (region-beginning) (region-end))))
-    (message "This buffer has no name ")))
+    (message "This buffer has no name "))) ;
+
 (global-set-key (kbd "s-q") 'quote-region)
 
 (provide 'coding-conf)
+
