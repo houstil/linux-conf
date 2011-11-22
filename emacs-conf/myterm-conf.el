@@ -85,7 +85,7 @@
     (if is-term
         (if is-running
             (if (string= "*ansi-term*" (buffer-name))
-                (call-interactively 'rename-buffer)
+                (call-interactively 'rename-dynb)
               (if anon-term
                   (switch-to-buffer "*ansi-term*")
                 (ansi-term term-cmd)))
@@ -128,6 +128,10 @@
   (interactive)
   (term-send-raw-string "\t"))
 
+;; to ensure that no we don't erase full words in bash
+(defadvice term-send-backward-kill-word (around term-send-backward-delim activate)
+  (term-send-raw-string "\e\b"))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; special keys forwarding ;;
@@ -160,8 +164,8 @@
  ("s-;"                 .       term-send-search-history)
  ("M-,"			.	term-send-input)
  ("M-."			.	comint-dynamic-complete)
- ("M-v"			.	term-send-yank)
- ("C-<esc>"		.	term-send-esc)
+ ("M-v"			.	term-paste)
+ ("C-`" 		.	term-send-esc)
  ("C-z"			.	term-send-Cz)
  ("C-S-c"		.	term-send-Cc)
  ("<return>"		.	term-send-return)
