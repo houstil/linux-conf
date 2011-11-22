@@ -4,7 +4,7 @@
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+    export PATH="$HOME/bin:$PATH"
 fi
 
 # If not running interactively, don't do anything
@@ -23,6 +23,12 @@ if [ "$(hostname)" = "rmm-p1199155f" -o "$(hostname)" = "rmm-p1186948" ]
     source ~/linux-conf/.Xshrc.sagem
 fi
 
+if [ "$(hostname)" = "arnaultj-vb-archlinux" ]
+    then
+    source ~/linux-conf/.Xshrc.tch
+fi
+
+
 ##################
 # COMMON ALIASES #
 ##################
@@ -39,16 +45,16 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-#emacs
+# emacs
 alias e=~/linux-conf/emc.sh
 
-#root access
+# root access
 alias sur='sudo -s'
 
-#shell interaction
+# shell interaction
 alias ro='xargs xdotool type; xdotool key ctrl+a'
 
-#directory navigation
+# directory navigation
 alias c1='cd ~1'
 alias c2='cd ~2'
 alias c3='cd ~3'
@@ -63,7 +69,7 @@ alias b='cd ..'
 alias f='cd -'
 alias c=cd
 
-#search
+# search
 alias stp='find $PWD -maxdepth 1 -name '
 alias fis='find . -name "*.[ch]" | xargs grep -n'
 alias fih='find . -name "*.h" | xargs grep -n'
@@ -74,24 +80,24 @@ alias crtags="find . -name '*.[ch]' | xargs etags"
 alias g='grep -r -s --exclude=TAGS --color --exclude-dir=".svn"'
 alias gv='grep -v -s --color'
 
-#process management
+# process management
 alias k='kill %'
 alias c=cd
 alias jo=jobs
 alias ka='killall'
 alias gps='ps aux | grep -v grep | grep'
 
-#xclip
+# xclip
 alias xci='xclip -sel clip'
 alias xco='xclip -o'
 
-#list
+# list
 alias ll='ls -l'
 alias la='ls -A'
 alias lla='ls -la'
 alias l='ls'
 
-#link, file and directory management
+# link, file and directory management
 alias t=touch
 alias cm=chmod
 alias ul=unlink
@@ -99,10 +105,10 @@ alias sl='ln -s'
 alias cpd='cp -r'
 alias rmd='rm -rf'
 
-#file display
+# file display
 alias le='less'
 
-#apt-get
+# apt-get
 alias acs='apt-cache search'
 alias ach='apt-cache showpkg'
 alias agi='apt-get install'
@@ -111,19 +117,19 @@ alias agu='apt-get update'
 alias agp='apt-get purge'
 alias agg='apt-get upgrade'
 
-#environment
+# environment
 alias eo='echo'
 alias wg=wget
 alias exp=export
 alias s=source
 
-#tools
+# tools
 alias th='nohup thunar &'
 alias sc=screen
 alias mini='minicom -o'
 alias xa=xargs
 
-#svn
+# svn
 alias svndm='svn diff --diff-cmd meld'
 alias svni='svn info'
 alias svnd='svn diff'
@@ -139,7 +145,7 @@ alias svno='svn co'
 alias svnc='svn ci'
 alias svnlu='svn info | grep "^URL:" | grep "http://\([^/]*/\)*" -o | tr -d "\n" | xargs -0 svn ls'
 
-#git
+# git
 alias gits='git status'
 alias gito='git checkout'
 alias gitc='git commit'
@@ -152,17 +158,20 @@ alias gitcl='git clone'
 alias gith='git show'
 alias gitd='git diff'
 
-#python
+# python
 alias py=python
 
-#network
+# network
 alias ifc='ifconfig'
 
-#synergyc
+# synergyc
 alias rsys='ka synergys ; synergys'
 
-#history
+# history
 alias h=history
+
+# x configration
+alias swl='[ -z "`setxkbmap -print |grep xkb_symbols|grep fr`" ] && setxkbmap fr || setxkbmap us'
 
 ####################
 # COMMON FUNCTIONS #

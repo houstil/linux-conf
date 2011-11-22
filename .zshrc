@@ -146,6 +146,7 @@ alias i='pushd .;pushd +1'
 alias j=bj
 
 alias rb='source ~/.zshrc'
+alias eb='~/bin/emc.sh ~/.zshrc'
 
 
 #################

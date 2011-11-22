@@ -64,9 +64,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1="\[\e[32;1m\](\[\e[37;1m\]\h\[\e[32;1m\])-(\[\e[37;1m\]j:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\])\n(\[\e[37;1m\]!\!\[\e[32;1m\])-\$ \[\e[0m\]"
+    PS1="\[\e[0;32m\](\[\e[0;37m\]\h\[\e[0;32m\])-(\[\e[0;37m\]j:\j\[\e[0;32m\])-(\[\e[0;37m\]\w\[\e[0;32m\])\n(\[\e[0;37m\]!\!\[\e[0;32m\])-\$ \[\e[0m\]"
     if [ "$TERM" = "eterm-color" ]; then
-    PS1="\e[32;1m(\e[0m\h\e[32;1m)-(\e[0mj:\j\e[32;1m)-(\e[0m\w\e[32;1m)\n(\e[0m!\!\e[32;1m)-\$ \e[0m"
+    PS1="\e[0;32m(\e[0m\h\e[0;32m)-(\e[0mj:\j\e[0;32m)-(\e[0m\w\e[0;32m)\n(\e[0m!\!\e[0;32m)-\$ \e[0m"
     fi
 else
     PS1="(\h)-(j:\j)-(\w)\n(!\!)-\$ "
@@ -89,6 +89,7 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+
 ##############################
 # ERGOEMACS LIKE KEYBINDINGS #
 ##############################
@@ -98,24 +99,25 @@ set -o emacs
 if [ "$TERM" != "eterm-color" ]
     then
 # navigation keys
-    bind -m emacs '"\M-k": next-history'
-    bind -m emacs '"\M-i": previous-history'
-    bind -m emacs '"\M-j": backward-char'
-    bind -m emacs '"\M-l": forward-char'
-    bind -m emacs '"\M-u": backward-word'
-    bind -m emacs '"\M-o": forward-word'
-    bind -m emacs '"\M-J": beginning-of-line'
-    bind -m emacs '"\M-L": end-of-line'
+    bind -m emacs '"\ek": next-history'
+    bind -m emacs '"\ei": previous-history'
+    bind -m emacs '"\ej": backward-char'
+    bind -m emacs '"\el": forward-char'
+    bind -m emacs '"\eu": backward-word'
+    bind -m emacs '"\eo": forward-word'
+    bind -m emacs '"\eJ": beginning-of-line'
+    bind -m emacs '"\eL": end-of-line'
 
 # kill text keys
-    bind -m emacs '"\M-e": backward-kill-word'
-    bind -m emacs '"\M-r": kill-word'
-    bind -m emacs '"\M-d": backward-delete-char'
-    bind -m emacs '"\M-f": delete-char'
+    bind -m emacs '"\ee": backward-kill-word'
+    bind -m emacs '"\er": kill-word'
+    bind -m emacs '"\ed": backward-delete-char'
+    bind -m emacs '"\ef": delete-char'
+    bind -m emacs '"\eg": kill-line'
 
 # isearch keys
-    bind -m emacs '"\M-;": forward-search-history'
-    bind -m emacs '"\M-:": reverse-search-history'
+    bind -m emacs '"\e;": forward-search-history'
+    bind -m emacs '"\e:": reverse-search-history'
 fi
 
 ################
@@ -127,6 +129,7 @@ alias i='pushd . > /dev/null ; pushd -n +1;dirs -v | grep -v "^ 0" '
 alias d='dirs -v | grep -v "^ 0"'
 
 alias rb='source ~/.bashrc'
+alias eb='~/bin/emc.sh ~/.bashrc'
 
 ##################
 # BASH FUNCTIONS #
@@ -146,3 +149,4 @@ function en {
 #################################
 
 source ~/linux-conf/.Xshrc.shared
+
