@@ -9,16 +9,19 @@
   (winner-mode 1))
 
 ;; elscreen - screen like windows management in emacs
-(add-to-list 'load-path "~/.emacs.d/elscreen-1.4.6")
-(setq elscreen-prefix-key "@")
-;; to be able to use the @ key in term mode :
-(add-hook 'term-mode-hook 
-	  '(lambda ()
-	     (when (current-local-map)
-	       (use-local-map (copy-keymap (current-local-map)))
-	       (local-set-key (kbd "@ a") '(lambda () (interactive)(term-send-raw-string "@"))))
-	     ))
-(load "elscreen" "ElScreen" t)
+;; (pacmans-cload 'elscreen "elscreen" 
+;;                '(lambda ()
+;;                   (add-to-list 'load-path "~/.emacs.d/elscreen-1.4.6")
+;;                   (setq elscreen-prefix-key "@")
+;;                   ;; to be able to use the @ key in term mode :
+;;                   (add-hook 'term-mode-hook 
+;;                             '(lambda ()
+;;                                (when (current-local-map)
+;;                                  (use-local-map (copy-keymap (current-local-map)))
+;;                                  (local-set-key (kbd "@ a") '(lambda () (interactive)(term-send-raw-string "@"))))
+;;                                ))
+;;                   (load "elscreen" "ElScreen" t)
+;;                   ))
 
 ;; To show corresponding paren
 (pacmans-cload 'paren "paren"

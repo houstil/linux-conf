@@ -64,6 +64,12 @@
     (ansi-term "/bin/zsh")
     (rename-buffer term-buffer-name)))
 
+(defun rename-dynb ()
+  "Rename a dynamic buffer"
+  (interactive)
+  (rename-buffer (completing-read "Rename dynamic buffer (to new name): " nil nil nil '("**" . 1) () ))
+  )
+
 (defun visit-ansi-term ()
   "If the current buffer is:
      1) a running ansi-term named *ansi-term*, rename it.
