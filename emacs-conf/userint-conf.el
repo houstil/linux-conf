@@ -40,10 +40,13 @@
 
                   ;; use ergoemacs keys when in ido minibuffer
                   (add-hook 'ido-minibuffer-setup-hook
-                            (lambda ()
-                              (local-set-key (kbd "M-j") 'ido-prev-match)
-                              (local-set-key (kbd "M-l") 'ido-next-match)
-                              ))
+                            '(lambda ()
+                               (when ergoemacs-mode
+                                 (progn
+                                   (local-set-key (kbd "M-j") 'ido-prev-match)
+                                   (local-set-key (kbd "M-l") 'ido-next-match)
+                                   ))
+                               ))
 		  ))
                               
 ;; smex, to easily searchf an emacs command
