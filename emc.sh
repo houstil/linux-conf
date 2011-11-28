@@ -85,12 +85,12 @@ function create_frame() dc emacsclient -n -c
 
 function open_file()
 {
-    if [ ! -f "$1" ]; then
-        wmctrl -ia $wid
-        echo "$1 does not exist, create it ? [n/Y]"
-        read creation
-        if [ "$creation" = "n" ]; then return 0; fi
-    fi
+    # if [ ! -f "$1" ]; then
+    #     wmctrl -ia $wid
+    #     echo "$1 does not exist, create it ? [n/Y]"
+    #     read creation
+    #     if [ "$creation" = "n" ]; then return 0; fi
+    # fi
 
     if [ -n "$2" ]; then
         dc emacsclient -n -e "(find-file-at-line \"$1\" $2)"
