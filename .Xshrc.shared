@@ -23,7 +23,7 @@ if [ "$(hostname)" = "rmm-p1199155f" -o "$(hostname)" = "rmm-p1186948" ]
     source ~/linux-conf/.Xshrc.sagem
 fi
 
-if [ "$(hostname)" = "arnaultj-vb-archlinux" ]
+if [ "$(hostname)" = "arnaultj-vb-archlinux" -o "$(hostname)" = "renndlxrdl3169" ]
     then
     source ~/linux-conf/.Xshrc.tch
 fi
@@ -172,6 +172,17 @@ alias h=history
 
 # x configration
 alias swl='[ -z "`setxkbmap -print |grep xkb_symbols|grep fr`" ] && setxkbmap fr || setxkbmap us'
+
+if [ -n "$(which apt-get)" ];then
+    # aptitude aliases
+    alias agi='sudo aptitude install'
+    alias agu='sudo aptitude update'
+    alias agd='sudo aptitude dist-upgrade'
+    alias agc='sudo aptitude clean'
+    alias agr='sudo aptitude remove'
+    alias ags='sudo aptitude search'
+    alias agac='sudo aptitude autoclean' 
+fi
 
 ####################
 # COMMON FUNCTIONS #
