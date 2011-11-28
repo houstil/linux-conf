@@ -1,5 +1,9 @@
 ;; Helper module to enhance el-get and elpa integration into my init scripts
 
+;; let's add some proxy settings
+(setq url-proxy-services '(("http"  . "localhost:3128") 
+                          ("https" . "localhost:3128")))
+
 (defun pacmans-recursive-add-subdirs (dir)
   "This add every subdirs of the given directory to the load path"
   (add-to-list 'load-path dir)

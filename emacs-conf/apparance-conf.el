@@ -28,7 +28,8 @@
 	       '(lambda ()
 		  (show-paren-mode t)
 		  (setq show-paren-delay 0)
-		  ))
+		  )
+               nil)
 
 ;; minimal fringe
 (set-fringe-mode 3)

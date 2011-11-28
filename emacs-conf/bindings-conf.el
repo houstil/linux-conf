@@ -24,6 +24,9 @@
      (global-set-key (kbd "s-:") 'search-backward-regexp)
      (global-set-key (kbd "s-;") 'search-forward-regexp)
 
+     (global-set-key (kbd "C-S-f")     'rename-buffer)
+     (global-set-key (kbd "C-f")      'ido-switch-buffer)
+
      ;; frame movement
      (global-set-key (kbd "s-i") 'windmove-up)
      (global-set-key (kbd "s-k") 'windmove-down)
@@ -50,8 +53,6 @@
 (global-set-key (kbd "C-<tab>")  'switch-to-previous-buffer)
 (global-set-key (kbd "S-<f6>")   'ibuffer)
 (global-set-key (kbd "<f6>")     'ido-switch-buffer)
-(global-set-key (kbd "C-f")      'ido-switch-buffer)
-(global-set-key (kbd "C-S-f")     'rename-buffer)
 
 
 ;; term buffers bindings
