@@ -41,13 +41,17 @@
                   ;; use ergoemacs keys when in ido minibuffer
                   (add-hook 'ido-minibuffer-setup-hook
                             '(lambda ()
-                               (when ergoemacs-mode
-                                 (progn
+                               	(when (boundp 'ergoemacs-mode)
+				 (when ergoemacs-mode
+                               	 (progn
                                    (local-set-key (kbd "M-j") 'ido-prev-match)
                                    (local-set-key (kbd "M-l") 'ido-next-match)
                                    ))
-                               ))
-		  ))
+                               	)))
+		  )
+	       nil ;; should already be in emacs
+	       )
+
                               
 ;; smex, to easily searchf an emacs command
 ;; (setq smex-save-file "~/.emacs.d/smex.save") ;; keep my ~/ clean

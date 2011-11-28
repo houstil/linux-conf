@@ -89,17 +89,19 @@
 ;; (require 'smtpmail)
 
 ;; jabber.el : a xmpp client in emacs
-(pacmans-cload 'jabber "jabber" nil)
+(pacmans-cload 'jabber "jabber" nil '(lambda () (el-get-install "emacs-jabber")))
 
 
 ;; tramp authentification
 (pacmans-cload 'tramp "tramp"
 	       '(lambda () 
 		  (setq tramp-default-method "ssh")
-		  ))
+		  )
+	       nil ;;tramp should already be in emacs 
+)
 
 ;; use mingus to pilot my mpd
-;; (pacmans-cload 'mingus "mingus" nil)
+;; (pacmans-cload 'mingus "mingus" nil '(lambda () (el-get-install "mingus")))
 		 
 
 (provide 'connection-conf)

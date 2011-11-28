@@ -3,9 +3,9 @@
 
 ;; set Sagem-Code tab length
 (pacmans-cload 'dtrt-indent "dtrt-indent"
-	       (lambda () 
-		 (dtrt-indent-mode 1)
-		 ))
+	       '(lambda () (dtrt-indent-mode 1))
+	       '(lambda () (el-get-install "dtrt-indent"))
+	       )
 
 (setq tab-width 3)
 (setq-default indent-tabs-mode nil)
@@ -72,7 +72,9 @@
 (pacmans-cload 'autopair "autopair" 
 	       '(lambda () 
 		 (autopair-global-mode) ;; to enable in all buffers
-		 ))
+		 )
+	       '(lambda () (el-get-install "autopair"))
+	       )
 
 (defun set-indent-newline-and-indent ()
   "Indent"
@@ -174,7 +176,9 @@
 
 		  ;; ;; Map `yas/load-directory' to every element
 		  ;; (mapc 'yas/load-directory yas/root-directory)
-		  ))
+		  )
+		'(lambda () (el-get-install "yasnippet"))
+)
 
 ;; build a quote from selected text :
 (defun quote-region ()

@@ -83,14 +83,16 @@
 ;; to show colored-matching parren
 (pacmans-cload 'highlight-parentheses "highlight-parentheses"
 	'(lambda () 
-	   (highlight-parentheses-mode t)
-))
+	   (highlight-parentheses-mode t))
+        '(lambda () (el-get-install "highlight-parentheses"))
+        )
 
 ;; to show parentheses matching line in minibuffer
 (pacmans-cload 'mic-paren "mic-paren"
 	       '(lambda ()
 		  (paren-activate)     ; activating
-		  ))
+		  )
+               '(lambda () (auto-install-from-url "http://www.emacswiki.org/emacs/download/mic-paren.el")))
 
 (defun hide-dos-eol ()
   "Removes the disturbing '^M' showing up in files containing mixed UNIX and DOS line endings."
@@ -124,13 +126,16 @@
 	       '(lambda ()
                   (color-theme-initialize)
 		  ;;(color-theme-comidia)
-		  ))
+		  )
+               '(lambda () (el-get-install "color-theme"))
+               )
 
 ;; zenburn is a low-contrast eye-friendly theme
 (pacmans-cload 'zenburn "zenburn"
 	       '(lambda () 
-		  (color-theme-zenburn)
-	       ))
+		  (color-theme-zenburn))
+               '(lambda () (el-get-install "color-theme-zenburn"))
+               )
 
 (provide 'apparance-conf)
 

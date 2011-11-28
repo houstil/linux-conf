@@ -1,6 +1,7 @@
 
 ;; to get quick terminals :
-(pacmans-cload 'multi-term "multi-term" nil)
+(pacmans-cload 'multi-term "multi-term" nil
+	       '(lambda () (el-get-install "multi-term")))
 
 ;;;;;;;;;;;;;;;;;;;
 ;; configuration ;;

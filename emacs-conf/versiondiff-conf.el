@@ -14,10 +14,13 @@
              ediff-current-diff-face-B)))
 
 ;; use git with egg for ediff git diff
-(pacmans-cload 'egg "egg" nil)
+(pacmans-cload 'egg "egg" nil
+	       '(lambda () (el-get-install "egg"))
+)
 
 ;; use psvn for in emacs svn use
-(pacmans-cload 'vc-svn "vc-svn" nil)
+(pacmans-cload 'vc-svn "vc-svn" nil
+               '(lambda () (auto-install-from-url "http://repo.or.cz/w/emacs.git/blob_plain/HEAD:/lisp/vc/vc-svn.el")))
 
 (provide 'versiondiff-conf)
 

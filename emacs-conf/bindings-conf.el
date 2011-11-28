@@ -32,7 +32,9 @@
 
      ;; disabling this boring print command
      (global-unset-key (kbd "C-p"))
-     )))
+     ))
+ '(lambda () (el-get-install "ergoemacs-keybindings"))
+ )
 
 ;; no hilights back to point command
 (global-set-key (kbd "s-b") '(lambda () (interactive) (exchange-point-and-mark t)))

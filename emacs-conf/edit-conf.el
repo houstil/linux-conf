@@ -27,7 +27,7 @@
 (pacmans-cload
  'smart-tab
  "smart-tab"
- (lambda () (progn
+ '(lambda () (progn
 	      ;; smart-tab use hippie expand :
 	      (setq hippie-expand-try-functions-list '(yas/hippie-try-expand
 						       ;; senator-try-expand-semantic
@@ -51,7 +51,9 @@
 			   (when (current-local-map)
 			     (use-local-map (copy-keymap (current-local-map))))
 			   (local-set-key (kbd "<tab>") 'compilation-next-error)
-			   )))))
+			   )))) 
+ '(lambda () (el-get-install "smart-tab"))
+)
 
 ;; forbid dabbrev to change case
 (setq dabbrev-case-replace nil)
@@ -60,7 +62,9 @@
 (pacmans-cload
  'undo-tree
  "undo-tree"
- nil)
+  '(lambda () (el-get-install "undo-tree"))
+  nil
+)
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Text Navigation ;;
@@ -70,10 +74,12 @@
 (pacmans-cload
  'goto-chg
  "goto-chg"
- (lambda () (progn
+ '(lambda () (progn
      (global-set-key (kbd "s-h") 'goto-last-change)
      (global-set-key (kbd "s-H") 'goto-last-change-reverse)
-     )))
+     ))
+ '(lambda () (auto-install-from-url "http://www.emacswiki.org/emacs/download/goto-chg.el"))
+ )
 
 
 ;; define an additionnal function to open file at line
@@ -95,15 +101,17 @@
     (global-set-key [(f2)]                  'bc-previous)
     (global-set-key [(shift f2)]            'bc-next)
     (global-set-key [(super shift f2)]      'bc-list)
-    ))
+    )
+ '(lambda () (el-get-install "breadcrumb"))
+)
 
 ;; use lazy key for quick search
 (pacmans-cload
  'lazy-search
  "lazy-search"
- (lambda (progn
-	   (global-set-key (kbd "M-y") 'lazy-search-menu)
-	   )))
+ '(lambda () (global-set-key (kbd "M-y") 'lazy-search-menu))
+ '(lambda () (auto-install-batch "lazy-search"))
+)
 
 
 ;; Non case-sensitive searches

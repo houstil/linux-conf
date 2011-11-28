@@ -12,26 +12,31 @@
   (message (concat "Please install " feature))
 )
 
-(defun pacmans-cload (feature name postload)
+(defun pacmans-cload (feature name postload install)
   (if (featurep feature)
       nil
     "Try to smartly load a feature."
     (condition-case nil
 	(require feature)
-      (error nil)
-      )
+      (error nil))
     (if (featurep feature)
       (when postload (funcall postload))
-      (message (concat "Please install " name))
+      (when install (progn (funcall install)
+		 ;; let's try to load the newly installed package
+		 (pacmans-cload feature name nil nil))
+	)
     )
 ))
 
 
 (pacmans-recursive-add-subdirs "~/.emacs.d/el-get")
 (pacmans-recursive-add-subdirs "~/.emacs.d/elpa")
+(pacmans-recursive-add-subdirs "~/.emacs.d/auto-install")
 
-(pacmans-cload 'el-get "el-get" nil)
-(pacmans-cload 'package "elpa" nil)
+(pacmans-cload 'el-get "el-get" nil nil)
+(pacmans-cload 'package "elpa" nil nil)
+(pacmans-cload 'auto-install "auto-install" nil
+               '(lambda () (el-get-install "auto-install")))
 
 
 (provide 'pacmans-conf)

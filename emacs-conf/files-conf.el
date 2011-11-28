@@ -27,18 +27,23 @@
 
 ;; to easily distinct homonyme buffers
 (pacmans-cload 'uniquify "uniquify"
- '(lambda () (setq uniquify-buffer-name-style 'post-forward)))
+ '(lambda () (setq uniquify-buffer-name-style 'post-forward))
+ nil
+ )
 
 
 ;; to open recent files
 (setq save-place-file "~/.emacs.d/saveplace") ;; keep my ~/ clean
-
 (pacmans-cload 'recentf "recentf"
- '(lambda () (recentf-mode 1)))
+ '(lambda () (recentf-mode 1))
+ nil
+)
 
 ;; to quickly explore files and buffers
-(pacmans-cload 'lusty-explorer "lust-explorer"
- '(lambda () ))
+(pacmans-cload 'lusty-explorer "lusty-explorer"
+ nil
+ '(lambda () (package-install "lusty-explorer"))
+)
 
 ;; to easily revert a buffer
 (global-set-key (kbd "s-r") '(lambda () (interactive) (revert-buffer nil t)))
@@ -78,7 +83,13 @@
 	       '(lambda () 
 		  (setq save-place-file "~/.emacs.d/saveplace") ;; keep my ~/ clean
 		  (setq-default save-place t)                   ;; activate it for all buffers
-))
+		  )
+               ;; this feature should already exists in emacs 
+	       nil)
+
+(pacmans-cload 'sudo-save "sudo-save"
+               nil
+               '(lambda (el-get-install "sudo-save")))
 
 
 ;; THIS IS MY CONF
