@@ -89,7 +89,7 @@
 ;; (require 'smtpmail)
 
 ;; jabber.el : a xmpp client in emacs
-(pacmans-cload 'jabber "jabber" nil '(lambda () (el-get-install "emacs-jabber")))
+;; (pacmans-cload 'jabber "jabber" nil '(lambda () (el-get-install "emacs-jabber")))
 
 
 ;; tramp authentification
