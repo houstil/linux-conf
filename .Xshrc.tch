@@ -7,6 +7,7 @@
 #############
 
 export CST_FILE=~/.cst.tch
+export CST_TCH_SDKIP=`host renndw7rdl2893|awk '{print $4}'`
 if [ -f $CST_FILE ]
 then
     source $CST_FILE
@@ -22,6 +23,11 @@ function cst_set () {
     echo $1=`eval echo '$'$1`
 }
 
+function myip () {
+    echo `ifconfig eth0|sed -n 's/.*inet *addr:\([0-9\.]*\).*/\1/p'`
+}
+
+
 #########
 # ALIAS #
 #########
@@ -32,3 +38,5 @@ alias sshs="ssh root@\$CST_TCH_STBIP"
 alias sshrk="ssh-keygen -R \$CST_TCH_STBIP"
 
 alias sshdf="echo tmmloc2769;ssh root@141.11.148.243"
+alias sshvb="ssh arnaultj@141.11.144.21"
+alias sshsdk='export LC_MESSAGES="`myip` 12345 $CST_TCH_SDKIP 2222";ssh root@$CST_TCH_SDKIP -p 2222 -o SendEnv=LC_MESSAGE;unset LC_MESSAGES'
