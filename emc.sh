@@ -95,7 +95,7 @@ function open_file()
     if [ -n "$2" ]; then
         dc emacsclient -n -e "(find-file-at-line \"$1\" $2)"
     else
-        dc emacsclient -n $1
+        dc emacsclient -n -e "(find-file \"$1\")"
     fi
     oo=1
 }
