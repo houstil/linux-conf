@@ -7,7 +7,7 @@ SHELL=/bin/zsh
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-ZSHDOTDIR=/home/g178452/.zsh.d
+ZSHDOTDIR=/home/arnaultj/.zsh.d
 setopt appendhistory autocd extendedglob notify
 unsetopt beep
 bindkey -e
