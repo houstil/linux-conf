@@ -27,16 +27,51 @@ function myip () {
     echo `ifconfig eth0|sed -n 's/.*inet *addr:\([0-9\.]*\).*/\1/p'`
 }
 
+function sIp () {
+    eval `cst_set CST_TCH_STBIP $1;sshrk`
+}
+
+function gIp () {
+    echo $CST_TCH_STBIP
+}
+
+function dump_ids {
+for f in $*
+do
+binid_h=`xxd -l 4 -s 8 -u -p $f`
+binid_d=`echo $binid_h|sed 's/^/ibase=16;/'|bc`
+custid=`xxd -l 2 -s 26 -u -p $f`
+if [ $custid -eq 0000 ]
+then
+    let offset=`xxd -l 4 -s 36 -u -p $f|sed 's/^/ibase=16;/'|bc`+26
+    custid=`xxd -l 2 -u -p -s $offset $f`
+fi
+echo -e "$f\tbin:\t0x$binid_h = $binid_d\tcust:\t$custid"
+done
+}
+
+function dl_tlayer {
+    wget -r --no-parent -A.tlayer -nd --no-proxy $*
+    tree -H . /local/home/nginx-wsr  > /local/home/nginx-wsr/index.html
+}
+
+
+DEV_KEYS=/local/home/arnaultj/git-devel/tch-ssl-keys/dev
+function sign_dev {
+   openssl dgst -sha256 -passin file:$DEV_KEYS/dev_key.pass_phrase -sign $DEV_KEYS/dev_key $1 > $2
+}
 
 #########
 # ALIAS #
 #########
 
 # ssh
-alias sshs="ssh root@\$CST_TCH_STBIP"
-# || (ssh-keygen -R \$CST_TCH_STBIP && ssh root@\$CST_TCH_STBIP)
-alias sshrk="ssh-keygen -R \$CST_TCH_STBIP"
+alias sshs="source $CST_FILE;ssh -XY root@\$CST_TCH_STBIP"
+alias sshrk="source $CST_FILE;ssh-keygen -R \$CST_TCH_STBIP"
 
 alias sshdf="echo tmmloc2769;ssh root@141.11.148.243"
 alias sshvb="ssh arnaultj@141.11.144.21"
-alias sshsdk='export LC_MESSAGES="`myip` 12345 $CST_TCH_SDKIP 2222";ssh root@$CST_TCH_SDKIP -p 2222 -o SendEnv=LC_MESSAGE;unset LC_MESSAGES'
+alias sshsdk='source $CST_FILE;export LC_MESSAGES="`myip` 12345 $CST_TCH_SDKIP 2222";ssh root@$CST_TCH_SDKIP -p 2222 -o SendEnv=LC_MESSAGE;unset LC_MESSAGES'
+
+alias up-wsr='tree -H . /local/home/nginx-wsr  > /local/home/nginx-wsr/index.html'
+
