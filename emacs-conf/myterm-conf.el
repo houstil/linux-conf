@@ -142,7 +142,19 @@
   (interactive)
   (term-send-raw-string "\t"))
 
-;; to ensure that no we don't erase full words in bash
+(defun term-send-meego-login ()
+  "Send the tab key"
+  (interactive)
+  (term-send-raw-string "root")
+  (term-send-return)
+  (sleep-for 0 300)
+  (term-send-raw-string "meego")
+  (term-send-return)
+  (sleep-for 0 300)
+  (term-send-raw-string "reset")
+  (term-send-return))
+
+;; to ensure that now we don't erase full words in bash
 (defadvice term-send-backward-kill-word (around term-send-backward-delim activate)
   (term-send-raw-string "\e\b"))
 
@@ -179,6 +191,7 @@
  ("M-,"			.	term-send-input)
  ("M-."			.	comint-dynamic-complete)
  ("M-v"			.	term-paste)
+ ("M-m"			.	term-send-meego-login)
  ("C-`" 		.	term-send-esc)
  ("C-z"			.	term-send-Cz)
  ("C-S-c"		.	term-send-Cc)
