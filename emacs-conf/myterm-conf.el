@@ -99,6 +99,19 @@
             (ansi-term term-cmd))
         (ansi-term term-cmd)))))
 
+;; add an advice to keep a term buffer in the pile when closing the current one
+(defadvice close-current-buffer
+  (around term-close-current-buffer-keep-termbuff activate)
+  "check if the next buffer is a term and switch to if after killing the current buffer if so"
+  (when (term-check-proc (other-buffer))
+    (setq term-nextbuff (other-buffer))
+    ad-do-it
+    (if term-nextbuff
+        (switch-to-buffer term-nextbuff))
+    )
+  ad-do-it
+  )
+
 (defun term-send-return ()
   "Send the return key"
   (interactive)
