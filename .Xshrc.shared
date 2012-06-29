@@ -173,6 +173,9 @@ alias h=history
 # x configration
 alias swl='[ -z "`setxkbmap -print |grep xkb_symbols|grep fr`" ] && setxkbmap fr || setxkbmap us'
 
+# gpg
+alias gpg="gpg --no-use-agent"
+
 if [ -n "$(which apt-get)" ];then
     # aptitude aliases
     alias agi='sudo aptitude install'
@@ -241,4 +244,22 @@ function unrpm()
 {
     rpm2cpio $1 | cpio -idmv
 }
+
+# a pasted functions to show directories ordered by size
+function duf {
+du -sk "$@" | sort -n | while read size fname; do for unit in k M G T P E Z Y; do if [ $size -lt 1024 ]; then echo -e "${size}${unit}\t${fname}"; break; fi; size=$((size/1024)); done; done
+}
+
+# a function to recompute a diff from a patch file
+function rediff {
+touch $1.tmp
+cat $1 |grep '^diff'|while read diffI
+do
+echo $diffI
+echo $diffI >> $1.tmp
+eval $diffI >> $1.tmp
+done
+mv -f $1.tmp $1
+}
+
 
