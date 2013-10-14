@@ -1,23 +1,69 @@
+
 ! format : "keycode <touch_keycode> = <key> <shift-key> <alt-key> <alt-shift-key> <ctrl-alt-key>"
 
-! keyboard remapping
-keycode  48 = bar percent bar percent ugrave
-keycode  49 = at twosuperior
-keycode  65 = space space space space space
+!!!!!!!!!!!!!!!!!!!!!!!!
+! QWERTY CONFIGURATION !
+!!!!!!!!!!!!!!!!!!!!!!!!
 
-! ergoemacs keybindings in X !
-! Directions :
-keycode  31 = i I Up    Prior rightarrow  idotless
-keycode  45 = k K Down  Next  k           ampersand
-keycode  44 = j J Left  Home  j           J
-keycode  46 = l L Right End   lstroke     Lstroke
+! ! keyboard remapping
+! keycode  48 = bar percent bar percent ugrave
+! keycode  49 = at twosuperior
+! keycode  65 = space space space space space
 
-! back to normal conf
+!! ergoemacs keybindings in X !
+!! Directions :
+! keycode  31 = i I Up    Prior rightarrow  idotless
+! keycode  45 = k K Down  Next  k           ampersand
+! keycode  44 = j J Left  Home  j           J
+! keycode  46 = l L Right End   lstroke     Lstroke
+
+!! back to normal conf
 ! keycode  31 = i I i I rightarrow  idotless
 ! keycode  45 = k K k J k           ampersand
 ! keycode  44 = j J j J j           J
 ! keycode  46 = l L l L lstroke     Lstroke
 
+
+!!!!!!!!!!!!!!!!!!!!!!!!!
+! COLEMAK CONFIGURATION !
+!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! a accents
+keycode  38 = a A a A agrave Agrave agrave
+keycode  24 = q Q q Q acircumflex Acircumflex acircumflex
+
+! e accents
+keycode  44 = n N n N egrave Egrave egrave
+keycode  30 = l L l L ecircumflex Ecircumflex ecircumflex
+
+! i accents
+keycode  33 = semicolon colon semicolon colon idiaeresis Idiaeresis idiaeresis
+keycode  46 = i I i I icircumflex Icircumflex icircumflex
+
+! u accents
+keycode  31 = u U u U ucircumflex Ucircumflex ucircumflex
+keycode  32 = y Y y Y ugrave Ugrave ugrave
+
+! o accents
+keycode  47 = o O o O ocircumflex Ocircumflex ocircumflex
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! ERGOEMACS CONFIGURATION !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! char mouvements
+
+! line mouvements
+
+! word mouvements
+
+! line limits mouvements
+
+! screen mouvements
+
+! delete words
+
+! delete chars
 
 
 

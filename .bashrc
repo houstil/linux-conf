@@ -99,25 +99,25 @@ set -o emacs
 if [ "$TERM" != "eterm-color" ]
     then
 # navigation keys
-    bind -m emacs '"\ek": next-history'
-    bind -m emacs '"\ei": previous-history'
-    bind -m emacs '"\ej": backward-char'
-    bind -m emacs '"\el": forward-char'
-    bind -m emacs '"\eu": backward-word'
-    bind -m emacs '"\eo": forward-word'
-    bind -m emacs '"\eJ": beginning-of-line'
-    bind -m emacs '"\eL": end-of-line'
+    bind -m emacs '"\eu": next-history'
+    bind -m emacs '"\ee": previous-history'
+    bind -m emacs '"\en": backward-char'
+    bind -m emacs '"\ei": forward-char'
+    bind -m emacs '"\el": backward-word'
+    bind -m emacs '"\ey": forward-word'
+    bind -m emacs '"\eN": beginning-of-line'
+    bind -m emacs '"\eI": end-of-line'
 
 # kill text keys
-    bind -m emacs '"\ee": backward-kill-word'
-    bind -m emacs '"\er": kill-word'
-    bind -m emacs '"\ed": backward-delete-char'
-    bind -m emacs '"\ef": delete-char'
-    bind -m emacs '"\eg": kill-line'
+    bind -m emacs '"\ew": backward-kill-word'
+    bind -m emacs '"\ep": kill-word'
+    bind -m emacs '"\es": backward-delete-char'
+    bind -m emacs '"\et": delete-char'
+    bind -m emacs '"\ed": kill-line'
 
 # isearch keys
-    bind -m emacs '"\e;": forward-search-history'
-    bind -m emacs '"\e:": reverse-search-history'
+    bind -m emacs '"\ej": forward-search-history'
+    bind -m emacs '"\eJ": reverse-search-history'
 fi
 
 ################

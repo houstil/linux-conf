@@ -1,80 +1,10 @@
-;; always follow symlinks if the file is vc
-(setq vc-follow-symlinks t)
-
 ;; set Sagem-Code tab length
-(pacmans-cload 'dtrt-indent "dtrt-indent"
-	       '(lambda () (dtrt-indent-mode 1))
-	       '(lambda () (el-get-install "dtrt-indent"))
-	       )
+(pacmans-cload 'dtrt-indent
+               '(lambda () (dtrt-indent-mode 1))
+               )
 
 (setq tab-width 3)
 (setq-default indent-tabs-mode nil)
-(setq-default c-basic-offset 3)
-
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (c-set-style "bsd")
-            (setq c-basic-offset 3)
-            )
-          )
-
-;; Load CEDET.
-;; See cedet/common/cedet.info for configuration details.
-;; (load-file "/usr/share/emacs23/site-lisp/cedet-1.0pre7/common/cedet.el")
-
-;; Enable EDE (Project Management) features
-;; (global-ede-mode 1)
-
-;; Enable EDE for a pre-existing C++ project
-;; (ede-cpp-root-project "NAME" :file "~/myproject/Makefile")
-
-;; Enabling Semantic (code-parsing, smart completion) features
-;; Select one of the following:
-
-;; * This enables the database and idle reparse engines
-;; (semantic-load-enable-minimum-features)
-
-;; * This enables some tools useful for coding, such as summary mode
-;;   imenu support, and the semantic navigator
-;; (semantic-load-enable-code-helpers)
-
-;; * This enables even more coding tools such as intellisense mode
-;;   decoration mode, and stickyfunc mode (plus regular code helpers)
-;; (semantic-load-enable-gaudy-code-helpers)
-
-;; * This enables the use of Exuberent ctags if you have it installed.
-;;   If you use C++ templates or boost, you should NOT enable it.
-;; (semantic-load-enable-all-exuberent-ctags-support)
-;;   Or, use one of these two types of support.
-;;   Add support for new languges only via ctags.
-;; (semantic-load-enable-primary-exuberent-ctags-support)
-;;   Add support for using ctags as a backup parser.
-;; (semantic-load-enable-secondary-exuberent-ctags-support)
-
-;; Enable SRecode (Template management) minor-mode.
-;; (global-srecode-minor-mode 1)
-
-;; Emacs Code Browser
-;; (add-to-list 'load-path "/usr/share/emacs23/site-lisp/ecb-2.40/")
-;; (require 'ecb)
-
-;; to be able to debug through gud and gdb
-(setq gud-chdir-before-run nil)
-(setq gdb-use-separate-io-buffer t)
-
-;; doxygen hook
-;; (defun my-doxymacs-font-lock-hook ()
-;;   (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
-;;       (doxymacs-font-lock)))
-;; (add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
-
-;; auto-pairs : to aumatically insert matching pairs
-(pacmans-cload 'autopair "autopair" 
-	       '(lambda () 
-		 (autopair-global-mode) ;; to enable in all buffers
-		 )
-	       '(lambda () (el-get-install "autopair"))
-	       )
 
 (defun set-indent-newline-and-indent ()
   "Indent"
@@ -92,103 +22,120 @@
   "A generic coding configuration for indentation, paren show ..."
   (interactive)
   (set-indent-yank)
+  (show-paren-mode 1)
   (set-indent-newline-and-indent)
+  (require 'yasnippet)
   )
+
+;;;;;;;;;;;;;;;;;;;;;
+;; C configuration ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+(setq-default c-basic-offset 3)
+
+;; auto-pairs : to aumatically insert matching pairs
+(pacmans-cload 'autopair
+               '(lambda ()
+                  (autopair-global-mode) ;; to enable in all buffers
+                  ;; to make sure that autopair indent properly on newline
+                  (defadvice autopair-newline (after ap-indent-according-to-mode activate)
+                    "Indent accordint to the current mode after a newline"
+                    (interactive)(indent-according-to-mode))
+                  ))
+
 
 ;; c-mode configuration
 (add-hook 'c-mode-hook
-  '(lambda ()
-    ;; (auto-fill-mode 80)
-    (hs-minor-mode t)
-    (global-set-key (kbd "<f8>") 'hs-toggle-hiding)
-    (c-subword-mode 1)
-    (easy-coding-configuration)))
+          '(lambda ()
+             (c-set-style "bsd")
+             (setq c-basic-offset 3)
+             (auto-fill-mode 80)
+             (hs-minor-mode t)
+             (global-set-key (kbd "<f8>") 'hs-toggle-hiding)
+             (c-subword-mode 1)
+             (easy-coding-configuration)))
 
-;; lisp-mode configuration
-(defadvice eval-region (before slick-copy activate compile) "When called
-  interactively with no active region, eval the whole buffer."
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Lisp configuration ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defadvice eval-region (before slick-copy activate compile) "When called interactively with no active region, eval the whole buffer."
   (interactive (if mark-active (list (region-beginning) (region-end)) (message
-  "Region Evaluated") (list (point-min) (point-max)) (message "Buffer Evaluated"))))
+                                                                       "Region Evaluated") (list (point-min) (point-max)) (message "Buffer Evaluated"))))
 
+(setq inferior-lisp-program "/usr/bin/sbcl")
 
-(add-hook 'lisp-mode-hook (lambda ()
-            (define-key lisp-mode-map [f5] 'eval-region)
-            (easy-coding-configuration)))
-(add-hook 'emacs-lisp-mode-hook (lambda ()
-            (define-key emacs-lisp-mode-map [f5] 'eval-region)
-            (easy-coding-configuration)))
-(add-hook 'lisp-interaction-mode-hook (lambda ()
-            (define-key lisp-interaction-mode-map [f5] 'eval-region)
-            (easy-coding-configuration)))
+(require 'slime)
+(slime-setup '(slime-repl))
 
+(require 'rainbow-delimiters)
 
-;; to make scrips executable on save
-;; Check for shebang magic in file after save, make executable if found.
-(setq my-shebang-patterns
-      (list "^#!/usr/.*/perl\\(\\( \\)\\|\\( .+ \\)\\)-w *.*"
-            "^#!/usr/.*/sh"
-            "^#!/usr/.*/bash"
-            "^#!/bin/sh"
-            "^#!/bin/bash"))
-(add-hook
- 'after-save-hook
- (lambda ()
-   (if (not (= (shell-command (concat "test -x " (buffer-file-name))) 0))
-       (progn
-         ;; This puts message in *Message* twice, but minibuffer
-         ;; output looks better.
-         (message (concat "Wrote " (buffer-file-name)))
-         (save-excursion
-           (goto-char (point-min))
-           ;; Always checks every pattern even after
-           ;; match.  Inefficient but easy.
-           (dolist (my-shebang-pat my-shebang-patterns)
-             (if (looking-at my-shebang-pat)
-                 (if (= (shell-command
-                         (concat "chmod u+x " (buffer-file-name)))
-                        0)
-                     (message (concat
-                               "Wrote and made executable "
-                               (buffer-file-name))))))))
-     ;; This puts message in *Message* twice, but minibuffer output
-     ;; looks better.
-     (message (concat "Wrote " (buffer-file-name))))))
+(defun lisps-config ()
+  (rainbow-delimiters-mode 1)
+  (easy-coding-configuration))
 
+(add-hook 'lisp-mode-hook              (lambda () (lisps-config)))
+(add-hook 'emacs-lisp--mode-hook       (lambda () (lisps-config)))
+(add-hook 'lisp-interaction-mode-hook  (lambda () (lisps-config)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; AutoHotKey script configuration ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq ahk-syntax-directory "C:/Program Files/AutoHotkey/Extras/Editors/Syntax/")
+(add-to-list 'auto-mode-alist '("\\.ahk$" . ahk-mode))
+(autoload 'ahk-mode "ahk-mode" "mode for editing AutoHotKey scripts")
+;; those advice on bracket keys are not to my taste
+(add-hook 'ahk-mode-hook #'(lambda ()
+               (push ?{
+                     (getf autopair-dont-pair :comment))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; VisualBasicScript configuration ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(add-to-list 'auto-mode-alist '("\\.vbs$" . visual-basic-mode))
+(autoload 'visual-basic-mode "visual-basic-mode" "mode for editing VisualBasicScripts")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Org mode configuration ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'org-install)
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(add-hook 'org-mode-hook '(lambda () (auto-complete-mode 1)))
+(setq org-log-done t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; yasnippet configuration ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; to yasnippet snippets for faster editing
-(pacmans-cload  'yasnippet-bundle "yasnippet"
-		'(lambda () 
-		  (setq yas/trigger-key "M-@")
-		  (setq yas/wrap-around-region t)
-		  (setq yas/fallback-behavior nil)
+;; we assume that yasnippet is already installed
 
-		  (setq yas/prompt-functions '(yas/dropdown-prompt
-		  			     yas/ido-prompt
-		  			     yas/completing-prompt))
-		  (setq yas/prompt-functions '(yas/ido-prompt
-		  			       yas/completing-prompt))
+(setq yas/trigger-key "M-@")
+(setq yas/wrap-around-region t)
+(setq yas/fallback-behavior nil)
+(setq yas/prompt-functions '(yas/dropdown-prompt
+                             yas/ido-prompt
+                             yas/completing-prompt))
+(setq yas/prompt-functions '(yas/ido-prompt
+                             yas/completing-prompt))
+;; Develop in ~/emacs.d/mysnippets, but also
+;; try out snippets in ~/.emacs.d/snippets
+(if (file-exists-p "~/.emacs.d/mysnippets")
+    (setq yas/root-directory "~/.emacs.d/mysnippets")
+  (make-directory "~/.emacs.d/mysnippets"))
 
-		  ;; Develop in ~/emacs.d/mysnippets, but also
-		  ;; try out snippets in ~/.emacs.d/snippets
-                  (if (file-exists-p "~/.emacs.d/mysnippets")
-                      (setq yas/root-directory "~/.emacs.d/mysnippets")
-                    (make-directory "~/.emacs.d/mysnippets"))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; shell-script configuration ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-		  ;; ;; Map `yas/load-directory' to every element
-		  ;; (mapc 'yas/load-directory yas/root-directory)
-		  )
-		'(lambda () (el-get-install "yasnippet"))
-)
-
-;; build a quote from selected text :
-(defun quote-region ()
-  "Build a quote inserting file name and line number"
-  (interactive)
-  (if (buffer-file-name)
-      (kill-new (concat buffer-file-name ":" (number-to-string (line-number-at-pos)) ":\n" (buffer-substring-no-properties (region-beginning) (region-end))))
-    (message "This buffer has no name "))) ;
-
-(global-set-key (kbd "s-q") 'quote-region)
+;; for scripts, we have to choose the unix coding system
+(add-hook 'sh-mode-hook '(lambda () (set-buffer-file-coding-system 'unix)))
 
 (provide 'coding-conf)
 

@@ -1,6 +1,9 @@
 ;; "y or n" instead of "yes or no"
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; disable this annoying bell
+(setq visible-bell t)
+
 ;; to use icicles
 ;; (add-to-list 'load-path "~/.emacs.d/icicles")
 ;; (require 'icicles)
@@ -9,8 +12,26 @@
 ;; set history length
 (setq history-length 250)
 
+;; use auto-complete for completion
+(pacmans-cload 'auto-complete
+	       '(lambda () 
+		  (auto-complete-mode 1)
+		  (require 'auto-complete-config)
+		  (ac-config-default))
+               )
+
+(require 'yasnippet)
+(yas/global-mode 1)
+(yas/load-directory "~/.emacs.d/snippets")
+
+;; to avoid getting non working completion in my snippets
+(add-hook 'yas/before-expand-snippet-hook '(lambda () (when (derived-mode-p 'lisp-mode)
+                                                        (auto-complete-mode 0))))
+(add-hook 'yas/after-exit-snippet-hook    '(lambda () (when (derived-mode-p 'lisp-mode)
+                                                        (auto-complete-mode 1))))
+
 ;; enables ido rather than icicles
-(pacmans-cload 'ido "ido"
+(pacmans-cload 'ido
                '(lambda ()
                   (ido-mode t)
                   (setq ido-enable-flex-matching t) ;; enable fuzzy matching
@@ -49,15 +70,45 @@
                                    ))
                                	)))
 		  )
-	       nil ;; should already be in emacs
 	       )
 
                               
 ;; smex, to easily searchf an emacs command
-;; (setq smex-save-file "~/.emacs.d/smex.save") ;; keep my ~/ clean
-;; (require 'smex)
-;; (smex-initialize)
-;; (global-set-key (kbd "s-a") 'smex)
+(autoload 'smex "smex")
+(if ergoemacs-mode
+    (ergoemacs-key "M-a" 'smex)
+  (global-set-key (kbd "M-x") 'smex))
+
+(setq smex-save-file "~/.emacs.d/smex.save")
+
+;; I don't want to use the cua mode
+(cua-mode 0)
+
+;; let's add some key cords for some usefull commands
+(pacmans-cload 'key-chord
+               '(lambda ()
+                  (key-chord-mode 1)
+                  ;; global commands
+                  (key-chord-define-global "zb" 'comment-box)
+                  (key-chord-define-global "zj" 'join-line)
+                                    
+                  ;; global key chords
+                  (key-chord-define-global "aa" 'smex)
+                  (key-chord-define-global "xx" 'find-file)
+                  (key-chord-define-global "yy" 'goto-last-change)
+                  (key-chord-define-global "hh" 'ido-switch-buffer)
+                  (key-chord-define-global "zz" 'save-buffer)
+                  (key-chord-define-global "zb" 'comment-box)
+                  (key-chord-define-global "LL" 'join-line)
+                  (key-chord-define-global "ww" 'yas/expand)
+                  ;;  maybe there is a way to make that work ...
+                  ;; (key-chord-define-global "gg" 'keyboard-quit)
+
+                  ;; lisp keychords
+                  (key-chord-define lisp-mode-map       "vv" (lambda () (interactive) (end-of-line) (slime-eval-last-expression-in-repl nil)))
+                  (key-chord-define emacs-lisp-mode-map "vv" (lambda () (interactive) (end-of-line) (eval-last-sexp nil)))
+                  ))
+
 
 (provide 'userint-conf)
 

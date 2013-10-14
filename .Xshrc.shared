@@ -2,6 +2,24 @@
 
 # this is a shared configuration file for bourn-compatible shells
 
+###########################################
+# LOAD THE APPROPRIATE ENV DEPENDENT CONF #
+###########################################
+
+if uname -a | grep -q ARCH || uname -a | grep -q MANJARO
+    then
+    source ~/linux-conf/.Xshrc.arch
+fi
+
+if uname -a | grep -q DEBIAN || uname -a | grep -qi UBUNTU
+    then
+    source ~/linux-conf/.Xshrc.deb
+fi
+
+##########################
+# ENVIRONEMENT VARIABLES #
+##########################
+
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     export PATH="$HOME/bin:$PATH"
@@ -14,20 +32,10 @@ fi
 # export EDITOR=vi
 export EDITOR='emacsclient'
 
-###############################################
-# IF ITS A SAGEM MACHINE THEN LOAD SAGEM CONF #
-###############################################
-
-if [ "$(hostname)" = "rmm-p1199155f" -o "$(hostname)" = "rmm-p1186948" ]
-    then
-    source ~/linux-conf/.Xshrc.sagem
+# if most is present on the system, we use it as a pager for man
+if which most >/dev/null ;then
+    export MANPAGER="/usr/bin/most -s"
 fi
-
-if [ "$(hostname)" = "arnaultj-vb-archlinux" -o "$(hostname)" = "renndlxrdl3169" ]
-    then
-    source ~/linux-conf/.Xshrc.tch
-fi
-
 
 ##################
 # COMMON ALIASES #
@@ -46,7 +54,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # emacs
-alias e=~/linux-conf/emc.sh
+alias e=~/bin/emc.sh
 
 # root access
 alias sur='sudo -s'
@@ -108,15 +116,6 @@ alias rmd='rm -rf'
 # file display
 alias le='less'
 
-# apt-get
-alias acs='apt-cache search'
-alias ach='apt-cache showpkg'
-alias agi='apt-get install'
-alias agr='apt-get remove'
-alias agu='apt-get update'
-alias agp='apt-get purge'
-alias agg='apt-get upgrade'
-
 # environment
 alias eo='echo'
 alias wg=wget
@@ -175,19 +174,6 @@ alias swl='[ -z "`setxkbmap -print |grep xkb_symbols|grep fr`" ] && setxkbmap fr
 
 # gpg
 alias gpg="gpg --no-use-agent"
-
-if [ -n "$(which apt-get)" ];then
-    # aptitude aliases
-    alias agi='sudo aptitude install'
-    alias agu='sudo aptitude update'
-    alias agd='sudo aptitude dist-upgrade'
-    alias agc='sudo aptitude clean'
-    alias agr='sudo aptitude remove'
-    alias ags='sudo aptitude search'
-    alias agac='sudo aptitude autoclean' 
-    alias afs='sudo apt-file search' 
-    alias afu='sudo apt-file update' 
-fi
 
 ####################
 # COMMON FUNCTIONS #
@@ -261,5 +247,4 @@ eval $diffI >> $1.tmp
 done
 mv -f $1.tmp $1
 }
-
 
