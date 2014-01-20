@@ -7,14 +7,14 @@ SHELL=/bin/zsh
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-ZSHDOTDIR=/home/arnaultj/.zsh.d
+ZSHDOTDIR=$HOME/.zsh.d
 setopt appendhistory autocd extendedglob notify
 unsetopt beep
 bindkey -e
 
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/arnaultj/.zshrc'
+zstyle :compinstall filename '~/.zshrc'
 # End of lines added by compinstall
 
 autoload -U select-word-style
@@ -84,20 +84,20 @@ then
     if [ $TERM != "eterm-color" ]
     then
 # navigation keys
-	bindkey -e '^[k' down-line-or-history
-	bindkey -e '^[i' up-line-or-history
-	bindkey -e '^[j' backward-char 
-	bindkey -e '^[l' forward-char
-	bindkey -e '^[u' emacs-backward-word
-	bindkey -e '^[o' emacs-forward-word
-	bindkey -e '^[J' beginning-of-line
-	bindkey -e '^[L' end-of-line
+	bindkey -e '^[e' down-line-or-history
+	bindkey -e '^[u' up-line-or-history
+	bindkey -e '^[n' backward-char 
+	bindkey -e '^[i' forward-char
+	bindkey -e '^[l' emacs-backward-word
+	bindkey -e '^[y' emacs-forward-word
+	bindkey -e '^[N' beginning-of-line
+	bindkey -e '^[I' end-of-line
 
 # kill text keys
-	bindkey -e '^[e' backward-delete-word
-	bindkey -e '^[r' delete-word
-	bindkey -e '^[d' backward-delete-char
-	bindkey -e '^[f' delete-char
+	bindkey -e '^[f' backward-delete-word
+	bindkey -e '^[p' delete-word
+	bindkey -e '^[s' backward-delete-char
+	bindkey -e '^[t' delete-char
     fi
 fi
 

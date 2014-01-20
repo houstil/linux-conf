@@ -1,0 +1,25 @@
+# -*- mode: Shell-script -*-
+
+# this is a shared configuration file for my arches
+
+####################
+# ENVIRONNMENT VAR #
+####################
+
+# so that yaourt doesn't ask to edit file
+export EDITFILES=0
+# so that yaourt doesn't ask confirmation during build
+export BUILD_NOCONFIRM=0
+
+###########
+# ALIASES #
+###########
+
+# for pacman
+alias paci='sudo pacman --needed --noconfirm -S'
+alias pacs='sudo pacman -Ss'
+alias pacu='sudo pacman -Syy'
+alias pacr='sudo pacman -R'
+
+# for yaourt
+alias yt='sudo yaourt'

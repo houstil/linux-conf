@@ -1,70 +1,74 @@
-
 ;; to comment a line without selecting it
-(defadvice comment-or-uncomment-region (before slick-copy activate compile)
-  "When called interactively with no active region, comment or uncomment a single line instead."
+(defadvice comment-or-uncomment-region (before slick-comment activate compile)
+  "When called interactively with no active region, comment or uncomment the current line instead."
   (interactive (if mark-active
 		   (list (region-beginning) (region-end)) (message  "Co|Unco line")
-		   (list (line-beginning-position) (line-beginning-position  2)))))
+		   (list (line-beginning-position) (line-beginning-position 2)))))
+
+;; to comment-box a line without selecting it
+;; (defadvice comment-box (before slick-comment-box activate compile)
+;;   "When called interactively with no active region, comment box the current line instead."
+;;   (interactive (if mark-active
+;;                    (list (region-beginning) (region-end)) (message "commment-box line")
+;;                    (list (line-beginning-position) (line-beginning-position 2)))))
 
 ;; to copy a line without selecting it
-(defadvice kill-ring-save (before slick-copy activate compile) "When called
-  interactively with no active region, copy a single line instead."
-  (interactive (if mark-active (list (region-beginning) (region-end)) (message
-  "Copied line") (list (line-beginning-position) (line-beginning-position
-  2)))))
+(defadvice kill-ring-save (before slick-copy activate compile)
+  "When called interactively with no active region, copy the current line instead."
+  (interactive (if mark-active
+                   (list (region-beginning) (region-end)) (message "Copied line")
+                   (list (line-beginning-position) (line-beginning-position 2)))))
 
 (defadvice kill-region (before slick-cut activate compile)
-  "When called interactively with no active region, kill a single line instead."
-  (interactive
-    (if mark-active (list (region-beginning) (region-end))
-      (list (line-beginning-position)
-        (line-beginning-position 2)))))
+  "When called interactively with no active region, kill the current line instead."
+  (interactive (if mark-active
+                   (list (region-beginning) (region-end))
+                 (list (line-beginning-position) (line-beginning-position 2)))))
 
 ;; enable the use of the x clipboard
 (setq x-select-enable-clipboard t)
 
 ;; require smart tab : expand or indent on tab hit
-(pacmans-cload
- 'smart-tab
- "smart-tab"
- '(lambda () (progn
-	      ;; smart-tab use hippie expand :
-	      (setq hippie-expand-try-functions-list '(yas/hippie-try-expand
-						       ;; senator-try-expand-semantic
-						       try-expand-dabbrev
-						       try-expand-dabbrev-all-buffers
-						       try-expand-dabbrev-from-kill
-						       try-complete-file-name-partially
-						       try-complete-file-name
-						       try-expand-all-abbrevs
-						       try-expand-list
-						       try-expand-line
-						       try-complete-lisp-symbol-partially
-						       try-complete-lisp-symbol
-						       ))
+;; (pacmans-cload
+;;  'smart-tab
+;;  '(lambda () (progn
+;; 	      ;; smart-tab use hippie expand :
+;; 	      (setq hippie-expand-try-functions-list '(yas/hippie-try-expand
+;; 						       senator-try-expand-semantic
+;; 						       try-expand-dabbrev
+;; 						       try-expand-dabbrev-all-buffers
+;; 						       try-expand-dabbrev-from-kill
+;; 						       try-complete-file-name-partially
+;; 						       try-complete-file-name
+;; 						       try-expand-all-abbrevs
+;; 						       try-expand-list
+;; 						       try-expand-line
+;; 						       try-complete-lisp-symbol-partially
+;; 						       try-complete-lisp-symbol
+;; 						       ))
 
+;; 	      ;; special cases for tab
+;; 	      (add-hook 'compilation-mode-hook
+;; 			'(lambda ()
+;; 			   (when (current-local-map)
+;; 			     (use-local-map (copy-keymap (current-local-map))))
+;; 			   (local-set-key (kbd "<tab>") 'compilation-next-error)
+;; 			   ))))
+;; )
 
-
-	      ;; special cases for tab
-	      (add-hook 'compilation-mode-hook
-			'(lambda ()
-			   (when (current-local-map)
-			     (use-local-map (copy-keymap (current-local-map))))
-			   (local-set-key (kbd "<tab>") 'compilation-next-error)
-			   )))) 
- '(lambda () (el-get-install "smart-tab"))
-)
-
-;; forbid dabbrev to change case
+;; Forbid dabbrev to change case
 (setq dabbrev-case-replace nil)
 
 ;; use undo-tree
 (pacmans-cload
  'undo-tree
- "undo-tree"
-  '(lambda () (el-get-install "undo-tree"))
-  nil
+ nil
 )
+
+;; use multiple-cursors
+(pacmans-cload
+ 'multiple-cursors
+ nil)
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Text Navigation ;;
@@ -73,13 +77,10 @@
 ;; to quickly jump to last change :
 (pacmans-cload
  'goto-chg
- "goto-chg"
- '(lambda () (progn
-     (global-set-key (kbd "s-h") 'goto-last-change)
-     (global-set-key (kbd "s-H") 'goto-last-change-reverse)
-     ))
- '(lambda () (auto-install-from-url "http://www.emacswiki.org/emacs/download/goto-chg.el"))
- )
+ '(lambda ()
+    (when (not (eq system-type 'windows-nt))
+      (global-set-key (kbd "s-h") 'goto-last-change)
+      (global-set-key (kbd "s-H") 'goto-last-change-reverse))))
 
 
 ;; define an additionnal function to open file at line
@@ -113,25 +114,21 @@ BEG and END (region to sort)."
 (global-set-key (kbd "s-g") 'goto-line)
 
 ;; Use breadcrumb for easy bookmarking
-(pacmans-cload
- 'breadcrumb
- "breadcrumb"
- '(lambda ()
-    (global-set-key [(super f2)]            'bc-set)
-    (global-set-key [(f2)]                  'bc-previous)
-    (global-set-key [(shift f2)]            'bc-next)
-    (global-set-key [(super shift f2)]      'bc-list)
-    )
- '(lambda () (el-get-install "breadcrumb"))
-)
+;; (pacmans-cload
+;;  'breadcrumb
+;;  '(lambda ()
+;;     (global-set-key [(super f2)]            'bc-set)
+;;     (global-set-key [(f2)]                  'bc-previous)
+;;     (global-set-key [(shift f2)]            'bc-next)
+;;     (global-set-key [(super shift f2)]      'bc-list)
+;;     )
+;; )
 
 ;; use lazy key for quick search
-(pacmans-cload
- 'lazy-search
- "lazy-search"
- '(lambda () (global-set-key (kbd "M-y") 'lazy-search-menu))
- '(lambda () (auto-install-batch "lazy-search"))
-)
+;; (pacmans-cload
+;;  'lazy-search
+;;  '(lambda () (global-set-key (kbd "M-y") 'lazy-search-menu))
+;; )
 
 
 ;; Non case-sensitive searches
