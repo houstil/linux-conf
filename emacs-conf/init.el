@@ -2,6 +2,13 @@
 ;; Essential Configuration ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(when (window-system)
+  (set-frame-size (selected-frame) 100 60)
+  ;; so that git doesn't slow emacs down too much
+  (remove-hook 'find-file-hooks 'vc-find-file-hook)
+  (setq vc-handled-backends nil)
+)
+
 (add-to-list 'load-path "~/.emacs.d/")
 ;; to get a full list of emacs startups loads
 (setq message-log-max t)
@@ -21,9 +28,6 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-
-(when (window-system)
-  (set-frame-size (selected-frame) 100 60))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Configuration Files Loading ;;

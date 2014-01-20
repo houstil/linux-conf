@@ -105,7 +105,6 @@
                   ;; (key-chord-define-global "gg" 'keyboard-quit)
 
                   ;; lisp keychords
-                  (key-chord-define lisp-mode-map       "vv" (lambda () (interactive) (end-of-line) (slime-eval-last-expression-in-repl nil)))
                   (key-chord-define emacs-lisp-mode-map "vv" (lambda () (interactive) (end-of-line) (eval-last-sexp nil)))
                   ))
 

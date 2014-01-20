@@ -131,6 +131,14 @@
 ;; general configuration ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; to use git bash under windows
+(when (window-system)
+  (setq shell-file-name "C:\\Program Files (x86)\\Git\\bin\\sh.exe")
+  (setq w32-quote-process-args ?\")
+  (setq explicit-sh-args '("--login" "-i"))
+  (setq explicit-shell-file-name shell-file-name)
+  )
+
 ;; to get a autoscrolling terminal :
 (setq term-scroll-show-maximum-output t)
 

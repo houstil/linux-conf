@@ -26,32 +26,29 @@
  '(lambda ()
     (progn
       ;; turn on minor mode ergoemacs-mode
-      (ergoemacs-warn-globally-changed-keys nil)
       (setq ergoemacs-mode-used "5.7.5")
       (setq ergoemacs-theme     "5.7.5")
-      (ergoemacs-mode 1)
 
       ;; choose the us layout
       (setq ergoemacs-keyboard-layout "colemak")
+      (ergoemacs-mode 1)
+      (setq saved-overriding-map nil)
 
       ;; ergoemacs corrections
       (add-hook 'minibuffer-setup-hook
-		'(lambda ()
-		   (ergoemacs-local-unset-key (kbd "M-i"))
-		   (ergoemacs-local-unset-key (kbd "M-n"))
-		   (ergoemacs-local-unset-key (kbd "C-f"))
-		   ))
+        	'(lambda ()
+        	   (ergoemacs-local-unset-key (kbd "M-j"))
+        	   (ergoemacs-local-unset-key (kbd "M-l"))
+        	   (ergoemacs-local-unset-key (kbd "C-f"))
+        	   ))
 
       (add-hook 'comint-mode-hook
                 '(lambda ()
                    (ergoemacs-local-set-key (kbd "M-u") 'comint-previous-input)
                    (ergoemacs-local-set-key (kbd "M-e") 'comint-next-input)
                    ))
-                   
-      ;; (global-set-key (kbd "s-:") 'search-backward-regexp)
-      ;; (global-set-key (kbd "s-;") 'search-forward-regexp)
-
-      (global-set-key (kbd "C-S-f")     'rename-buffer)
+      
+      (global-set-key (kbd "C-S-f")    'rename-buffer)
       (global-set-key (kbd "C-f")      'ido-switch-buffer)
 
       ;; rework a few movements
@@ -61,12 +58,12 @@
       (ergoemacs-key "M-h" 'beginning-of-buffer "beginning-of-buffer")
       (ergoemacs-key "M-m" 'exchange-point-and-mark-nomark "exchange point and mark")
       (ergoemacs-key "M--" 'iconify-or-deiconify-frame "minimise emacs window")
-           
+      
       ;; frame movement
-      ;; (global-set-key (kbd "s-i") 'windmove-up)
-      ;; (global-set-key (kbd "s-k") 'windmove-down)
-      ;; (global-set-key (kbd "s-j") 'windmove-left)
-      ;; (global-set-key (kbd "s-l") 'windmove-right)
+      (global-set-key (kbd "s-i") 'windmove-up)
+      (global-set-key (kbd "s-k") 'windmove-down)
+      (global-set-key (kbd "s-j") 'windmove-left)
+      (global-set-key (kbd "s-l") 'windmove-right)
 
       ;; disabling this boring print command
       (global-unset-key (kbd "C-p"))
@@ -74,11 +71,7 @@
       ;; (ergoemacs-key "RET" 'newline-and-indent "New line")
       (ergoemacs-key "M-;" 'vi-open-line-below "New line below")
       (ergoemacs-key "M-S-;" 'vi-open-line-above "New line above"))
-
-    ;; To naviguate and enter blocks of code
-    ;;(ergoemacs-key "M-[" (lambda () (interactive) (ergoemacs-forward-open-bracket)  (forward-char 1)) "Next open bracket")
-    ;;(ergoemacs-key "M-]" (lambda () (interactive) (ergoemacs-backward-open-bracket) (backward-char 1)) "Previous open bracket")
-      )
+    )
  )
 
 ;; no hilights back to point command
@@ -109,23 +102,8 @@
 (setq grep-find-command
   "find . -path '*/.svn' -prune -o -type f -print | xargs -e grep -i -n -e -I")
 
-;; to easily define macros
-(global-set-key (kbd "M-<f3>") 'kmacro-start-macro)
-(global-set-key (kbd "S-<f3>") 'kmacro-end-macro)
-(global-set-key (kbd "<f3>") 'kmacro-end-and-call-macro)
-;; (global-set-key (kbd "s-<f3>") 'kmacro-insert-counter)
-;; (global-set-key (kbd "s-S-<f3>") 'kmacro-set-counter)
-
-;; to allow seemless edition in terminal mode
+; to allow seemless edition in terminal mode
 (global-set-key (kbd "C-@")  'set-mark-command)
-
-;; some usefull toggeling
-(global-set-key (kbd "<f4>") 'insert-register)
-(global-set-key (kbd "<S-f4>") 'copy-to-register)
-
-;; quick access to terminals
-(global-set-key (kbd "<f12>") 'visit-ansi-term)
-(global-set-key (kbd "S-<f12>") 'ansi-term)
 
 ;; set s-w to server-edit (to exit a emacsclient session)
 ;; (add-hook 'server-switch-hook
