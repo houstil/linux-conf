@@ -74,22 +74,3 @@ keycode  16 = 7 ampersand 7 ampersand eth ETH eth
 keycode  17 = 8 asterisk 8 asterisk thorn THORN thorn
 keycode  18 = 9 parenleft 9 parenleft leftsinglequotemark leftdoublequotemark leftsinglequotemark
 keycode  19 = 0 parenright 0 parenright rightsinglequotemark rightdoublequotemark rightsinglequotemark
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! ERGOEMACS CONFIGURATION !
-!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-! char mouvements
-
-! line mouvements
-
-! word mouvements
-
-! line limits mouvements
-
-! screen mouvements
-
-! delete words
-
-! delete chars
-

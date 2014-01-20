@@ -106,16 +106,15 @@
                   (key-chord-define-global "hh" 'ido-switch-buffer)
                   (key-chord-define-global "zz" 'save-buffer)
                   (key-chord-define-global "zb" 'comment-box)
-                  (key-chord-define-global "LL" (lambda () (interactive) (join-line t)))
+                  (key-chord-define-global "LL" 'join-line)
                   (key-chord-define-global "ww" 'yas/expand)
                   ;;  maybe there is a way to make that work ...
                   ;; (key-chord-define-global "gg" 'keyboard-quit)
 
                   ;; lisp keychords
-                  (key-chord-define lisp-mode-map       "vv" (lambda () (interactive) (end-of-line) (slime-eval-last-expression-in-repl nil)))
                   (key-chord-define emacs-lisp-mode-map "vv" (lambda () (interactive) (end-of-line) (eval-last-sexp nil)))
                   (key-chord-define clojure-mode-map "vv" (lambda () (interactive) (end-of-line) (cider-eval-last-sexp nil)))
-                  (key-chord-define clojure-mode-map "VV" (lambda () (interactive) (end-of-line) (cider-eval-expression-at-point nil)))
+                  (key-chord-define emacs-lisp-mode-map "vv" (lambda () (interactive) (end-of-line) (eval-last-sexp nil)))
                   ))
 
 

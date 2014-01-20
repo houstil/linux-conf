@@ -24,6 +24,7 @@
   (set-indent-yank)
   (show-paren-mode 1)
   (set-indent-newline-and-indent)
+  (require 'yasnippet)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;
@@ -64,9 +65,6 @@
                                                                        "Region Evaluated") (list (point-min) (point-max)) (message "Buffer Evaluated"))))
 
 (setq inferior-lisp-program "/usr/bin/sbcl")
-
-(require 'slime)
-(slime-setup '(slime-repl))
 
 (require 'rainbow-delimiters)
 
@@ -115,6 +113,27 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (add-hook 'org-mode-hook '(lambda () (auto-complete-mode 1)))
 (setq org-log-done t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; yasnippet configuration ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; to yasnippet snippets for faster editing
+;; we assume that yasnippet is already installed
+
+(setq yas/trigger-key "M-@")
+(setq yas/wrap-around-region t)
+(setq yas/fallback-behavior nil)
+(setq yas/prompt-functions '(yas/dropdown-prompt
+                             yas/ido-prompt
+                             yas/completing-prompt))
+(setq yas/prompt-functions '(yas/ido-prompt
+                             yas/completing-prompt))
+;; Develop in ~/emacs.d/mysnippets, but also
+;; try out snippets in ~/.emacs.d/snippets
+(if (file-exists-p "~/.emacs.d/mysnippets")
+    (setq yas/root-directory "~/.emacs.d/mysnippets")
+  (make-directory "~/.emacs.d/mysnippets"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; shell-script configuration ;;
