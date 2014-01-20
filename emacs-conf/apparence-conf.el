@@ -60,4 +60,5 @@
 
 ;; (add-hook 'after-init-hook '(lambda () (color-theme-solarized-dark)))
 (load-theme 'cyberpunk t)
+
 (provide 'apparence-conf)

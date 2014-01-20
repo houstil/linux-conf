@@ -24,7 +24,6 @@
   (set-indent-yank)
   (show-paren-mode 1)
   (set-indent-newline-and-indent)
-  (require 'yasnippet)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;
@@ -72,12 +71,20 @@
 (require 'rainbow-delimiters)
 
 (defun lisps-config ()
+  (interactive)
   (rainbow-delimiters-mode 1)
-  (easy-coding-configuration))
+  (easy-coding-configuration)
+  (paredit-mode 1))
 
+(add-hook 'cider-repl-mode (lisps-config))
 (add-hook 'lisp-mode-hook              (lambda () (lisps-config)))
+(add-hook 'clojure-mode-hook           (lambda () (lisps-config)))
 (add-hook 'emacs-lisp--mode-hook       (lambda () (lisps-config)))
 (add-hook 'lisp-interaction-mode-hook  (lambda () (lisps-config)))
+
+;; to find the right mode for clojure-script
+(add-to-list 'auto-mode-alist '("\\.cljs.hl" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.cljs"    . clojure-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; AutoHotKey script configuration ;;
@@ -108,27 +115,6 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (add-hook 'org-mode-hook '(lambda () (auto-complete-mode 1)))
 (setq org-log-done t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; yasnippet configuration ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; to yasnippet snippets for faster editing
-;; we assume that yasnippet is already installed
-
-(setq yas/trigger-key "M-@")
-(setq yas/wrap-around-region t)
-(setq yas/fallback-behavior nil)
-(setq yas/prompt-functions '(yas/dropdown-prompt
-                             yas/ido-prompt
-                             yas/completing-prompt))
-(setq yas/prompt-functions '(yas/ido-prompt
-                             yas/completing-prompt))
-;; Develop in ~/emacs.d/mysnippets, but also
-;; try out snippets in ~/.emacs.d/snippets
-(if (file-exists-p "~/.emacs.d/mysnippets")
-    (setq yas/root-directory "~/.emacs.d/mysnippets")
-  (make-directory "~/.emacs.d/mysnippets"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; shell-script configuration ;;
