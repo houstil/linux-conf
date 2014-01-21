@@ -14,5 +14,3 @@ alias agr='sudo apt-get remove'
 alias agu='sudo apt-get update'
 alias agp='sudo apt-get purge'
 alias agg='sudo apt-get upgrade'
-
-

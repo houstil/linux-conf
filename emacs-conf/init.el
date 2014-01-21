@@ -13,6 +13,8 @@
 ;; to get a full list of emacs startups loads
 (setq message-log-max t)
 (cd "~")
+;; to get more info on errors
+(setq debug-on-error t)
 
 ;; to put our custom configuration out of the init file
 (setq custom-file "~/.emacs.d/custom.el")

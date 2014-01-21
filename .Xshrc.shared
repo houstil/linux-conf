@@ -111,6 +111,7 @@ alias cm=chmod
 alias ul=unlink
 alias sl='ln -s'
 alias cpd='cp -r'
+alias md='mkdir -p'
 alias rmd='rm -rf'
 
 # file display

@@ -22,7 +22,11 @@
 
 (require 'yasnippet)
 (yas/global-mode 1)
-(yas/load-directory "~/.emacs.d/snippets")
+(setq yas/root-directory "~/.emacs.d/snippets")
+(setq yas/trigger-key "TAB")
+(setq yas/trigger-key "<tab>")
+
+(yas/load-directory yas/root-directory)
 
 ;; to avoid getting non working completion in my snippets
 (add-hook 'yas/before-expand-snippet-hook '(lambda () (when (derived-mode-p 'lisp-mode)
@@ -84,6 +88,9 @@
 ;; I don't want to use the cua mode
 (cua-mode 0)
 
+;; require clojure
+(require 'clojure-mode)
+
 ;; let's add some key cords for some usefull commands
 (pacmans-cload 'key-chord
                '(lambda ()
@@ -105,6 +112,8 @@
                   ;; (key-chord-define-global "gg" 'keyboard-quit)
 
                   ;; lisp keychords
+                  (key-chord-define emacs-lisp-mode-map "vv" (lambda () (interactive) (end-of-line) (eval-last-sexp nil)))
+                  (key-chord-define clojure-mode-map "vv" (lambda () (interactive) (end-of-line) (cider-eval-last-sexp nil)))
                   (key-chord-define emacs-lisp-mode-map "vv" (lambda () (interactive) (end-of-line) (eval-last-sexp nil)))
                   ))
 

@@ -1,0 +1,41 @@
+
+! format : "keycode <touch_keycode> = <key> <shift-key> <alt-key> <alt-shift-key> <ctrl-alt-key>"
+
+!!!!!!!!!!!!!!!!!!!!!!!!!
+! COLEMAK CONFIGURATION !
+!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! a accents
+keycode  38 = a A a A agrave Agrave agrave
+keycode  24 = q Q q Q acircumflex Acircumflex acircumflex
+
+! e accents
+keycode  44 = n N n N egrave Egrave egrave
+keycode  30 = l L l L ecircumflex Ecircumflex ecircumflex
+
+! i accents
+keycode  33 = semicolon colon semicolon colon idiaeresis Idiaeresis idiaeresis
+keycode  46 = i I i I icircumflex Icircumflex icircumflex
+
+! u accents
+keycode  31 = u U u U ucircumflex Ucircumflex ucircumflex
+keycode  32 = y Y y Y ugrave Ugrave ugrave
+
+! o accents
+keycode  47 = o O o O ocircumflex Ocircumflex ocircumflex
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! NUMS IN SHIFT CONFIGURATION !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!! normal configuration :
+keycode  10 = 1 exclam 1 exclam exclamdown onesuperior exclamdown
+keycode  11 = 2 at 2 at masculine twosuperior masculine
+keycode  12 = 3 numbersign 3 numbersign ordfeminine threesuperior ordfeminine
+keycode  13 = 4 dollar 4 dollar cent sterling cent
+keycode  14 = 5 percent 5 percent EuroSign yen EuroSign
+keycode  15 = 6 asciicircum 6 asciicircum hstroke Hstroke hstroke
+keycode  16 = 7 ampersand 7 ampersand eth ETH eth
+keycode  17 = 8 asterisk 8 asterisk thorn THORN thorn
+keycode  18 = 9 parenleft 9 parenleft leftsinglequotemark leftdoublequotemark leftsinglequotemark
+keycode  19 = 0 parenright 0 parenright rightsinglequotemark rightdoublequotemark rightsinglequotemark

@@ -69,12 +69,20 @@
 (require 'rainbow-delimiters)
 
 (defun lisps-config ()
+  (interactive)
   (rainbow-delimiters-mode 1)
-  (easy-coding-configuration))
+  (easy-coding-configuration)
+  (paredit-mode 1))
 
+(add-hook 'cider-repl-mode (lisps-config))
 (add-hook 'lisp-mode-hook              (lambda () (lisps-config)))
+(add-hook 'clojure-mode-hook           (lambda () (lisps-config)))
 (add-hook 'emacs-lisp--mode-hook       (lambda () (lisps-config)))
 (add-hook 'lisp-interaction-mode-hook  (lambda () (lisps-config)))
+
+;; to find the right mode for clojure-script
+(add-to-list 'auto-mode-alist '("\\.cljs.hl" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.cljs"    . clojure-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; AutoHotKey script configuration ;;

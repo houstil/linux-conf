@@ -47,28 +47,30 @@ keycode  32 = y Y y Y ugrave Ugrave ugrave
 ! o accents
 keycode  47 = o O o O ocircumflex Ocircumflex ocircumflex
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! ERGOEMACS CONFIGURATION !
-!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! NUMS IN SHIFT CONFIGURATION !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-! char mouvements
+!! with num shifted :
+! keycode  10 = exclam 1 exclam 1 exclamdown onesuperior exclamdown onesuperior 1 exclam exclamdown onesuperior
+! keycode  11 = at 2 at 2 masculine twosuperior masculine twosuperior 2 at masculine twosuperior
+! keycode  12 = numbersign 3 numbersign 3 ordfeminine threesuperior ordfeminine threesuperior 3 numbersign ordfeminine threesuperior
+! keycode  13 = dollar 4 dollar 4 cent sterling cent sterling 4 dollar cent sterling
+! keycode  14 = percent 5 percent 5 EuroSign yen EuroSign yen 5 percent EuroSign yen
+! keycode  15 = asciicircum 6 asciicircum 6 hstroke Hstroke hstroke Hstroke 6 asciicircum hstroke Hstroke
+! keycode  16 = ampersand 7 ampersand 7 eth ETH eth ETH 7 ampersand eth ETH
+! keycode  17 = asterisk 8 asterisk 8 thorn THORN thorn THORN 8 asterisk thorn THORN
+! keycode  18 = parenleft 9 parenleft 9 leftsinglequotemark leftdoublequotemark leftsinglequotemark leftdoublequotemark 9 parenleft leftsinglequotemark leftdoublequotemark
+! keycode  19 = parenright 0 parenright 0 rightsinglequotemark rightdoublequotemark rightsinglequotemark rightdoublequotemark 0 parenright rightsinglequotemark rightdoublequotemark
 
-! line mouvements
-
-! word mouvements
-
-! line limits mouvements
-
-! screen mouvements
-
-! delete words
-
-! delete chars
-
-
-
-
-
-
-
-
+!! normal configuration :
+keycode  10 = 1 exclam 1 exclam exclamdown onesuperior exclamdown
+keycode  11 = 2 at 2 at masculine twosuperior masculine
+keycode  12 = 3 numbersign 3 numbersign ordfeminine threesuperior ordfeminine
+keycode  13 = 4 dollar 4 dollar cent sterling cent
+keycode  14 = 5 percent 5 percent EuroSign yen EuroSign
+keycode  15 = 6 asciicircum 6 asciicircum hstroke Hstroke hstroke
+keycode  16 = 7 ampersand 7 ampersand eth ETH eth
+keycode  17 = 8 asterisk 8 asterisk thorn THORN thorn
+keycode  18 = 9 parenleft 9 parenleft leftsinglequotemark leftdoublequotemark leftsinglequotemark
+keycode  19 = 0 parenright 0 parenright rightsinglequotemark rightdoublequotemark rightsinglequotemark
