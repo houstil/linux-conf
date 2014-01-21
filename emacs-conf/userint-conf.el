@@ -22,11 +22,23 @@
 
 (require 'yasnippet)
 (yas/global-mode 1)
-(setq yas/root-directory "~/.emacs.d/snippets")
+(setq yas/root-directory "~/.emacs.d/mysnippets")
+;; so that yasnippet works
+(if (file-exists-p yas/root-directory)
+    (setq yas/root-directory yas/root-directory)
+  (make-directory yas/root-directory))
+
 (setq yas/trigger-key "TAB")
 (setq yas/trigger-key "<tab>")
 
 (yas/load-directory yas/root-directory)
+(setq yas/wrap-around-region t)
+(setq yas/fallback-behavior nil)
+(setq yas/prompt-functions '(yas/dropdown-prompt
+                             yas/ido-prompt
+                             yas/completing-prompt))
+(setq yas/prompt-functions '(yas/ido-prompt
+                             yas/completing-prompt))
 
 ;; to avoid getting non working completion in my snippets
 (add-hook 'yas/before-expand-snippet-hook '(lambda () (when (derived-mode-p 'lisp-mode)
