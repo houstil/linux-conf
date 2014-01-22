@@ -2,7 +2,6 @@
 ;; multi-term ;;
 ;;;;;;;;;;;;;;;;
 
-
 ;; multi-term is there, we can apply some custo
 (defun my-multiterm-custo ()
   (progn
@@ -17,7 +16,7 @@
 	    (term-currrent-dir default-directory))
 	(kill-buffer term-buffer-name)
 	(setq default-directory term-currrent-dir)
-	(ansi-term "/bin/zsh")
+	(ansi-term shell-file-name)
 	(rename-buffer term-buffer-name)))
 
     (defun rename-dynb ()
@@ -35,7 +34,7 @@
       (interactive)
       (let ((is-term (string= "term-mode" major-mode))
 	    (is-running (term-check-proc (buffer-name)))
-	    (term-cmd "/bin/zsh")
+	    (term-cmd shell-file-name)
 	    (anon-term (get-buffer "*ansi-term*")))
 	;; (message (concat "is-term : " is-term "\nis-running : " is-running "\nanon-term : " anon-term))
 	(if is-term
@@ -123,21 +122,21 @@
     (key-chord-define term-mode-map "qq" 'erase-buffer)
 ))
 
-(pacmans-cload 'multi-term 
- 	       'my-multiterm-custo)
+;; TODO : we should really use multi-term and not those functions
 
+;; we can't use ansi-term under windows, it wont work
+(if window-system
+    (progn
+      (setq shell-switcher-mode t))
+  (progn
+    (pacmans-cload 'multi-term 
+                   'my-multiterm-custo)
+    )
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; general configuration ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; to use git bash under windows
-(when (window-system)
-  (setq shell-file-name "C:\\Program Files (x86)\\Git\\bin\\bash.exe")
-  (setq w32-quote-process-args ?\")
-  (setq explicit-sh-args '("--login" "-i"))
-  (setq explicit-shell-file-name shell-file-name)
-  )
 
 ;; to get a autoscrolling terminal :
 (setq term-scroll-show-maximum-output t)
@@ -156,31 +155,5 @@
 
 ;; allowing to use erase-buffer
 (put 'erase-buffer 'disabled nil)
-
-;; in windows we use cygwin as our default shell
-;; Sets your shell to use cygwin's bash, if Emacs finds it's running
-;; under Windows and c:\cygwin exists. Assumes that C:\cygwin\bin is
-;; not already in your Windows Path (it generally should not be).
-;;
-(let* ((cygwin-root "c:/cygwin")
-       (cygwin-bin (concat cygwin-root "/bin")))
-  (when (and (eq 'windows-nt system-type)
-  	     (file-readable-p cygwin-root))
-    
-    (setq exec-path (cons cygwin-bin exec-path))
-    (setenv "PATH" (concat cygwin-bin ";" (getenv "PATH")))
-    
-    ;; By default use the Windows HOME.
-    ;; Otherwise, uncomment below to set a HOME
-    ;;      (setenv "HOME" (concat cygwin-root "/home/eric"))
-    
-    ;; NT-emacs assumes a Windows shell. Change to baash.
-    (setq shell-file-name "bash")
-    (setenv "SHELL" shell-file-name) 
-    (setq explicit-shell-file-name shell-file-name) 
-    
-    ;; This removes unsightly ^M characters that would otherwise
-    ;; appear in the output of java applications.
-    (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)))
 
 (provide 'myterm-conf)
