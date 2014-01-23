@@ -53,7 +53,6 @@
                '(lambda ()
                   (powerline-default-theme)))
 
-
 ;;;;;;;;;;;;;;;;;;
 ;; color themes ;;
 ;;;;;;;;;;;;;;;;;;
@@ -63,6 +62,16 @@
       (require 'color-theme)
       (add-hook 'after-init-hook '(lambda () (color-theme-solarized-dark))))
   (load-theme 'cyberpunk t)
+  )
+
+;; at last we toggle full screen on
+(if (window-system)
+    (w32-send-sys-command #xf030)
+  ;; if we are on linux we hope to have the x window system
+  (when (eq window-system 'x)
+    (set-frame-parameter
+     nil 'fullscreen
+     (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
   )
 
 (provide 'apparence-conf)
