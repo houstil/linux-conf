@@ -65,13 +65,16 @@
   )
 
 ;; at last we toggle full screen on
-(if (window-system)
-    (w32-send-sys-command #xf030)
-  ;; if we are on linux we hope to have the x window system
-  (when (eq window-system 'x)
-    (set-frame-parameter
-     nil 'fullscreen
-     (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
-  )
+(add-hook 'after-init-hook
+          '(lambda ()
+             (if (window-system)
+                 (w32-send-sys-command #xf030)
+               ;; if we are on linux we hope to have the x window system
+               (when (eq window-system 'x)
+                 (set-frame-parameter
+                  nil 'fullscreen
+                  (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
+               )
+             ))
 
 (provide 'apparence-conf)

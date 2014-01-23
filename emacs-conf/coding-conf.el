@@ -76,7 +76,7 @@
 (add-hook 'cider-repl-mode (lisps-config))
 (add-hook 'lisp-mode-hook              (lambda () (lisps-config)))
 (add-hook 'clojure-mode-hook           (lambda () (lisps-config)))
-(add-hook 'emacs-lisp--mode-hook       (lambda () (lisps-config)))
+(add-hook 'emacs-lisp-mode-hook        (lambda () (lisps-config)))
 (add-hook 'lisp-interaction-mode-hook  (lambda () (lisps-config)))
 
 ;; to find the right mode for clojure-script
