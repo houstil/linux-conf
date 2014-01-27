@@ -27,6 +27,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun term-mode-conf ()
+  (require 'term)
   "a lot of configuration for term-mode and ansi-term"
   (defmacro term-set-key (keysin func &optional keysout)
     "Bind keysin to the func or keysout in term mode"
@@ -92,11 +93,11 @@
 (setq shell-switcher-mode t)
 
 ;; in windows we can't use ansi-term, so we fall back on eshell, which the default for shell-switcher and we dont have to load the term configuration
-(unless window-system
+(when (eq system-type 'gnu/linux)
   (term-mode-conf)
   (setq shell-switcher-new-shell-function (lambda () (ansi-term "/bin/zsh"))))
 
-(when window-system
+(when (eq system-type 'windows-nt)
   (setq win-bin-path "C:/Program Files (x86)/Git/bin/")
   (setq win-shell-name "bash.exe")
   (setq shell-file-name (concat win-bin-path win-shell-name))

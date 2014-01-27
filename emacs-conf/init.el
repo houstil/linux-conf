@@ -2,7 +2,7 @@
 ;; Essential Configuration ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(when (window-system)
+(when (eq system-type 'windows-nt)
   ;; so that git doesn't slow emacs down too much
   (remove-hook 'find-file-hooks 'vc-find-file-hook)
   (setq vc-handled-backends nil)

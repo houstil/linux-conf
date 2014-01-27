@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 # a little script to install conf (through creating symlinks) on a new machine
 
@@ -71,21 +71,20 @@ conf_array=(\
 #    emc.sh ~/bin/emc.sh \
 #    terminator.conf ~/.config/terminator.config \
 #    .gitconfig ~/.gitconfig \
-    # emacs-conf/bookmarks ~/.emacs.d/bookmarks \
-    # emacs-conf/ergoemacs-layout-us.el ~/.emacs.d/el-get/ergoemacs-keybindings/ergoemacs-layout-us.el \
-    # emacs-conf/init.el ~/.emacs.d/init.el \
-    # emacs-conf/aliases-conf.el ~/.emacs.d/aliases-conf.el \
-    # emacs-conf/apparance-conf.el ~/.emacs.d/apparance-conf.el \
-    # emacs-conf/bindings-conf.el ~/.emacs.d/bindings-conf.el \
-    # emacs-conf/coding-conf.el ~/.emacs.d/coding-conf.el \
-    # emacs-conf/files-conf.el ~/.emacs.d/files-conf.el \
-    # emacs-conf/edit-conf.el ~/.emacs.d/edit-conf.el \
-    # emacs-conf/connection-conf.el ~/.emacs.d/connection-conf.el \
-    # emacs-conf/myterm-conf.el ~/.emacs.d/myterm-conf.el \
-    # emacs-conf/orgmode-conf.el ~/.emacs.d/orgmode-conf.el \
-    # emacs-conf/userint-conf.el ~/.emacs.d/userint-conf.el \
-    # emacs-conf/versiondiff-conf.el ~/.emacs.d/versiondiff-conf.el \
-    # emacs-conf/pacmans-conf.el ~/.emacs.d/pacmans-conf.el \
+    emacs-conf/bookmarks ~/.emacs.d/bookmarks \
+    emacs-conf/init.el ~/.emacs.d/init.el \
+    emacs-conf/aliases-conf.el ~/.emacs.d/aliases-conf.el \
+    emacs-conf/apparence-conf.el ~/.emacs.d/apparence-conf.el \
+    emacs-conf/bindings-conf.el ~/.emacs.d/bindings-conf.el \
+    emacs-conf/coding-conf.el ~/.emacs.d/coding-conf.el \
+    emacs-conf/files-conf.el ~/.emacs.d/files-conf.el \
+    emacs-conf/edit-conf.el ~/.emacs.d/edit-conf.el \
+    emacs-conf/myterm-conf.el ~/.emacs.d/myterm-conf.el \
+    emacs-conf/userint-conf.el ~/.emacs.d/userint-conf.el \
+    emacs-conf/pacmans-conf.el ~/.emacs.d/pacmans-conf.el \
+    emacs-conf/package-list.el ~/.emacs.d/package-list.el \
+    emacs-conf/custom.el ~/.emacs.d/custom.el \
+    emacs-conf/functionnality-conf.el ~/.emacs.d/functionnality-conf.el \
 )
 
 for ((i=0; i<${#conf_array[@]};i=i+2))

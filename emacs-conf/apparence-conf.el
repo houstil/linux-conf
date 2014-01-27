@@ -70,7 +70,7 @@
 ;; at last we toggle full screen on
 (add-hook 'after-init-hook
           '(lambda ()
-             (if (window-system)
+             (if (eq system-type 'windows-nt)
                  (w32-send-sys-command #xf030)
                ;; if we are on linux we hope to have the x window system
                (when (eq window-system 'x)
