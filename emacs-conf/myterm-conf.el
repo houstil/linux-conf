@@ -69,12 +69,13 @@
         )))
 
   ;; add an advice to run after calling ansi-term
-  (defadvice ansi-term
-      (after term-ansi-disable-autopair activate)
-    "disable autopair in a ainsi-term buffer"
-    (interactive)
-    (autopair-mode 0)
-    (term-set-keys))
+  (defadvice term-char-mode (around disable-autopairs-around (arg))
+    "Disable autopairs mode if paredit-mode is turned on"
+    ad-do-it
+    (if (null ad-return-value)
+        (autopair-mode 1)
+      (autopair-mode 0)
+      ))
 
   ;; to get a autoscrolling terminal :
   (setq term-scroll-show-maximum-output t)
@@ -95,7 +96,8 @@
 ;; in windows we can't use ansi-term, so we fall back on eshell, which the default for shell-switcher and we dont have to load the term configuration
 (when (eq system-type 'gnu/linux)
   (term-mode-conf)
-  (setq shell-switcher-new-shell-function (lambda () (ansi-term "/bin/zsh"))))
+  (setq shell-switcher-new-shell-function
+        (lambda () (multi-term))))
 
 (when (eq system-type 'windows-nt)
   (setq win-bin-path "C:/Program Files (x86)/Git/bin/")

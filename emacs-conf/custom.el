@@ -20,4 +20,5 @@
  '(comint-move-point-for-output t)
  '(comint-scroll-show-maximum-output t)
  '(comint-scroll-to-bottom-on-input t)
+ '(initial-frame-alist (quote ((fullscreen . maximized))))
  )

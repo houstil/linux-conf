@@ -37,8 +37,8 @@
       ;; ergoemacs corrections
       (add-hook 'minibuffer-setup-hook
         	'(lambda ()
-        	   (ergoemacs-local-unset-key (kbd "M-j"))
-        	   (ergoemacs-local-unset-key (kbd "M-l"))
+        	   (ergoemacs-local-unset-key (kbd "M-n"))
+        	   (ergoemacs-local-unset-key (kbd "M-i"))
         	   (ergoemacs-local-unset-key (kbd "C-f"))
         	   ))
 

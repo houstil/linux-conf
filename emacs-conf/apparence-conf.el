@@ -69,11 +69,6 @@
           '(lambda ()
              (if (eq system-type 'windows-nt)
                  (w32-send-sys-command #xf030)
-               ;; if we are on linux we hope to have the x window system
-               (when (eq window-system 'x)
-                 (set-frame-parameter
-                  nil 'fullscreen
-                  (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
                )
              ))
 
