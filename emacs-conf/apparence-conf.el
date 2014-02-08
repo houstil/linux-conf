@@ -32,6 +32,9 @@
  '(comint-scroll-show-maximum-output t)
  '(comint-scroll-to-bottom-on-input t))
 
+;; always use highlight-symbol mode
+(highlight-symbol-mode 1)
+
 ;; to show colored-matching parren
 (pacmans-cload 'highlight-parentheses
                '(lambda () (highlight-parentheses-mode t)))
