@@ -68,15 +68,6 @@
         (term-set-key "C-z"           nil "\C-z")
         )))
 
-  ;; add an advice to run after calling ansi-term
-  (defadvice term-char-mode (around disable-autopairs-around (arg))
-    "Disable autopairs mode if paredit-mode is turned on"
-    ad-do-it
-    (if (null ad-return-value)
-        (autopair-mode 1)
-      (autopair-mode 0)
-      ))
-
   ;; to get a autoscrolling terminal :
   (setq term-scroll-show-maximum-output t)
 
@@ -112,10 +103,6 @@
   (setq explicit-sh-args '("-login" "-i"))
   (setq shell-switcher-new-shell-function (lambda () (shell)))
   )
-
-;; we start a new shell buffer so that its ready
-(shell-switcher-new-shell)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other term-related conf ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -128,6 +115,12 @@
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-hook 'shell-mode-hook 'compilation-shell-minor-mode)
+(add-hook 'term-mode-hook '(lambda () (interactive)
+                             (autopair-mode 0)
+                             (term-set-keys)))
+(ergoemacs-key "C-'" 'shell-switcher-switch-buffer)
+(key-chord-define-global "TT" 'shell-switcher-switch-buffer)
+
 
 ;; to turn off the shell command echo
 (add-hook 'comint-mode-hook '(lambda () (setq comint-process-echoes t)))
