@@ -68,6 +68,7 @@ conf_array=(\
     .tcshrc "" \
 #    .tmux.conf "" \
     .zshrc "" \
+    .inputrc "" \
 #    emc.sh ~/bin/emc.sh \
 #    terminator.conf ~/.config/terminator.config \
 #    .gitconfig ~/.gitconfig \
