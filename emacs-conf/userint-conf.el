@@ -92,7 +92,7 @@
 ;; smex, to easily searchf an emacs command
 (autoload 'smex "smex")
 (if ergoemacs-mode
-    (ergoemacs-key "M-a" 'smex)
+    (global-set-key (kbd "M-a") 'smex)
   (global-set-key (kbd "M-x") 'smex))
 
 (setq smex-save-file "~/.emacs.d/smex.save")

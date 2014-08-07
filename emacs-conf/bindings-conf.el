@@ -15,7 +15,7 @@
   (newline-and-indent))
 
 (defun exchange-point-and-mark-nomark ()
-  "Exchange the poind and the mark without marking the region between them."
+  "Exchange the point and the mark without marking the region between them."
   (interactive)
   (exchange-point-and-mark t))
 
@@ -31,34 +31,36 @@
 
       ;; choose the us layout
       (setq ergoemacs-keyboard-layout "colemak")
+      (setq ergoemacs-theme "standard")
       (ergoemacs-mode 1)
       (setq saved-overriding-map nil)
 
       ;; ergoemacs corrections
-      (add-hook 'minibuffer-setup-hook
-        	'(lambda ()
-        	   (ergoemacs-local-unset-key (kbd "M-n"))
-        	   (ergoemacs-local-unset-key (kbd "M-i"))
-        	   (ergoemacs-local-unset-key (kbd "C-f"))
-        	   ))
+      ;;(add-hook 'minibuffer-setup-hook
+      ;;  	'(lambda ()
+      ;;  	   (ergoemacs-local-unset-key (kbd "M-n"))
+      ;;  	   (ergoemacs-local-unset-key (kbd "M-i"))
+      ;;  	   (ergoemacs-local-unset-key (kbd "C-f"))
+      ;;  	   ))
 
-      (add-hook 'comint-mode-hook
-                '(lambda ()
-                   (ergoemacs-local-set-key (kbd "M-u") 'comint-previous-input)
-                   (ergoemacs-local-set-key (kbd "M-e") 'comint-next-input)
-                   ))
+      ;; (add-hook 'comint-mode-hook
+      ;;           '(lambda ()
+      ;;              (ergoemacs-local-set-key (kbd "M-u") 'comint-previous-input)
+      ;;              (ergoemacs-local-set-key (kbd "M-e") 'comint-next-input)
+      ;;              ))
       
       (global-set-key (kbd "C-S-f")    'rename-buffer)
       (global-set-key (kbd "C-f")      'ido-switch-buffer)
 
       ;; rework a few movements
-      (ergoemacs-key "M-L" 'end-of-line         "end-of-line"        )
-      (ergoemacs-key "M-J" 'beginning-of-line   "beginning-of-line"  )
-      (ergoemacs-key "M-H" 'end-of-buffer       "end-of-buffer"      )
-      (ergoemacs-key "M-h" 'beginning-of-buffer "beginning-of-buffer")
-      (ergoemacs-key "M-m" 'exchange-point-and-mark-nomark "exchange point and mark")
-      (ergoemacs-key "M--" 'iconify-or-deiconify-frame "minimise emacs window")
-      
+      (global-set-key (kbd "M-L") 'end-of-line)
+      (global-set-key (kbd "M-J") 'beginning-of-line)
+
+      (global-set-key (kbd "M-H") 'end-of-buffer)
+      (global-set-key (kbd "M-h") 'beginning-of-buffer)
+      (global-set-key (kbd "M-m") 'exchange-point-and-mark-nomark)
+      (global-set-key (kbd "M--") 'iconify-or-deiconify-frame)
+
       ;; frame movement
       (global-set-key (kbd "s-i") 'windmove-up)
       (global-set-key (kbd "s-k") 'windmove-down)
@@ -69,8 +71,9 @@
       (global-unset-key (kbd "C-p"))
 
       ;; (ergoemacs-key "RET" 'newline-and-indent "New line")
-      (ergoemacs-key "M-;" 'vi-open-line-below "New line below")
-      (ergoemacs-key "M-S-;" 'vi-open-line-above "New line above"))
+      (global-set-key (kbd "M-;") 'vi-open-line-below)
+      (global-set-key (kbd "M-S-;") 'vi-open-line-above)
+      )
     )
  )
 

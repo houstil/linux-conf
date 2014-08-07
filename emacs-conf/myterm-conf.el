@@ -118,7 +118,7 @@
 (add-hook 'term-mode-hook '(lambda () (interactive)
                              (autopair-mode 0)
                              (term-set-keys)))
-(ergoemacs-key "C-'" 'shell-switcher-switch-buffer)
+(global-set-key (kbd "C-'") 'shell-switcher-switch-buffer)
 (key-chord-define-global "TT" 'shell-switcher-switch-buffer)
 
 
