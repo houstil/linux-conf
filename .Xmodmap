@@ -82,5 +82,7 @@ keycode  35 = percent asciicircum percent asciicircum guillemotright U203A guill
 ! keycode  35 = bracketright braceright bracketright braceright guillemotright U203A guillemotright U203A bracketright braceright guillemotright U203A
 
 !! remapping for the cherry ML 4100
-keycode 94 = Alt_L
 keycode 64 = Super_L
+keycode 94 = Alt_L
+clear mod1
+add mod1 = Alt_L
